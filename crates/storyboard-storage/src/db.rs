@@ -7,7 +7,10 @@ use serde::{Deserialize, Serialize};
 use std::path::Path;
 use std::sync::Mutex;
 
-const MIGRATIONS: &[(&str, &str)] = &[("0001_init", include_str!("../../../migrations/0001_init.sql"))];
+const MIGRATIONS: &[(&str, &str)] = &[
+    ("0001_init", include_str!("../../../migrations/0001_init.sql")),
+    ("0002_agent_messages", include_str!("../../../migrations/0002_agent_messages.sql")),
+];
 
 #[derive(Debug, thiserror::Error)]
 pub enum DbError {
@@ -528,6 +531,35 @@ impl Db {
             let mut out = Vec::new();
             for row in rows {
                 out.push(row?);
+            }
+            Ok(out)
+        })
+    }
+
+    pub fn insert_agent_message(&self, thread_id: &str, seq: u64, content_json: &str) -> Result<(), DbError> {
+        self.with_conn(|conn| {
+            let role: String = serde_json::from_str::<serde_json::Value>(content_json)
+                .ok()
+                .and_then(|v| v.get("role").and_then(|r| r.as_str()).map(String::from))
+                .unwrap_or_default();
+            conn.execute(
+                "INSERT OR REPLACE INTO agent_messages (thread_id, seq, role, content_json, created_at)
+                 VALUES (?1, ?2, ?3, ?4, ?5)",
+                rusqlite::params![thread_id, seq as i64, role, content_json, now_iso()],
+            )?;
+            Ok(())
+        })
+    }
+
+    pub fn list_agent_messages(&self, thread_id: &str) -> Result<Vec<model_providers::ChatMessage>, DbError> {
+        self.with_conn(|conn| {
+            let mut stmt = conn.prepare(
+                "SELECT content_json FROM agent_messages WHERE thread_id = ?1 ORDER BY seq",
+            )?;
+            let rows = stmt.query_map([thread_id], |r| r.get::<_, String>(0))?;
+            let mut out = Vec::new();
+            for row in rows {
+                out.push(serde_json::from_str(&row?)?);
             }
             Ok(out)
         })

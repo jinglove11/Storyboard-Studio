@@ -6,9 +6,7 @@
 //! a slow provider never blocks UI commands; results and per-event telemetry
 //! flow back through `app.emit`.
 
-use agent_protocol::EventBus;
 use app_server::AppServer;
-use model_providers::MockProvider;
 use serde_json::json;
 use std::path::PathBuf;
 use std::sync::Arc;
@@ -79,7 +77,10 @@ pub fn run() {
             commit_patch,
             rollback,
             export_project,
-            agent_swap_identity,
+            agent_start,
+            agent_steer,
+            agent_cancel,
+            agent_thread_result,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
@@ -208,48 +209,71 @@ fn export_project(server: tauri::State<Arc<AppServer>>, project_id: String) -> R
     server.export_json(&pid, &out).map(|p| p.display().to_string()).map_err(|e| e.to_string())
 }
 
-/// Kick off an agent turn on a background thread. Returns immediately;
-/// telemetry streams via `sbx://agent-event`, the final report arrives as
-/// `sbx://agent-turn-result`.
+/// Lifecycle 2.0 agent commands: submit through the thread Op queue.
+/// Telemetry streams via `sbx://agent-event` (incl. token-level
+/// MessageDelta); pull the terminal outcome with `agent_thread_result`.
+
 #[tauri::command]
-fn agent_swap_identity(
-    app: tauri::AppHandle,
+fn agent_start(
     server: tauri::State<Arc<AppServer>>,
+    thread_id: String,
+    project_id: String,
+    text: String,
+) -> Result<serde_json::Value, String> {
+    let manager = server.agent_manager();
+    let handle = manager.spawn_thread(&thread_id);
+    handle.clear_result();
+    handle
+        .try_submit(agent_runtime::ThreadOp::UserTurn {
+            text,
+            project_id: Some(project_id),
+        })
+        .map_err(|e| e.to_string())?;
+    Ok(json!({ "started": true, "thread_id": thread_id }))
+}
+
+#[tauri::command]
+fn agent_steer(server: tauri::State<Arc<AppServer>>, thread_id: String, text: String) -> Result<(), String> {
+    let manager = server.agent_manager();
+    let handle = manager.get(&thread_id).ok_or("unknown thread")?;
+    handle.try_submit(agent_runtime::ThreadOp::Steer { text }).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn agent_cancel(server: tauri::State<Arc<AppServer>>, thread_id: String) -> Result<(), String> {
+    let manager = server.agent_manager();
+    let handle = manager.get(&thread_id).ok_or("unknown thread")?;
+    handle.try_submit(agent_runtime::ThreadOp::Cancel).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn agent_thread_result(
+    server: tauri::State<Arc<AppServer>>,
+    thread_id: String,
     project_id: String,
     new_anchor: String,
 ) -> Result<serde_json::Value, String> {
-    let server = server.inner().clone();
-    let pid: ProjectId = project_id.parse().map_err(|e| format!("{e}"))?;
-    let pid_str = pid.to_string();
-    std::thread::spawn(move || {
-        let runtime = agent_runtime::AgentRuntime::new(
-            agent_runtime::RuntimeConfig::default(),
-            Arc::new(MockProvider::simple_text(&format!(
-                "identity swap acknowledged: {new_anchor}"
-            ))),
-            // events reach the UI through the observer + the shared bus
-            // forwarder installed in setup(); this local bus stays private.
-            Arc::new(EventBus::new()),
-        );
-        let out = runtime.run_turn(
-            "ui-thread",
-            Some(&pid_str),
-            &format!("把角色换成 {new_anchor}"),
-            server.as_ref(),
-            Some(server.as_ref() as &dyn agent_runtime::RunObserver),
-        );
-        // deterministic pipeline result (mock provider until Settings wires real ones)
-        let result = server.validate_identity_swap(&pid, &new_anchor);
-        let payload = match result {
-            Ok((patch_id, report)) => json!({
-                "status": format!("{:?}", out.status),
-                "run_id": out.run_id,
-                "patch_id": patch_id,
-                "report": report,
-            }),
-            Err(e) => json!({ "status": "error", "error": e.to_string() }),
-        };
-        let _ = app.emit(EVT_AGENT_RESULT, &payload);
-    });
-    Ok(json!({ "started": true }))
+    let manager = server.agent_manager();
+    let Some(handle) = manager.get(&thread_id) else {
+        return Ok(json!({ "lifecycle": "unknown" }));
+    };
+    let lifecycle = format!("{:?}", handle.lifecycle());
+    let result = match handle.last_result() {
+        Some(agent_runtime::TurnStatus::NeedsApproval { patch_id, .. }) => {
+            // attach the deterministic pipeline report (mock provider until
+            // Settings wires a real one)
+            let pid: ProjectId = project_id.parse().map_err(|e| format!("{e}"))?;
+            match server.validate_identity_swap(&pid, &new_anchor) {
+                Ok((pid_num, report)) => json!({
+                    "kind": "needs_approval",
+                    "patch_id": pid_num,
+                    "report": report,
+                }),
+                Err(e) => json!({ "kind": "needs_approval", "patch_id": patch_id, "error": e.to_string() }),
+            }
+        }
+        Some(other) => serde_json::to_value(format!("{other:?}")).map(|v| json!({ "kind": "status", "detail": v })).unwrap_or(json!({ "kind": "status" })),
+        None => json!({ "kind": "pending" }),
+    };
+    Ok(json!({ "lifecycle": lifecycle, "result": result }))
 }

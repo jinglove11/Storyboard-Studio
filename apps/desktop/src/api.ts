@@ -28,7 +28,15 @@ export const api = {
   rollback: (projectId: string, toVersion: number) =>
     invoke<number>('rollback', { projectId, toVersion }),
   exportProject: (projectId: string) => invoke<string>('export_project', { projectId }),
-  // agent turn runs on a background thread; results arrive via events
-  agentSwapIdentity: (projectId: string, newAnchor: string) =>
-    invoke<{ started: boolean }>('agent_swap_identity', { projectId, newAnchor }),
+  // lifecycle 2.0: thread Op queue (start / steer / cancel / result)
+  agentStart: (threadId: string, projectId: string, text: string) =>
+    invoke<{ started: boolean; thread_id: string }>('agent_start', { threadId, projectId, text }),
+  agentSteer: (threadId: string, text: string) =>
+    invoke<void>('agent_steer', { threadId, text }),
+  agentCancel: (threadId: string) =>
+    invoke<void>('agent_cancel', { threadId }),
+  agentThreadResult: (threadId: string, projectId: string, newAnchor: string) =>
+    invoke<{ lifecycle: string; result: { kind: string; patch_id?: number; report?: ValidationReport; detail?: string; error?: string } }>(
+      'agent_thread_result', { threadId, projectId, newAnchor },
+    ),
 };

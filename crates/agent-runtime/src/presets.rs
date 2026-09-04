@@ -1,6 +1,7 @@
 /// Versioned prompt presets (plan §7). Loaded from the repo's `prompts/`
 /// directory at compile time; future versions load from disk so packs can be
 /// installed without rebuilding.
+#[derive(Clone)]
 pub struct PromptPresets {
     pub version: String,
     pub core_contract: String,

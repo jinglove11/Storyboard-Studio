@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { listen } from '@tauri-apps/api/event';
 import './App.css';
 import { api } from './api';
@@ -323,11 +323,14 @@ function AgentPage() {
   const [projects, setProjects] = useState<ProjectRow[]>([]);
   const [pid, setPid] = useState('');
   const [instruction, setInstruction] = useState('把角色换成 hoshino ai');
+  const [steerText, setSteerText] = useState('');
   const [log, setLog] = useState<{ kind: string; text: string }[]>([]);
+  const [streamText, setStreamText] = useState('');
   const [report, setReport] = useState<ValidationReport | null>(null);
   const [patchId, setPatchId] = useState<number | null>(null);
   const [outcome, setOutcome] = useState<CommitOutcome | null>(null);
   const [busy, setBusy] = useState(false);
+  const threadRef = useRef('ui-thread');
 
   useEffect(() => {
     api.listProjects().then((ps) => {
@@ -336,53 +339,82 @@ function AgentPage() {
     }).catch(() => {});
   }, []);
 
-  const add = (kind: string, text: string) => setLog((l) => [...l, { kind, text }]);
+  const add = (kind: string, text: string) => setLog((l) => [...l.slice(-200), { kind, text }]);
 
-  // background turn telemetry: per-event stream + final result
   useEffect(() => {
-    const un1 = listen<{ type: string }>('sbx://agent-event', (e) => {
-      const t = e.payload.type;
-      if (t === 'agent.run.manifest.created') add('hl', 'run manifest persisted (F07)');
-      else if (t === 'tool.started' || t === 'tool.completed') add('hl', t);
-      else if (t === 'validator.completed') add('ok', 'validator completed');
-      else if (t === 'approval.requested') add('hl', 'approval requested');
+    // token-level stream + lifecycle telemetry (§17 bridge)
+    const un1 = listen<{ type: string; text?: string }>('sbx://agent-event', (e) => {
+      const p = e.payload;
+      switch (p.type) {
+        case 'message.delta':
+          if (p.text) setStreamText((t) => (t + p.text).slice(-4000));
+          break;
+        case 'agent.run.manifest.created':
+          add('hl', 'run manifest persisted (F07)');
+          break;
+        case 'tool.started':
+          add('hl', 'tool → ' + String((p as { tool?: string }).tool ?? ''));
+          break;
+        case 'tool.completed':
+          add('ok', `tool ✓ ${String((p as { tool?: string }).tool ?? '')}`);
+          break;
+        case 'validator.completed':
+          add('ok', 'validator completed');
+          break;
+        case 'approval.requested':
+          add('hl', 'approval requested');
+          break;
+        case 'turn.cancelled':
+          add('err', 'turn cancelled');
+          break;
+        case 'thread.idle':
+          add('ok', 'thread idle — pulling result');
+          api
+            .agentThreadResult(threadRef.current, pid, extractAnchor(instruction))
+            .then((r) => {
+              if (r.result?.kind === 'needs_approval' && r.result.report) {
+                setReport(r.result.report);
+                if (r.result.patch_id != null) setPatchId(r.result.patch_id);
+                add('ok', `patch ${r.result.patch_id} proposed & validated`);
+              } else if (r.result?.kind === 'pending') {
+                // cancelled/failed turn — keep the log as the explanation
+              }
+              setBusy(false);
+            })
+            .catch(() => setBusy(false));
+          break;
+      }
     });
-    const un2 = listen<{ status: string; run_id: string; patch_id?: number; report?: ValidationReport; error?: string }>(
-      'sbx://agent-turn-result',
-      (e) => {
-        setBusy(false);
-        const r = e.payload;
-        if (r.error) {
-          add('err', r.error);
-          return;
-        }
-        add('ok', `turn ${r.status} · run ${r.run_id.slice(0, 14)}…`);
-        if (r.report) setReport(r.report);
-        if (r.patch_id != null) {
-          setPatchId(r.patch_id);
-          add('ok', `patch ${r.patch_id} proposed & validated`);
-        }
-      },
-    );
     return () => {
       un1.then((f) => f());
-      un2.then((f) => f());
     };
-  }, []);
+  }, [pid, instruction]);
 
   const runAgent = () => {
+    if (!pid) return;
     setBusy(true);
     setLog([]);
+    setStreamText('');
     setReport(null);
     setPatchId(null);
     setOutcome(null);
-    add('info', `turn dispatched on background thread · project ${pid.slice(0, 8)}…`);
-    api
-      .agentSwapIdentity(pid, extractAnchor(instruction))
-      .catch((e) => {
-        add('err', String(e));
-        setBusy(false);
-      });
+    add('info', `turn dispatched · thread ${threadRef.current}`);
+    api.agentStart(threadRef.current, pid, instruction).catch((e) => {
+      add('err', String(e));
+      setBusy(false);
+    });
+  };
+
+  const doSteer = () => {
+    if (!steerText.trim()) return;
+    add('hl', `⤷ steer: ${steerText}`);
+    api.agentSteer(threadRef.current, steerText).catch((e) => add('err', String(e)));
+    setSteerText('');
+  };
+
+  const doCancel = () => {
+    add('err', 'cancel requested');
+    api.agentCancel(threadRef.current).catch((e) => add('err', String(e)));
   };
 
   const approveAndCommit = () => {
@@ -393,7 +425,7 @@ function AgentPage() {
       .then(() => api.commitPatch(pid, patchId))
       .then((o) => {
         setOutcome(o);
-        add('ok', `committed v${o.new_version} (parent v${o.parent_version}) · preservation ${o.preservation_ratio.toFixed(3)}`);
+        add('ok', `committed v${o.new_version} (parent v${o.parent_version}) · preservation ${(o.preservation_ratio * 100).toFixed(1)}%`);
       })
       .catch((e) => add('err', String(e)))
       .finally(() => setBusy(false));
@@ -401,16 +433,14 @@ function AgentPage() {
 
   const reject = () => {
     if (patchId == null) return;
-    api.rejectPatch(pid, patchId)
-      .then(() => add('info', 'patch rejected'))
-      .catch((e) => add('err', String(e)));
+    api.rejectPatch(pid, patchId).then(() => add('info', 'patch rejected')).catch((e) => add('err', String(e)));
   };
 
   return (
     <>
       <h1>Agent</h1>
       <div className="sub">
-        Agent 只读检索并提出 Semantic Patch;七道确定性 Gate 全部 PASS 后,由你在本页批准,Application Controller 才会提交(commit 工具不存在于 Agent 工具表)。
+        Codex 形态的生命周期:Op 队列驱动、可取消、可插话(steer)、token 级流式、rollout 持久化。Agent 只提出 Semantic Patch;七道 Gate 全 PASS 后由你批准,Application Controller 提交。
       </div>
       <div className="panel">
         <div className="row">
@@ -429,8 +459,30 @@ function AgentPage() {
           <button className="primary" onClick={runAgent} disabled={busy || !pid}>
             执行
           </button>
+          <button className="danger" onClick={doCancel} disabled={!busy}>
+            停止
+          </button>
+        </div>
+        <div className="row" style={{ marginTop: 8 }}>
+          <input
+            type="text"
+            placeholder="turn 进行中插话(steer):中途补充/修改指令…"
+            value={steerText}
+            onChange={(e) => setSteerText(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && doSteer()}
+          />
+          <button className="ghost" onClick={doSteer} disabled={!busy}>
+            插话
+          </button>
         </div>
       </div>
+
+      {streamText && (
+        <div className="panel">
+          <h3>流式输出</h3>
+          <div className="agent-log" style={{ maxHeight: 120 }}>{streamText}</div>
+        </div>
+      )}
 
       {log.length > 0 && (
         <div className="agent-log">

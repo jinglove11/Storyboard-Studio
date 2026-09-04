@@ -31,7 +31,7 @@ pub enum Permission {
 
 /// Backend capabilities exposed to tools. Implemented by the app server.
 /// Notice what is *absent*: commit / rollback / export / file access.
-pub trait ToolBackend: Sync {
+pub trait ToolBackend: Send + Sync {
     fn search_templates(&self, query: &Value) -> Result<Value, String>;
     fn read_template_summary(&self, template_id: &str) -> Result<Value, String>;
     fn read_template_panels(&self, template_id: &str, from: u32, to: u32) -> Result<Value, String>;

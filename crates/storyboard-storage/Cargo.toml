@@ -13,3 +13,4 @@ thiserror.workspace = true
 uuid.workspace = true
 chrono.workspace = true
 rusqlite.workspace = true
+model-providers.workspace = true

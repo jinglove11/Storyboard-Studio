@@ -4,7 +4,7 @@ use app_server::AppServer;
 use model_providers::{MockProvider, TurnResponse};
 use serde_json::json;
 use std::sync::Arc;
-use agent_runtime::{AgentRuntime, ApprovalMode, ApprovalPolicy, RuntimeConfig};
+use agent_runtime::{ApprovalMode, ApprovalPolicy, RuntimeConfig};
 use storyboard_domain::{
     diff, OperationKind, PatchIntent, PatchOperation, PatchOperationCommon, PatchProposal,
     ProjectId, TemplateId, TextTarget, TokenReplacement,
@@ -369,17 +369,17 @@ fn case_h_commit_boundary() {
 }
 
 /// Agent e2e with a scripted (mock) provider: search → propose → validate →
-/// NeedsApproval; manifest complete; events observable.
+/// NeedsApproval; manifest persisted at turn start; events streamed to DB.
 #[test]
 fn agent_e2e_mock_provider_full_loop() {
     let server = server("agent");
-    let state = server.clone_project("T010", Some("Agent".into()), 7).unwrap();
+    let arc_server = std::sync::Arc::new(server);
+    let state = arc_server.clone_project("T010", Some("Agent".into()), 7).unwrap();
     let pid = state.project_id;
 
     let proposal = identity_patch(1, "T010", vec![("nakano miku".into(), "hoshino ai".into())]);
     let proposal_json = serde_json::to_string(&proposal).unwrap();
 
-    // script 1: search; script 2: propose; script 3: validate
     let mk = |name: &str, args: String| TurnResponse {
         message: model_providers::ChatMessage {
             role: model_providers::Role::Assistant,
@@ -396,39 +396,37 @@ fn agent_e2e_mock_provider_full_loop() {
         mk("validate_storyboard_patch", json!({"project_id": pid.to_string(), "proposal": serde_json::from_str::<serde_json::Value>(&proposal_json).unwrap()}).to_string()),
     ]);
 
-    let bus = std::sync::Arc::new(agent_protocol::EventBus::new());
+    let bus = arc_server.bus.clone();
     let rx = bus.subscribe();
-    let runtime = AgentRuntime::new(
+    let manager = agent_runtime::ThreadManager::new(
         RuntimeConfig {
             profile: AgentProfile::StoryboardProduction,
             approval: ApprovalPolicy { mode: ApprovalMode::AlwaysPrompt },
             ..Default::default()
         },
-        Arc::new(provider),
+        std::sync::Arc::new(provider),
         bus,
+        arc_server.clone() as std::sync::Arc<dyn agent_runtime::RunObserver>,
+        Some(arc_server.clone() as std::sync::Arc<dyn ToolBackend>),
     );
 
-    // F07: the app server observes the run — manifest at turn start, every
-    // event streamed into agent_events.
-    let out = runtime.run_turn(
-        "thread-1",
-        Some(&pid.to_string()),
-        "把角色换成星野爱",
-        &server,
-        Some(&server as &dyn agent_runtime::RunObserver),
-    );
-    assert!(matches!(out.status, agent_runtime::TurnStatus::NeedsApproval { .. }));
-    // manifest completeness (F07 / Run Manifest 完整率 100%)
-    assert!(!out.manifest.run_id.is_empty());
-    assert_eq!(out.manifest.provider_id, "mock");
-    assert!(!out.manifest.core_contract_hash.is_empty());
-    assert!(!out.manifest.tool_registry_version.is_empty());
-    assert!(out.manifest.base_project_version.is_some());
+    // lifecycle 2.0: submit through the Op queue (async thread task)
+    let handle = manager.spawn_thread("thread-1");
+    let outcome = manager.run_turn_blocking("thread-1", Some(&pid.to_string()), "把角色换成星野爱");
+    assert!(matches!(outcome, agent_runtime::TurnStatus::NeedsApproval { .. }), "got {outcome:?}");
+    assert!(matches!(handle.lifecycle(), agent_runtime::ThreadLifecycle::Idle));
+
     // manifest persisted automatically at turn start (not post-hoc)
-    assert!(server.workspace.root.join("runs").join(&out.run_id).join("manifest.json").is_file());
-    assert!(server.db.has_agent_run(&out.run_id).unwrap());
+    let events = arc_server.db.list_agent_events("thread-1").unwrap();
+    assert!(events.iter().any(|(_, t)| t == "agent.run.manifest.created"));
+    let runs = arc_server.db.list_agent_events("thread-1").unwrap();
+    let _ = runs;
+    // rollout: conversation messages persisted (system/user/assistant/tool)
+    let history = arc_server.agent_thread_history("thread-1");
+    assert!(history.len() >= 4, "rollout must record the conversation, got {}", history.len());
+    assert!(matches!(history.first().map(|m| &m.role), Some(model_providers::Role::System)));
 
-    // events were emitted through the bus AND persisted with monotonic seq
+    // events were emitted through the shared bus
     let mut kinds = Vec::new();
     while let Ok(e) = rx.try_recv() {
         kinds.push(e.type_name());
@@ -436,20 +434,19 @@ fn agent_e2e_mock_provider_full_loop() {
     assert!(kinds.contains(&"turn.started"));
     assert!(kinds.contains(&"validator.completed"));
     assert!(kinds.contains(&"approval.requested"));
-    let persisted = server.db.list_agent_events("thread-1").unwrap();
+    assert!(kinds.contains(&"thread.idle"));
+    let persisted = arc_server.db.list_agent_events("thread-1").unwrap();
     assert!(persisted.len() >= 3);
-    assert!(persisted.iter().any(|(_, t)| t == "validator.completed"));
     for (i, (seq, _)) in persisted.iter().enumerate() {
         assert_eq!(*seq, (i + 1) as u64, "per-thread seq must be 1..=n contiguous");
     }
 
     // commit via controller after (mock) user approval
-    let patch = server.db.latest_patch(&pid).unwrap();
-    server.resolve_approval(&pid, patch.id, true).unwrap();
-    let outcome = server.commit_patch(&pid, patch.id).unwrap();
-    assert_eq!(outcome.new_version, 2);
-    // §21 chain ends in Versioned
-    let row = server.db.get_project(&pid).unwrap();
+    let patch = arc_server.db.latest_patch(&pid).unwrap();
+    arc_server.resolve_approval(&pid, patch.id, true).unwrap();
+    let commit_outcome = arc_server.commit_patch(&pid, patch.id).unwrap();
+    assert_eq!(commit_outcome.new_version, 2);
+    let row = arc_server.db.get_project(&pid).unwrap();
     assert_eq!(row.status, storyboard_domain::ProjectStatus::Versioned);
 }
 

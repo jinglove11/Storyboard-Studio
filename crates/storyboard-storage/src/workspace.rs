@@ -184,6 +184,28 @@ impl Workspace {
         fs::create_dir_all(&dir)?;
         atomic_write(&dir.join("manifest.json"), bytes)
     }
+
+    /// Append one JSON line to a thread's rollout (durable sessions).
+    pub fn append_rollout(&self, thread_id: &str, line: &str) -> Result<PathBuf, WorkspaceError> {
+        use std::io::Write;
+        let dir = self.root.join("threads").join(thread_id);
+        fs::create_dir_all(&dir)?;
+        let path = dir.join("rollout.jsonl");
+        let mut f = fs::OpenOptions::new().create(true).append(true).open(&path)?;
+        f.write_all(line.as_bytes())?;
+        f.write_all(b"\n")?;
+        Ok(path)
+    }
+
+    pub fn read_rollout(&self, thread_id: &str) -> Result<Vec<std::io::Result<String>>, WorkspaceError> {
+        use std::io::BufRead;
+        let path = self.root.join("threads").join(thread_id).join("rollout.jsonl");
+        if !path.exists() {
+            return Ok(Vec::new());
+        }
+        let f = fs::File::open(&path)?;
+        Ok(std::io::BufReader::new(f).lines().collect())
+    }
 }
 
 /// Atomic write: temp file in the same directory, flush, rename (plan §22:

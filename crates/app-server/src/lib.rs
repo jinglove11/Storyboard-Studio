@@ -45,6 +45,13 @@ impl agent_runtime::RunObserver for AppServer {
             let _ = self.db.insert_agent_event(thread_id, event.type_name(), &payload);
         }
     }
+
+    fn on_message(&self, thread_id: &str, seq: usize, message: &model_providers::ChatMessage) {
+        if let Ok(json) = serde_json::to_string(message) {
+            let _ = self.db.insert_agent_message(thread_id, seq as u64, &json);
+            let _ = self.workspace.append_rollout(thread_id, &json);
+        }
+    }
 }
 
 #[derive(Debug, thiserror::Error)]
@@ -95,7 +102,8 @@ pub struct AppServer {
     pub db: Db,
     pub matcher_config: MatcherConfig,
     pub validator_config: ValidatorConfig,
-    pub bus: EventBus,
+    pub bus: std::sync::Arc<EventBus>,
+    agent_manager: std::sync::Mutex<Option<std::sync::Arc<agent_runtime::ThreadManager>>>,
 }
 
 impl AppServer {
@@ -104,13 +112,14 @@ impl AppServer {
         let root: PathBuf = root.as_ref().to_path_buf();
         let workspace = Workspace::init(root)?;
         let db = Db::open(workspace.db_path())?;
-        let bus = EventBus::new();
+        let bus = std::sync::Arc::new(EventBus::new());
         let server = Self {
             workspace,
             db,
             matcher_config: MatcherConfig::default(),
             validator_config: ValidatorConfig::default(),
             bus,
+            agent_manager: None.into(),
         };
         server.db.append_audit(&AuditEvent::WorkspaceInitialized {
             workspace_root: server.workspace.root.display().to_string(),
@@ -129,8 +138,35 @@ impl AppServer {
             db,
             matcher_config: MatcherConfig::default(),
             validator_config: ValidatorConfig::default(),
-            bus: EventBus::new(),
+            bus: std::sync::Arc::new(EventBus::new()),
+            agent_manager: None.into(),
         })
+    }
+
+    /// The long-lived agent thread manager (lifecycle 2.0: Op queue, steer,
+    /// cancel, durable rollout). Provider defaults to the scripted mock
+    /// until Settings wires a real one; events flow on the shared bus.
+    pub fn agent_manager(self: &std::sync::Arc<Self>) -> std::sync::Arc<agent_runtime::ThreadManager> {
+        let mut guard = self.agent_manager.lock().unwrap();
+        if let Some(m) = guard.as_ref() {
+            return m.clone();
+        }
+        let manager = std::sync::Arc::new(agent_runtime::ThreadManager::new(
+            agent_runtime::RuntimeConfig::default(),
+            std::sync::Arc::new(model_providers::MockProvider::simple_text(
+                "acknowledged (mock provider active — configure a real provider in Settings)",
+            )),
+            self.bus.clone(),
+            self.clone() as std::sync::Arc<dyn agent_runtime::RunObserver>,
+            Some(self.clone() as std::sync::Arc<dyn storyboard_tools::ToolBackend>),
+        ));
+        *guard = Some(manager.clone());
+        manager
+    }
+
+    /// Durable-session support: reload a thread's rollout as chat history.
+    pub fn agent_thread_history(&self, thread_id: &str) -> Vec<model_providers::ChatMessage> {
+        self.db.list_agent_messages(thread_id).unwrap_or_default()
     }
 
     // ---- Phase 0: import ----------------------------------------------------

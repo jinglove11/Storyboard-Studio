@@ -9,10 +9,19 @@ the agent runtime reimplements the Codex-derived lifecycle ideas
 abstraction, approval/sandbox layering) documented in
 docs/development-plan-v2.1.md (§5, §6, §14, §16, §17).
 
+Design-reference pin (Phase 0.5 spike, 2026-09-04):
+  - upstream: https://github.com/openai/codex (Apache-2.0)
+  - pinned commit examined: f3f6922519fa38487c8250c2b8a670a39a2cf9ff
+  - reused modules: NONE compiled or vendored; thread/turn lifecycle,
+    typed protocol events, model-provider abstraction and approval
+    layering were reimplemented from scratch. See
+    docs/codex-integration-spike.md for the full decision table.
+
 If Codex crates are adopted in a later phase, record here:
   - upstream repository and license
   - pinned commit/tag
   - list of reused modules
+  - replicated [patch.crates-io] entries (openai-oss-forks) if any
 
 Template fixtures under fixtures/current-skill/ are the frozen
 "novelai-author-storyboard" skill bundle kept as a read-only migration

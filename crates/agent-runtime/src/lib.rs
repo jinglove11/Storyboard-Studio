@@ -11,6 +11,6 @@ pub mod turn;
 
 pub use manifest::{core_contract_hash, new_run_id};
 pub use presets::PromptPresets;
-pub use turn::{AgentRuntime, ApprovalMode, ApprovalPolicy, RuntimeConfig, TurnOutput, TurnStatus};
+pub use turn::{AgentRuntime, ApprovalMode, ApprovalPolicy, NoopObserver, RunObserver, RuntimeConfig, TurnOutput, TurnStatus};
 
 pub const PROMPT_PRESET_VERSION: &str = "v1";

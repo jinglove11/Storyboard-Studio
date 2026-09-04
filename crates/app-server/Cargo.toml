@@ -14,6 +14,7 @@ storyboard-clone.workspace = true
 storyboard-patch.workspace = true
 storyboard-validator.workspace = true
 storyboard-tools.workspace = true
+agent-runtime.workspace = true
 model-providers.workspace = true
 agent-protocol.workspace = true
 serde.workspace = true
@@ -30,5 +31,4 @@ path = "src/bin/sbx.rs"
 [dev-dependencies]
 storyboard-tools.workspace = true
 model-providers.workspace = true
-agent-runtime.workspace = true
 agent-protocol.workspace = true

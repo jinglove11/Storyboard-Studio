@@ -124,24 +124,58 @@ pub trait StoryboardModelProvider: Send + Sync {
 
 /// Generic OpenAI-compatible chat-completions provider (OpenAI / GLM /
 /// LM Studio / Ollama with an OpenAI endpoint...).
+///
+/// Requests carry a hard timeout and retry with exponential backoff on
+/// transport errors, 429 and 5xx (plan §14 retry requirement — a hung
+/// endpoint must never block a turn thread forever).
 pub struct OpenAiCompatibleProvider {
     pub provider_id: String,
     pub base_url: String,
     pub api_key: String,
     pub model_name: String,
     pub extra_headers: Vec<(String, String)>,
+    /// Hard per-request timeout. Default 120s.
+    pub timeout: std::time::Duration,
+    /// Retries *after* the first attempt. Default 2 (3 attempts total).
+    pub max_retries: u32,
+    agent: ureq::Agent,
 }
 
 impl OpenAiCompatibleProvider {
     pub fn new(provider_id: &str, base_url: &str, api_key: &str, model: &str) -> Self {
+        Self::with_options(provider_id, base_url, api_key, model, 2, 120)
+    }
+
+    pub fn with_options(
+        provider_id: &str,
+        base_url: &str,
+        api_key: &str,
+        model: &str,
+        max_retries: u32,
+        timeout_secs: u64,
+    ) -> Self {
         Self {
             provider_id: provider_id.into(),
             base_url: base_url.trim_end_matches('/').into(),
             api_key: api_key.into(),
             model_name: model.into(),
             extra_headers: Vec::new(),
+            timeout: std::time::Duration::from_secs(timeout_secs),
+            max_retries,
+            agent: ureq::AgentBuilder::new()
+                .timeout(std::time::Duration::from_secs(timeout_secs))
+                .build(),
         }
     }
+}
+
+/// Retry decision (pure — unit tested). `attempt` is 0-based.
+pub fn should_retry(status: u16, attempt: u32, max_retries: u32) -> bool {
+    attempt < max_retries && (status == 429 || status >= 500)
+}
+
+fn backoff_delay(attempt: u32) -> std::time::Duration {
+    std::time::Duration::from_millis(1000u64.saturating_mul(1u64 << attempt.min(4)))
 }
 
 impl StoryboardModelProvider for OpenAiCompatibleProvider {
@@ -182,21 +216,46 @@ impl StoryboardModelProvider for OpenAiCompatibleProvider {
         if req.force_json {
             body["response_format"] = serde_json::json!({ "type": "json_object" });
         }
-        let mut request = ureq::post(&url)
-            .set("Authorization", &format!("Bearer {}", self.api_key))
-            .set("Content-Type", "application/json");
-        for (k, v) in &self.extra_headers {
-            request = request.set(k, v);
-        }
-        let resp = request
-            .send_json(&body)
-            .map_err(|e| ProviderError::Http(e.to_string()))?;
-        if !(200..300).contains(&resp.status()) {
-            let status = resp.status();
-            let text = resp.into_string().unwrap_or_default();
-            return Err(ProviderError::Api { status, body: text });
-        }
-        let text = resp.into_string().map_err(|e| ProviderError::Http(e.to_string()))?;
+        let text = {
+            let mut last_err: Option<ProviderError> = None;
+            let mut body_text: Option<String> = None;
+            for attempt in 0..=self.max_retries {
+                let mut request = self
+                    .agent
+                    .post(&url)
+                    .set("Authorization", &format!("Bearer {}", self.api_key))
+                    .set("Content-Type", "application/json");
+                for (k, v) in &self.extra_headers {
+                    request = request.set(k, v);
+                }
+                match request.send_json(&body) {
+                    Ok(resp) => {
+                        if (200..300).contains(&resp.status()) {
+                            body_text = Some(resp.into_string().map_err(|e| ProviderError::Http(e.to_string()))?);
+                            break;
+                        }
+                        let status = resp.status();
+                        let text = resp.into_string().unwrap_or_default();
+                        if !should_retry(status, attempt, self.max_retries) {
+                            return Err(ProviderError::Api { status, body: text });
+                        }
+                        last_err = Some(ProviderError::Api { status, body: text });
+                    }
+                    Err(e) => {
+                        // transport error (timeout / dns / connection): retryable
+                        if attempt >= self.max_retries {
+                            return Err(ProviderError::Http(e.to_string()));
+                        }
+                        last_err = Some(ProviderError::Http(e.to_string()));
+                    }
+                }
+                std::thread::sleep(backoff_delay(attempt));
+            }
+            match body_text {
+                Some(t) => t,
+                None => return Err(last_err.unwrap_or(ProviderError::Http("no response".into()))),
+            }
+        };
         let v: serde_json::Value =
             serde_json::from_str(&text).map_err(|e| ProviderError::Parse(e.to_string()))?;
         let choice = v
@@ -343,6 +402,30 @@ mod tests {
             force_json: false,
         });
         assert_eq!(r1.unwrap().message.content, "hello");
+    }
+
+    #[test]
+    fn retry_decision_table() {
+        use super::should_retry;
+        // 429/5xx retry while attempts remain
+        assert!(should_retry(429, 0, 2));
+        assert!(should_retry(500, 1, 2));
+        assert!(should_retry(503, 2, 3));
+        // out of attempts
+        assert!(!should_retry(500, 2, 2));
+        assert!(!should_retry(429, 0, 0));
+        // client errors never retry
+        assert!(!should_retry(400, 0, 2));
+        assert!(!should_retry(401, 0, 2));
+        assert!(!should_retry(404, 3, 5));
+    }
+
+    #[test]
+    fn backoff_is_exponential() {
+        assert_eq!(super::backoff_delay(0).as_millis(), 1000);
+        assert_eq!(super::backoff_delay(1).as_millis(), 2000);
+        assert_eq!(super::backoff_delay(2).as_millis(), 4000);
+        assert_eq!(super::backoff_delay(9).as_millis(), 16000); // capped
     }
 
     #[test]

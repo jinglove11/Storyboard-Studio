@@ -462,6 +462,85 @@ impl Db {
         })
     }
 
+    // ---- agent persistence (F07) -------------------------------------------
+
+    pub fn insert_agent_thread(
+        &self,
+        id: &str,
+        project_id: Option<&str>,
+        provider_id: &str,
+        model: &str,
+    ) -> Result<(), DbError> {
+        self.with_conn(|conn| {
+            conn.execute(
+                "INSERT OR IGNORE INTO agent_threads (id, project_id, provider_id, model, created_at)
+                 VALUES (?1, ?2, ?3, ?4, ?5)",
+                rusqlite::params![id, project_id, provider_id, model, now_iso()],
+            )?;
+            Ok(())
+        })
+    }
+
+    pub fn insert_agent_run(&self, m: &storyboard_domain::AgentRunManifest, thread_id: &str) -> Result<(), DbError> {
+        self.with_conn(|conn| {
+            conn.execute(
+                "INSERT OR REPLACE INTO agent_runs
+                   (id, thread_id, provider_id, model, prompt_preset_version, core_contract_hash,
+                    tool_registry_version, template_revision_id, base_project_version_id,
+                    sampling_json, manifest_json, created_at)
+                 VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12)",
+                rusqlite::params![
+                    m.run_id,
+                    thread_id,
+                    m.provider_id,
+                    m.model,
+                    m.prompt_preset_version,
+                    m.core_contract_hash,
+                    m.tool_registry_version,
+                    m.primary_template_revision,
+                    m.base_project_version,
+                    serde_json::to_string(&m.sampling)?,
+                    serde_json::to_string(m)?,
+                    m.created_at
+                ],
+            )?;
+            Ok(())
+        })
+    }
+
+    /// Append one agent event; seq is per-thread monotonic. Returns the seq.
+    pub fn insert_agent_event(&self, thread_id: &str, type_name: &str, payload_json: &str) -> Result<u64, DbError> {
+        self.with_conn(|conn| {
+            conn.execute(
+                "INSERT INTO agent_events (thread_id, seq, type, payload_json, created_at)
+                 VALUES (?1, (SELECT COALESCE(MAX(seq), 0) + 1 FROM agent_events WHERE thread_id = ?1), ?2, ?3, ?4)",
+                rusqlite::params![thread_id, type_name, payload_json, now_iso()],
+            )?;
+            Ok(conn.last_insert_rowid() as u64)
+        })
+    }
+
+    pub fn list_agent_events(&self, thread_id: &str) -> Result<Vec<(u64, String)>, DbError> {
+        self.with_conn(|conn| {
+            let mut stmt =
+                conn.prepare("SELECT seq, type FROM agent_events WHERE thread_id = ?1 ORDER BY seq")?;
+            let rows = stmt.query_map([thread_id], |r| Ok((r.get::<_, i64>(0)? as u64, r.get::<_, String>(1)?)))?;
+            let mut out = Vec::new();
+            for row in rows {
+                out.push(row?);
+            }
+            Ok(out)
+        })
+    }
+
+    pub fn has_agent_run(&self, run_id: &str) -> Result<bool, DbError> {
+        self.with_conn(|conn| {
+            Ok(conn
+                .query_row("SELECT 1 FROM agent_runs WHERE id = ?1", [run_id], |_| Ok(true))
+                .unwrap_or(false))
+        })
+    }
+
     // ---- audit -------------------------------------------------------------
 
     pub fn append_audit(&self, event: &AuditEvent) -> Result<(), DbError> {

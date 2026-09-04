@@ -6,6 +6,18 @@ use storyboard_domain::AgentRunManifest;
 use storyboard_tools::{AgentProfile, ToolRegistry, ToolBackend};
 use std::sync::Arc;
 
+/// Persistence hook (F07): the runtime stays storage-free, but every run
+/// manifest and every emitted event is offered to an observer *as it
+/// happens* — the app server records them into `runs/` + SQLite.
+pub trait RunObserver: Sync {
+    fn on_manifest(&self, _manifest: &AgentRunManifest, _thread_id: &str) {}
+    fn on_event(&self, _thread_id: &str, _event: &AppEvent) {}
+}
+
+/// No-op observer for callers that don't persist.
+pub struct NoopObserver;
+impl RunObserver for NoopObserver {}
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ApprovalMode {
     /// Auto-approve low-risk patches (identity/scene), prompt otherwise.
@@ -88,11 +100,11 @@ pub struct AgentRuntime {
     pub registry: ToolRegistry,
     pub presets: PromptPresets,
     pub provider: Arc<dyn StoryboardModelProvider>,
-    pub bus: EventBus,
+    pub bus: Arc<EventBus>,
 }
 
 impl AgentRuntime {
-    pub fn new(config: RuntimeConfig, provider: Arc<dyn StoryboardModelProvider>, bus: EventBus) -> Self {
+    pub fn new(config: RuntimeConfig, provider: Arc<dyn StoryboardModelProvider>, bus: Arc<EventBus>) -> Self {
         let presets = PromptPresets::v1();
         let registry = ToolRegistry::for_profile(config.profile);
         Self { config, registry, presets, provider, bus }
@@ -105,11 +117,18 @@ impl AgentRuntime {
         project_id: Option<&str>,
         user_message: &str,
         backend: &dyn ToolBackend,
+        observer: Option<&dyn RunObserver>,
     ) -> TurnOutput {
         let turn_id = agent_protocol::new_id("turn");
         let run_id = new_run_id();
-        self.bus.emit(AppEvent::ThreadStarted { thread_id: thread_id.into() });
-        self.bus.emit(AppEvent::TurnStarted {
+        let emit = |e: AppEvent| {
+            self.bus.emit(e.clone());
+            if let Some(o) = observer {
+                o.on_event(thread_id, &e);
+            }
+        };
+        emit(AppEvent::ThreadStarted { thread_id: thread_id.into() });
+        emit(AppEvent::TurnStarted {
             thread_id: thread_id.into(),
             turn_id: turn_id.clone(),
             run_id: run_id.clone(),
@@ -135,7 +154,10 @@ impl AgentRuntime {
             base_version.as_deref(),
             &serde_json::to_value(&self.config.sampling).unwrap_or_default(),
         );
-        self.bus.emit(AppEvent::AgentRunManifestCreated { run_id: run_id.clone() });
+        if let Some(o) = observer {
+            o.on_manifest(&manifest, thread_id);
+        }
+        emit(AppEvent::AgentRunManifestCreated { run_id: run_id.clone() });
 
         // --- conversation ---
         let task = match project_id {
@@ -173,7 +195,7 @@ impl AgentRuntime {
             transcript.push(assistant.clone());
 
             if assistant.tool_calls.is_empty() {
-                self.bus.emit(AppEvent::MessageDelta {
+                emit(AppEvent::MessageDelta {
                     thread_id: thread_id.into(),
                     text: assistant.content.clone(),
                 });
@@ -185,7 +207,7 @@ impl AgentRuntime {
             let mut proposal_this_round: Option<serde_json::Value> = None;
 
             for call in &resp.message.tool_calls {
-                self.bus.emit(AppEvent::ToolStarted {
+                emit(AppEvent::ToolStarted {
                     thread_id: thread_id.into(),
                     tool: call.name.clone(),
                 });
@@ -208,7 +230,7 @@ impl AgentRuntime {
                     if let Some(report) = payload.get("report").cloned() {
                         last_validation = Some(report.clone());
                         let passed = report.get("passed").and_then(|v| v.as_bool()).unwrap_or(false);
-                        self.bus.emit(AppEvent::ValidatorCompleted {
+                        emit(AppEvent::ValidatorCompleted {
                             thread_id: thread_id.into(),
                             passed,
                             report_json: report.clone(),
@@ -220,13 +242,13 @@ impl AgentRuntime {
                             // approval flow
                             let proposal = last_proposal.clone().unwrap_or_default();
                             let (auto, r) = self.config.approval.decide(&proposal);
-                            self.bus.emit(AppEvent::ApprovalRequested {
+                            emit(AppEvent::ApprovalRequested {
                                 thread_id: thread_id.into(),
                                 patch_id: proposed_patch_id,
                                 risk: r.to_string(),
                             });
                             if auto {
-                                self.bus.emit(AppEvent::ApprovalResolved {
+                                emit(AppEvent::ApprovalResolved {
                                     thread_id: thread_id.into(),
                                     patch_id: proposed_patch_id,
                                     approved: true,
@@ -241,7 +263,7 @@ impl AgentRuntime {
                         }
                     }
                 }
-                self.bus.emit(AppEvent::ToolCompleted {
+                emit(AppEvent::ToolCompleted {
                     thread_id: thread_id.into(),
                     tool: call.name.clone(),
                     ok,
@@ -280,13 +302,13 @@ impl AgentRuntime {
 
         match &status {
             TurnStatus::Failed { error } => {
-                self.bus.emit(AppEvent::TurnFailed {
+                emit(AppEvent::TurnFailed {
                     thread_id: thread_id.into(),
                     turn_id: turn_id.clone(),
                     error: error.clone(),
                 });
             }
-            _ => self.bus.emit(AppEvent::TurnCompleted {
+            _ => emit(AppEvent::TurnCompleted {
                 thread_id: thread_id.into(),
                 turn_id: turn_id.clone(),
             }),

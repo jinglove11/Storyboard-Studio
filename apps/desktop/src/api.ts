@@ -28,9 +28,7 @@ export const api = {
   rollback: (projectId: string, toVersion: number) =>
     invoke<number>('rollback', { projectId, toVersion }),
   exportProject: (projectId: string) => invoke<string>('export_project', { projectId }),
-  // agent (mock provider e2e demo until providers are configured)
+  // agent turn runs on a background thread; results arrive via events
   agentSwapIdentity: (projectId: string, newAnchor: string) =>
-    invoke<{ status: string; run_id: string; report: ValidationReport | null }>(
-      'agent_swap_identity', { projectId, newAnchor },
-    ),
+    invoke<{ started: boolean }>('agent_swap_identity', { projectId, newAnchor }),
 };

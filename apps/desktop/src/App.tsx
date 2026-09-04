@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { listen } from '@tauri-apps/api/event';
 import './App.css';
 import { api } from './api';
 import type {
@@ -337,34 +338,47 @@ function AgentPage() {
 
   const add = (kind: string, text: string) => setLog((l) => [...l, { kind, text }]);
 
+  // background turn telemetry: per-event stream + final result
+  useEffect(() => {
+    const un1 = listen<{ type: string }>('sbx://agent-event', (e) => {
+      const t = e.payload.type;
+      if (t === 'agent.run.manifest.created') add('hl', 'run manifest persisted (F07)');
+      else if (t === 'tool.started' || t === 'tool.completed') add('hl', t);
+      else if (t === 'validator.completed') add('ok', 'validator completed');
+      else if (t === 'approval.requested') add('hl', 'approval requested');
+    });
+    const un2 = listen<{ status: string; run_id: string; patch_id?: number; report?: ValidationReport; error?: string }>(
+      'sbx://agent-turn-result',
+      (e) => {
+        setBusy(false);
+        const r = e.payload;
+        if (r.error) {
+          add('err', r.error);
+          return;
+        }
+        add('ok', `turn ${r.status} · run ${r.run_id.slice(0, 14)}…`);
+        if (r.report) setReport(r.report);
+        if (r.patch_id != null) {
+          setPatchId(r.patch_id);
+          add('ok', `patch ${r.patch_id} proposed & validated`);
+        }
+      },
+    );
+    return () => {
+      un1.then((f) => f());
+      un2.then((f) => f());
+    };
+  }, []);
+
   const runAgent = () => {
     setBusy(true);
     setLog([]);
     setReport(null);
     setPatchId(null);
     setOutcome(null);
-    add('info', `thread started · project ${pid.slice(0, 8)}…`);
+    add('info', `turn dispatched on background thread · project ${pid.slice(0, 8)}…`);
     api
       .agentSwapIdentity(pid, extractAnchor(instruction))
-      .then((res) => {
-        add('ok', `turn ${res.status} · run ${res.run_id}`);
-        if (res.report) {
-          setReport(res.report);
-          if (res.report.passed) {
-            api
-              .buildIdentityPatch(pid, extractAnchor(instruction))
-              .then(({ patch_id, report: r }) => {
-                setPatchId(patch_id);
-                setReport(r);
-                add('ok', `patch ${patch_id} proposed & validated`);
-              })
-              .finally(() => setBusy(false));
-            return;
-          }
-        } else {
-          add('err', 'no validation report returned');
-        }
-      })
       .catch((e) => {
         add('err', String(e));
         setBusy(false);

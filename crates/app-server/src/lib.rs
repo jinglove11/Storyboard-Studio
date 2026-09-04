@@ -22,6 +22,31 @@ use std::path::PathBuf;
 
 pub mod backend;
 
+/// F07 persistence: every manifest lands in runs/<run_id>/manifest.json +
+/// agent_runs at turn START (before any model call); every event streams into
+/// agent_events with per-thread monotonic seq.
+impl agent_runtime::RunObserver for AppServer {
+    fn on_manifest(&self, manifest: &storyboard_domain::AgentRunManifest, thread_id: &str) {
+        if let Ok(bytes) = serde_json::to_vec_pretty(manifest) {
+            let _ = self.workspace.write_manifest(&manifest.run_id, &bytes);
+        }
+        let _ = self.db.insert_agent_thread(
+            thread_id,
+            manifest.base_project_version.as_deref().map(|_| thread_id),
+            &manifest.provider_id,
+            &manifest.model,
+        );
+        let _ = self.db.insert_agent_run(manifest, thread_id);
+        let _ = self.db.append_audit(&AuditEvent::ManifestCreated { run_id: manifest.run_id.clone() });
+    }
+
+    fn on_event(&self, thread_id: &str, event: &agent_protocol::AppEvent) {
+        if let Ok(payload) = serde_json::to_string(event) {
+            let _ = self.db.insert_agent_event(thread_id, event.type_name(), &payload);
+        }
+    }
+}
+
 #[derive(Debug, thiserror::Error)]
 pub enum AppError {
     #[error("storage: {0}")]
@@ -411,6 +436,9 @@ impl AppServer {
                 patch.id, patch.status
             )));
         }
+        // §21 chain: approval -> CommitRequested -> Committed -> Versioned
+        let base_pre = self.load_project_snapshot(pid)?;
+        self.db.update_project_status(pid, ProjectStatus::CommitRequested, base_pre.version)?;
         let proposal: PatchProposal = serde_json::from_str(&patch.proposal_json)?;
         let (report, app) = self.validate_patch(pid, &proposal)?;
         if !report.passed {
@@ -435,6 +463,7 @@ impl AppServer {
         let diff_bytes = serde_json::to_vec_pretty(&diff)?;
         let diff_path = self.workspace.write_diff(pid, base.version, new_version, &diff_bytes)?;
 
+        self.db.update_project_status(pid, ProjectStatus::Committed, new_version)?;
         self.db.insert_version(&storyboard_storage::ProjectVersionRow {
             project_id: pid.to_string(),
             version_number: new_version,

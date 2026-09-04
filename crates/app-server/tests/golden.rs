@@ -396,7 +396,7 @@ fn agent_e2e_mock_provider_full_loop() {
         mk("validate_storyboard_patch", json!({"project_id": pid.to_string(), "proposal": serde_json::from_str::<serde_json::Value>(&proposal_json).unwrap()}).to_string()),
     ]);
 
-    let bus = agent_protocol::EventBus::new();
+    let bus = std::sync::Arc::new(agent_protocol::EventBus::new());
     let rx = bus.subscribe();
     let runtime = AgentRuntime::new(
         RuntimeConfig {
@@ -408,7 +408,15 @@ fn agent_e2e_mock_provider_full_loop() {
         bus,
     );
 
-    let out = runtime.run_turn("thread-1", Some(&pid.to_string()), "把角色换成星野爱", &server);
+    // F07: the app server observes the run — manifest at turn start, every
+    // event streamed into agent_events.
+    let out = runtime.run_turn(
+        "thread-1",
+        Some(&pid.to_string()),
+        "把角色换成星野爱",
+        &server,
+        Some(&server as &dyn agent_runtime::RunObserver),
+    );
     assert!(matches!(out.status, agent_runtime::TurnStatus::NeedsApproval { .. }));
     // manifest completeness (F07 / Run Manifest 完整率 100%)
     assert!(!out.manifest.run_id.is_empty());
@@ -416,12 +424,11 @@ fn agent_e2e_mock_provider_full_loop() {
     assert!(!out.manifest.core_contract_hash.is_empty());
     assert!(!out.manifest.tool_registry_version.is_empty());
     assert!(out.manifest.base_project_version.is_some());
-    // manifest persisted under runs/<run_id>/manifest.json by app-server? The
-    // runtime returns it; the controller persists:
-    server.workspace.write_manifest(&out.run_id, serde_json::to_vec_pretty(&out.manifest).unwrap().as_slice()).unwrap();
+    // manifest persisted automatically at turn start (not post-hoc)
     assert!(server.workspace.root.join("runs").join(&out.run_id).join("manifest.json").is_file());
+    assert!(server.db.has_agent_run(&out.run_id).unwrap());
 
-    // events were emitted through the bus
+    // events were emitted through the bus AND persisted with monotonic seq
     let mut kinds = Vec::new();
     while let Ok(e) = rx.try_recv() {
         kinds.push(e.type_name());
@@ -429,10 +436,44 @@ fn agent_e2e_mock_provider_full_loop() {
     assert!(kinds.contains(&"turn.started"));
     assert!(kinds.contains(&"validator.completed"));
     assert!(kinds.contains(&"approval.requested"));
+    let persisted = server.db.list_agent_events("thread-1").unwrap();
+    assert!(persisted.len() >= 3);
+    assert!(persisted.iter().any(|(_, t)| t == "validator.completed"));
+    for (i, (seq, _)) in persisted.iter().enumerate() {
+        assert_eq!(*seq, (i + 1) as u64, "per-thread seq must be 1..=n contiguous");
+    }
 
     // commit via controller after (mock) user approval
     let patch = server.db.latest_patch(&pid).unwrap();
     server.resolve_approval(&pid, patch.id, true).unwrap();
     let outcome = server.commit_patch(&pid, patch.id).unwrap();
     assert_eq!(outcome.new_version, 2);
+    // §21 chain ends in Versioned
+    let row = server.db.get_project(&pid).unwrap();
+    assert_eq!(row.status, storyboard_domain::ProjectStatus::Versioned);
+}
+
+/// §21 commit chain: approval → CommitRequested → Committed → Versioned.
+#[test]
+fn status_machine_commit_chain() {
+    use storyboard_domain::ProjectStatus as S;
+    let chain = [
+        (S::Draft, S::Matched),
+        (S::Matched, S::Cloned),
+        (S::Cloned, S::PatchProposed),
+        (S::PatchProposed, S::Validating),
+        (S::Validating, S::AwaitingApproval),
+        (S::AwaitingApproval, S::CommitRequested),
+        (S::CommitRequested, S::Committed),
+        (S::Committed, S::Versioned),
+    ];
+    let mut cur = S::Draft;
+    for (from, to) in chain {
+        assert_eq!(cur, from);
+        cur = cur.transition(to).unwrap();
+    }
+    assert_eq!(cur, S::Versioned);
+    // illegal jumps are rejected
+    assert!(S::AwaitingApproval.transition(S::Versioned).is_err());
+    assert!(S::Cloned.transition(S::Committed).is_err());
 }

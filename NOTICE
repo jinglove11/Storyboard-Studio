@@ -1,0 +1,19 @@
+Storyboard Studio
+Copyright 2026
+
+This product includes software developed with design references to the
+OpenAI Codex project (https://github.com/openai/codex), licensed under
+Apache-2.0. No Codex source code is vendored in this repository at v1.0;
+the agent runtime reimplements the Codex-derived lifecycle ideas
+(thread/turn management, typed protocol events, model-provider
+abstraction, approval/sandbox layering) documented in
+docs/development-plan-v2.1.md (§5, §6, §14, §16, §17).
+
+If Codex crates are adopted in a later phase, record here:
+  - upstream repository and license
+  - pinned commit/tag
+  - list of reused modules
+
+Template fixtures under fixtures/current-skill/ are the frozen
+"novelai-author-storyboard" skill bundle kept as a read-only migration
+baseline (plan §30).

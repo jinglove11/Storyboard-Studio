@@ -1,0 +1,15 @@
+[package]
+name = "storyboard-patch"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Semantic patch engine: typed operations with preconditions, in-memory drafts, structured diffs."
+
+[dependencies]
+storyboard-domain.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+sha2.workspace = true
+hex.workspace = true
+uuid.workspace = true

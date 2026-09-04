@@ -1,0 +1,52 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/storyboard-domain",
+    "crates/storyboard-importer",
+    "crates/storyboard-storage",
+    "crates/storyboard-matcher",
+    "crates/storyboard-clone",
+    "crates/storyboard-patch",
+    "crates/storyboard-validator",
+    "crates/agent-protocol",
+    "crates/storyboard-tools",
+    "crates/model-providers",
+    "crates/agent-runtime",
+    "crates/app-server",
+    "apps/desktop/src-tauri",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+
+[workspace.dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order"] }
+uuid = { version = "1", features = ["v4", "serde"] }
+sha2 = "0.10"
+hex = "0.4"
+thiserror = "2"
+regex = "1"
+rusqlite = { version = "0.32", features = ["bundled"] }
+anyhow = "1"
+clap = { version = "4", features = ["derive"] }
+chrono = { version = "0.4", features = ["serde"] }
+tempfile = "3"
+
+storyboard-domain = { path = "crates/storyboard-domain" }
+storyboard-importer = { path = "crates/storyboard-importer" }
+storyboard-storage = { path = "crates/storyboard-storage" }
+storyboard-matcher = { path = "crates/storyboard-matcher" }
+storyboard-clone = { path = "crates/storyboard-clone" }
+storyboard-patch = { path = "crates/storyboard-patch" }
+storyboard-validator = { path = "crates/storyboard-validator" }
+agent-protocol = { path = "crates/agent-protocol" }
+storyboard-tools = { path = "crates/storyboard-tools" }
+model-providers = { path = "crates/model-providers" }
+agent-runtime = { path = "crates/agent-runtime" }
+app-server = { path = "crates/app-server" }
+
+[profile.release]
+lto = "thin"

@@ -1,0 +1,11 @@
+[package]
+name = "storyboard-matcher"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Deterministic rule-based template Top-K matcher with score breakdown and weighted-random selection."
+
+[dependencies]
+storyboard-domain.workspace = true
+serde.workspace = true
+serde_json.workspace = true

@@ -1,0 +1,13 @@
+[package]
+name = "storyboard-clone"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Deterministic Deep Clone engine: template revision -> project draft v1 with fresh ids/seeds."
+
+[dependencies]
+storyboard-domain.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+uuid.workspace = true
+thiserror.workspace = true

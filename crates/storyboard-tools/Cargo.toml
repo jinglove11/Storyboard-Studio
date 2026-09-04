@@ -1,0 +1,12 @@
+[package]
+name = "storyboard-tools"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Internal typed tool registry (v1.0, no MCP). Production agents get read-only + propose/preview/validate tools only."
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+model-providers.workspace = true

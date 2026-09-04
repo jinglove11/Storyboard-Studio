@@ -1,0 +1,17 @@
+[package]
+name = "agent-runtime"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Codex-derived agent lifecycle: thread/turn manager, tool loop, run manifests, approval policy."
+
+[dependencies]
+storyboard-domain.workspace = true
+storyboard-tools.workspace = true
+model-providers.workspace = true
+agent-protocol.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+sha2.workspace = true
+hex.workspace = true

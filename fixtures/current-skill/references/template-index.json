@@ -1,0 +1,3217 @@
+{
+ "_meta": {
+  "module": "novelai-author-storyboard (Template Cloner)",
+  "version": 1,
+  "template_library": "references/template-library/",
+  "template_count": 30,
+  "ordering": "alphabetical by source_file; T001=oldest filename",
+  "note": "索引字段由脚本对 30 套原文测量(标题/首末格/全卷 token 频次)后生成;语义字段为人工对照原文确认;模板内容只读。",
+  "mapping": {
+   "T001": "お風呂上がりに犯されるAZKi.json",
+   "T002": "ストーカーに犯される一条莉々華.json",
+   "T003": "タクシー運転手に犯されるAZKi.json",
+   "T004": "タクシー運転手に犯されるラミィ.json",
+   "T005": "ビーチで犯される夏色まつり.json",
+   "T006": "ビーチで犯される常闇トワ.json",
+   "T007": "事務所で中出しされる桃鈴ねね.json",
+   "T008": "体育教師に犯される白銀ノエル.json",
+   "T009": "保健室で犯される伊井野ミコ.json",
+   "T010": "夜の公園で犯される中野三玖.json",
+   "T011": "夜の森で犯されるイレイナ.json",
+   "T012": "宿屋で犯されるシリカ.json",
+   "T013": "寝ているイレイナに中出し.json",
+   "T014": "山奥で犯される風真いろは.json",
+   "T015": "弱みを握られた中野三玖.json",
+   "T016": "弱みを握られた星街すいせい.json",
+   "T017": "敵に捕まって犯されるエミリア.json",
+   "T018": "更衣室で犯されるラミィ.json",
+   "T019": "更衣室で犯される英梨々.json",
+   "T020": "泥酔ラミィに中出し.json",
+   "T021": "犯される佐天涙子&初春飾利.json",
+   "T022": "犯される鈴原るる.json",
+   "T023": "用務員に犯される早坂愛.json",
+   "T024": "痴漢に犯される喜多川海夢.json",
+   "T025": "痴漢に犯される宝鐘マリン.json",
+   "T026": "空き家で犯されるモモ・デビルーク.json",
+   "T027": "空き家で犯される中野三玖.json",
+   "T028": "空き家に連れ込まれた渋谷凛.json",
+   "T029": "錦木千束 睡眠姦.json",
+   "T030": "雪花ラミィ 痴漢・中出し.json"
+  }
+ },
+ "scene_aliases": {
+  "park": [
+   "park",
+   "公园",
+   "city park",
+   "outdoor park",
+   "green space",
+   "night park",
+   "park bushes"
+  ],
+  "beach": [
+   "beach",
+   "海滩",
+   "seaside",
+   "sea",
+   "shore",
+   "ocean",
+   "sand",
+   "coast"
+  ],
+  "forest": [
+   "forest",
+   "森林",
+   "woods",
+   "trees",
+   "bush",
+   "camp",
+   "mountain forest",
+   "夜の森",
+   "山奥",
+   "campfire"
+  ],
+  "mountain": [
+   "mountain",
+   "山",
+   "mountain forest",
+   "山奥",
+   "hiking"
+  ],
+  "vehicle": [
+   "vehicle",
+   "taxi",
+   "出租车",
+   "car",
+   "taxi interior",
+   "cab",
+   "driver"
+  ],
+  "office": [
+   "office",
+   "办公室",
+   "workplace",
+   "事業所",
+   "desk job",
+   "company",
+   "situation"
+  ],
+  "school": [
+   "school",
+   "学校",
+   "classroom",
+   "教室",
+   "infirmary",
+   "medical room",
+   "体育教師",
+   "用務員",
+   "toilet",
+   "gym",
+   "changing room"
+  ],
+  "room": [
+   "room",
+   "房间",
+   "home",
+   "apartment",
+   "bedroom",
+   "interior",
+   "室"
+  ],
+  "changing_room": [
+   "changing room",
+   "更衣室",
+   "locker room",
+   "dressing room",
+   "locker",
+   "更衣"
+  ],
+  "inn": [
+   "inn",
+   "宿屋",
+   "宿",
+   "hotel",
+   "ryokan",
+   "trip"
+  ],
+  "house": [
+   "house",
+   "房屋",
+   "abandoned house",
+   "空き家",
+   "empty house",
+   "宅"
+  ],
+  "medical_room": [
+   "medical room",
+   "保健室",
+   "infirmary",
+   "nurse office"
+  ],
+  "gym": [
+   "gym",
+   "体育館",
+   "gymnasium"
+  ],
+  "cabin": [
+   "cabin",
+   "小屋",
+   "hut",
+   "captive",
+   "拘禁"
+  ],
+  "apartment": [
+   "apartment",
+   "公寓",
+   "home",
+   "stalker",
+   "ストーカー"
+  ],
+  "bathroom": [
+   "bathroom",
+   "浴室",
+   "バスルーム",
+   "after bath",
+   "お風呂上がり",
+   "shower"
+  ],
+  "toilet": [
+   "toilet",
+   "厕所",
+   "トイレ",
+   "便所"
+  ],
+  "sleep": [
+   "sleep",
+   "睡觉",
+   "睡眠",
+   "睡眠姦",
+   "napping",
+   "寝ている",
+   "drunk",
+   "泥酔",
+   "drunken"
+  ],
+  "blackmail": [
+   "blackmail",
+   "把柄",
+   "胁迫",
+   "弱み",
+   "弱みを握られた",
+   "coercion"
+  ],
+  "groping": [
+   "groping",
+   "痴漢",
+   "chikan",
+   "touching"
+  ]
+ },
+ "templates": [
+  {
+   "template_id": "T001",
+   "source_file": "お風呂上がりに犯されるAZKi.json",
+   "title": "お風呂上がりに犯されるAZKi",
+   "scene_family": "apartment",
+   "exact_scene": "apartment bathroom (after bath)",
+   "scene": [
+    "apartment",
+    "bathroom",
+    "after bath",
+    "indoor"
+   ],
+   "location": [
+    "apartment",
+    "bathroom"
+   ],
+   "time": [
+    "dim interior",
+    "night"
+   ],
+   "environment": [
+    "apartment",
+    "room",
+    "wall",
+    "window",
+    "floor",
+    "towel",
+    "wet body",
+    "after bath"
+   ],
+   "character_count": 2,
+   "female_character_count": 1,
+   "male_character_count": 1,
+   "female_anchors": [
+    "azki"
+   ],
+   "male_identity": "anonymous man (faceless man)",
+   "male_panel_ratio": 98,
+   "panel_count": 87,
+   "narrative_type": "after-bath assault (creampie/cumshot)",
+   "opening_type": "post-bath nude opening (completely nude + large towel)",
+   "ending_type": "aftermath template (closed legs, cum on body, crying, looking at viewer)",
+   "pace": "standard",
+   "first_sex_panel": 6,
+   "pov_ratio": 63.2,
+   "torogao_coverage": 31.0,
+   "camera_profile": [
+    "dutch angle",
+    "pov",
+    "cowboy shot",
+    "from above",
+    "from side"
+   ],
+   "camera_profile_freq": {
+    "dutch angle": 71,
+    "pov": 55,
+    "cowboy shot": 50,
+    "from above": 48,
+    "from side": 46
+   },
+   "composition_profile": [
+    "solo focus"
+   ],
+   "clothing_arc": "completely nude + towel → towel off → bound → after-sex residue",
+   "interaction_profile": [
+    "sex",
+    "penetration",
+    "penis penetration",
+    "cum in pussy",
+    "cum on face",
+    "forced",
+    "deepthroat",
+    "cowgirl"
+   ],
+   "important_props": [
+    "towel",
+    "apartment",
+    "bathtub atmosphere"
+   ],
+   "aspect_ratio_counts": {
+    "portrait(832x1216)": 36,
+    "square(1024x1024)": 15,
+    "landscape(1216x832)": 36
+   },
+   "aspect_seq": "PPPPPPPSSPPPPPSPLPPLLLLLLSLLLSPSLLPLPSPPPLLPLLLPLLLLLPPPSPPPSLSPSPLLPPPSSSLLLSPLLLLPLLL",
+   "keywords": [
+    "after bath",
+    "apartment",
+    "AZKi",
+    "towel",
+    "wet body",
+    "nude opening"
+   ],
+   "opening_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -0.5::muted color ::, -0.5::realistic, 3d,::, ",
+   "ending_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -0.5::muted color ::, -0.5::realistic, 3d,::, ",
+   "female_characters": [
+    "azki"
+   ],
+   "male_roles": [
+    "anonymous man"
+   ],
+   "total_role_count": 2,
+   "max_simultaneous_character_slots": 2
+  },
+  {
+   "template_id": "T002",
+   "source_file": "ストーカーに犯される一条莉々華.json",
+   "title": "ストーカーに犯される一条莉々華",
+   "scene_family": "apartment",
+   "exact_scene": "victim apartment (home)",
+   "scene": [
+    "apartment",
+    "home",
+    "indoor"
+   ],
+   "location": [
+    "apartment",
+    "room"
+   ],
+   "time": [
+    "dark",
+    "dim"
+   ],
+   "environment": [
+    "apartment",
+    "room",
+    "wall",
+    "window",
+    "floor",
+    "bound"
+   ],
+   "character_count": 2,
+   "female_character_count": 1,
+   "male_character_count": 1,
+   "female_anchors": [
+    "ichijou ririka"
+   ],
+   "male_identity": "anonymous stalker (faceless man)",
+   "male_panel_ratio": 96,
+   "panel_count": 84,
+   "narrative_type": "stalker rape (home invasion)",
+   "opening_type": "cold open home scene (sleeveless pink shirt + skirt) → stalker",
+   "ending_type": "aftermath template (bound residue)",
+   "pace": "standard",
+   "first_sex_panel": 6,
+   "pov_ratio": 60.7,
+   "torogao_coverage": 35.7,
+   "camera_profile": [
+    "dutch angle",
+    "pov",
+    "from side",
+    "from above",
+    "cowboy shot"
+   ],
+   "camera_profile_freq": {
+    "dutch angle": 68,
+    "pov": 51,
+    "from side": 44,
+    "from above": 43,
+    "cowboy shot": 41
+   },
+   "composition_profile": [
+    "solo focus"
+   ],
+   "clothing_arc": "pink shirt + skirt + bare legs → body bound → after-sex",
+   "interaction_profile": [
+    "sex",
+    "penetration",
+    "penis penetration",
+    "cowgirl",
+    "forced",
+    "cum in pussy",
+    "cum on face",
+    "deepthroat"
+   ],
+   "important_props": [
+    "apartment",
+    "bound"
+   ],
+   "aspect_ratio_counts": {
+    "portrait(832x1216)": 36,
+    "square(1024x1024)": 14,
+    "landscape(1216x832)": 34
+   },
+   "aspect_seq": "PPPPPPSPSLPPLPPPPLLLLLLLSLLLPPSLLPSSPPPSPSPPPPPSPLLLLLLPSLLPPSLPSPPPSLLPLLLLPLLPLSLL",
+   "keywords": [
+    "stalker",
+    "apartment",
+    "home invasion",
+    "bound"
+   ],
+   "opening_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024, 0.5::muted color ::, -0.5::realistic, 3d,::, 1.",
+   "ending_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024, 0.5::muted color ::, -0.5::realistic, 3d,::, 1.",
+   "female_characters": [
+    "ichijou ririka"
+   ],
+   "male_roles": [
+    "anonymous stalker"
+   ],
+   "total_role_count": 2,
+   "max_simultaneous_character_slots": 2
+  },
+  {
+   "template_id": "T003",
+   "source_file": "タクシー運転手に犯されるAZKi.json",
+   "title": "タクシー運転手に犯されるAZKi",
+   "scene_family": "vehicle",
+   "exact_scene": "taxi interior → shifts to driver's home (shower ending)",
+   "scene": [
+    "taxi",
+    "car",
+    "vehicle",
+    "indoor (home ending)"
+   ],
+   "location": [
+    "taxi",
+    "car interior",
+    "house (ending)",
+    "shower (ending)"
+   ],
+   "time": [
+    "night",
+    "dark"
+   ],
+   "environment": [
+    "car",
+    "window",
+    "taxi",
+    "house",
+    "floor",
+    "room",
+    "shower"
+   ],
+   "character_count": 2,
+   "female_character_count": 1,
+   "male_character_count": 1,
+   "female_anchors": [
+    "azki"
+   ],
+   "male_identity": "taxi driver (faceless man)",
+   "male_panel_ratio": 97,
+   "panel_count": 92,
+   "narrative_type": "taxi rape (with scene shift to home)",
+   "opening_type": "taxi commute opening (sleepy) → driver assault",
+   "ending_type": "home/shower aftermath template (scene shift)",
+   "pace": "slow",
+   "first_sex_panel": 9,
+   "pov_ratio": 65.2,
+   "torogao_coverage": 28.3,
+   "camera_profile": [
+    "dutch angle",
+    "pov",
+    "from above",
+    "cowboy shot",
+    "from side"
+   ],
+   "camera_profile_freq": {
+    "dutch angle": 75,
+    "pov": 60,
+    "from above": 47,
+    "cowboy shot": 47,
+    "from side": 42
+   },
+   "composition_profile": [
+    "solo focus"
+   ],
+   "clothing_arc": "white beige shirt + skirt + boots → disrobe → shower ending",
+   "interaction_profile": [
+    "sex",
+    "penetration",
+    "penis penetration",
+    "cowgirl",
+    "deepthroat",
+    "cum on face",
+    "cum on body",
+    "sucking"
+   ],
+   "important_props": [
+    "taxi",
+    "taxi interior",
+    "car window"
+   ],
+   "aspect_ratio_counts": {
+    "portrait(832x1216)": 31,
+    "square(1024x1024)": 31,
+    "landscape(1216x832)": 30
+   },
+   "aspect_seq": "PPPPPPSSPPLLLLSPPSSPLLPLPSLLLSSLSPPLLSSLSPLLSSPSLLPLSLPPLSLLLSPPLSSSSSSSPSPPPPSPSPSLLSPLPSLL",
+   "keywords": [
+    "taxi",
+    "driver",
+    "night",
+    "car",
+    "AZKi",
+    "scene shift",
+    "shower ending"
+   ],
+   "opening_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024, -1.0::muted color ::, 0.5::realistic, 3d, photo",
+   "ending_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -0.5::muted color ::, -0.5::realistic, 3d,::, ",
+   "female_characters": [
+    "azki"
+   ],
+   "male_roles": [
+    "taxi driver"
+   ],
+   "total_role_count": 2,
+   "max_simultaneous_character_slots": 2
+  },
+  {
+   "template_id": "T004",
+   "source_file": "タクシー運転手に犯されるラミィ.json",
+   "title": "タクシー運転手に犯されるラミィ",
+   "scene_family": "vehicle",
+   "exact_scene": "taxi interior → roadside grass",
+   "scene": [
+    "taxi",
+    "car",
+    "vehicle",
+    "outdoor (grass ending)"
+   ],
+   "location": [
+    "taxi",
+    "car interior",
+    "roadside grass"
+   ],
+   "time": [
+    "night",
+    "dark"
+   ],
+   "environment": [
+    "taxi",
+    "car",
+    "backseat",
+    "window",
+    "grass",
+    "tree"
+   ],
+   "character_count": 2,
+   "female_character_count": 1,
+   "male_character_count": 1,
+   "female_anchors": [
+    "yukihana lamy"
+   ],
+   "male_identity": "taxi driver (faceless man)",
+   "male_panel_ratio": 95,
+   "panel_count": 77,
+   "narrative_type": "taxi rape (to roadside)",
+   "opening_type": "taxi ride opening (white sleeveless shirt + corset + thighhighs) → pull-over",
+   "ending_type": "grass-side aftermath template",
+   "pace": "fast",
+   "first_sex_panel": 4,
+   "pov_ratio": 61.0,
+   "torogao_coverage": 28.6,
+   "camera_profile": [
+    "dutch angle",
+    "pov",
+    "from side",
+    "cowboy shot",
+    "from behind"
+   ],
+   "camera_profile_freq": {
+    "dutch angle": 62,
+    "pov": 47,
+    "from side": 43,
+    "cowboy shot": 41,
+    "from behind": 38
+   },
+   "composition_profile": [
+    "solo focus"
+   ],
+   "clothing_arc": "white sleeveless shirt + corset + skirt + thighhighs → strip → grass after-sex",
+   "interaction_profile": [
+    "penetration",
+    "sex",
+    "penis penetration",
+    "cowgirl",
+    "forced",
+    "deepthroat",
+    "cum on face",
+    "kiss"
+   ],
+   "important_props": [
+    "taxi",
+    "taxi interior",
+    "backseat",
+    "grass"
+   ],
+   "aspect_ratio_counts": {
+    "portrait(832x1216)": 37,
+    "square(1024x1024)": 21,
+    "landscape(1216x832)": 19
+   },
+   "aspect_seq": "PPPPPPPSSPSPPPSPLPSSPPSPPPPPPPPPPLLLPLLSLLPPSSSSSSSPPSLPLLSSSLPLLLPSLPLPPPLSL",
+   "keywords": [
+    "taxi",
+    "driver",
+    "night",
+    "roadside",
+    "Lamy",
+    "fast pace"
+   ],
+   "opening_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024, -1.0::muted color ::, 0.5::realistic, 3d, photo",
+   "ending_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024, -1.0::muted color ::, 0.5::realistic, 3d, photo",
+   "female_characters": [
+    "yukihana lamy"
+   ],
+   "male_roles": [
+    "taxi driver"
+   ],
+   "total_role_count": 2,
+   "max_simultaneous_character_slots": 2
+  },
+  {
+   "template_id": "T005",
+   "source_file": "ビーチで犯される夏色まつり.json",
+   "title": "ビーチで犯される夏色まつり",
+   "scene_family": "beach",
+   "exact_scene": "seaside inn + beach",
+   "scene": [
+    "beach",
+    "seaside",
+    "outdoor",
+    "inn"
+   ],
+   "location": [
+    "beach",
+    "sand",
+    "sea",
+    "inn"
+   ],
+   "time": [
+    "night",
+    "dark"
+   ],
+   "environment": [
+    "beach",
+    "sand",
+    "sea",
+    "inn",
+    "window",
+    "door"
+   ],
+   "character_count": 2,
+   "female_character_count": 1,
+   "male_character_count": 1,
+   "female_anchors": [
+    "natsuiro matsuri"
+   ],
+   "male_identity": "anonymous man (faceless man)",
+   "male_panel_ratio": 98,
+   "panel_count": 83,
+   "narrative_type": "beach rape (seaside inn)",
+   "opening_type": "swimsuit beach opening (orange shorts, scrunchie, tanlines)",
+   "ending_type": "aftermath template (beach)",
+   "pace": "standard",
+   "first_sex_panel": 4,
+   "pov_ratio": 61.4,
+   "torogao_coverage": 28.9,
+   "camera_profile": [
+    "dutch angle",
+    "from behind",
+    "pov",
+    "cowboy shot",
+    "from side"
+   ],
+   "camera_profile_freq": {
+    "dutch angle": 62,
+    "from behind": 55,
+    "pov": 51,
+    "cowboy shot": 44,
+    "from side": 41
+   },
+   "composition_profile": [
+    "solo focus"
+   ],
+   "clothing_arc": "swimsuit + orange shorts → swimsuit removal → after-sex",
+   "interaction_profile": [
+    "sex",
+    "penetration",
+    "penis penetration",
+    "deepthroat",
+    "handjob",
+    "rape",
+    "cum in pussy",
+    "cowgirl"
+   ],
+   "important_props": [
+    "beach",
+    "sand",
+    "sea",
+    "swimsuit",
+    "inn"
+   ],
+   "aspect_ratio_counts": {
+    "portrait(832x1216)": 31,
+    "square(1024x1024)": 16,
+    "landscape(1216x832)": 36
+   },
+   "aspect_seq": "PPSPPPPPLPSLPPLLLPPLLLSLLLLSLLLLPLLSPLLLSPPPSLPLPPLPPLPSPPSLPPPSSLPSLLPLLPLSSLLSLSL",
+   "keywords": [
+    "beach",
+    "sea",
+    "sand",
+    "summer",
+    "swimsuit",
+    "Matsuri"
+   ],
+   "opening_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -0.5::muted color ::, -1.5::realistic, 3d,::, ",
+   "ending_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -0.5::muted color ::, -1.5::realistic, 3d,::, ",
+   "female_characters": [
+    "natsuiro matsuri"
+   ],
+   "male_roles": [
+    "anonymous man"
+   ],
+   "total_role_count": 2,
+   "max_simultaneous_character_slots": 3
+  },
+  {
+   "template_id": "T006",
+   "source_file": "ビーチで犯される常闇トワ.json",
+   "title": "ビーチで犯される常闇トワ",
+   "scene_family": "beach",
+   "exact_scene": "beach (sunset)",
+   "scene": [
+    "beach",
+    "outdoor"
+   ],
+   "location": [
+    "beach",
+    "sand",
+    "sea"
+   ],
+   "time": [
+    "sunset",
+    "evening",
+    "night"
+   ],
+   "environment": [
+    "beach",
+    "sea",
+    "sand",
+    "floor"
+   ],
+   "character_count": 2,
+   "female_character_count": 1,
+   "male_character_count": 1,
+   "female_anchors": [
+    "tokoyami towa"
+   ],
+   "male_identity": "anonymous man (faceless man)",
+   "male_panel_ratio": 96,
+   "panel_count": 75,
+   "narrative_type": "beach rape (sunset)",
+   "opening_type": "bikini beach sunset opening (black bikini)",
+   "ending_type": "aftermath template (beach)",
+   "pace": "fast",
+   "first_sex_panel": 5,
+   "pov_ratio": 58.7,
+   "torogao_coverage": 40.0,
+   "camera_profile": [
+    "dutch angle",
+    "from behind",
+    "pov",
+    "from side",
+    "cowboy shot"
+   ],
+   "camera_profile_freq": {
+    "dutch angle": 56,
+    "from behind": 46,
+    "pov": 44,
+    "from side": 40,
+    "cowboy shot": 36
+   },
+   "composition_profile": [
+    "solo focus"
+   ],
+   "clothing_arc": "black bikini → swimsuit aside → after-sex",
+   "interaction_profile": [
+    "sex",
+    "penetration",
+    "penis penetration",
+    "deepthroat",
+    "forced",
+    "cum in pussy",
+    "cowgirl",
+    "rape"
+   ],
+   "important_props": [
+    "beach",
+    "sea",
+    "sand",
+    "bikini"
+   ],
+   "aspect_ratio_counts": {
+    "portrait(832x1216)": 26,
+    "square(1024x1024)": 12,
+    "landscape(1216x832)": 37
+   },
+   "aspect_seq": "PPPSPPPPPPLLLLLLLLLLSLLPSPPSPPPLPLLSPLLLPLLLPSPLLSSSPPLSLLLLLLPLSPSLPPLLLLL",
+   "keywords": [
+    "beach",
+    "sunset",
+    "evening",
+    "bikini",
+    "Towa"
+   ],
+   "opening_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -0.5::muted color ::, -1.5::realistic, 3d,::, ",
+   "ending_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -0.5::muted color ::, -1.5::realistic, 3d,::, ",
+   "female_characters": [
+    "tokoyami towa"
+   ],
+   "male_roles": [
+    "anonymous man"
+   ],
+   "total_role_count": 2,
+   "max_simultaneous_character_slots": 3
+  },
+  {
+   "template_id": "T007",
+   "source_file": "事務所で中出しされる桃鈴ねね.json",
+   "title": "事務所で中出しされる桃鈴ねね",
+   "scene_family": "office",
+   "exact_scene": "company office (desk)",
+   "scene": [
+    "office",
+    "workplace",
+    "indoor"
+   ],
+   "location": [
+    "office"
+   ],
+   "time": [
+    "daytime (unspecified)"
+   ],
+   "environment": [
+    "office",
+    "desk",
+    "wall",
+    "floor"
+   ],
+   "character_count": 2,
+   "female_character_count": 1,
+   "male_character_count": 1,
+   "female_anchors": [
+    "momosuzu nene"
+   ],
+   "male_identity": "anonymous man (office senior)",
+   "male_panel_ratio": 99,
+   "panel_count": 76,
+   "narrative_type": "office coercion rape + creampie (中出し)",
+   "opening_type": "office work opening (double bun, orange dress + corset) → superior coercion",
+   "ending_type": "aftermath + creampie template",
+   "pace": "standard",
+   "first_sex_panel": 8,
+   "pov_ratio": 69.7,
+   "torogao_coverage": 44.7,
+   "camera_profile": [
+    "dutch angle",
+    "pov",
+    "cowboy shot",
+    "from side",
+    "from above"
+   ],
+   "camera_profile_freq": {
+    "dutch angle": 55,
+    "pov": 53,
+    "cowboy shot": 44,
+    "from side": 42,
+    "from above": 41
+   },
+   "composition_profile": [
+    "solo focus"
+   ],
+   "clothing_arc": "orange dress + corset + skirt → disrobe → creampie after-sex",
+   "interaction_profile": [
+    "penetration",
+    "sex",
+    "penis penetration",
+    "cowgirl",
+    "rape",
+    "forced",
+    "deepthroat",
+    "cum in pussy"
+   ],
+   "important_props": [
+    "office",
+    "desk"
+   ],
+   "aspect_ratio_counts": {
+    "portrait(832x1216)": 40,
+    "square(1024x1024)": 15,
+    "landscape(1216x832)": 21
+   },
+   "aspect_seq": "PSPPPPPPPPPSPPPLLPPLSPLSPPPLPLPPLPPPSSSLSSPSPPPPPSSLLLSSLPPPLLLLSPPPPPPLLLLL",
+   "keywords": [
+    "office",
+    "workplace",
+    "creampie",
+    "coercion",
+    "Nene"
+   ],
+   "opening_extract": "2.6:: masterpiece ,best quality , detailed face: :: ,year 2025, -1.5::muted color :: ,-0.7::realistic,3d, phot",
+   "ending_extract": "2.6:: masterpiece ,best quality , detailed face: :: ,year 2025, -1.5::muted color :: ,-0.7::realistic,3d, phot",
+   "female_characters": [
+    "momosuzu nene"
+   ],
+   "male_roles": [
+    "anonymous man"
+   ],
+   "total_role_count": 2,
+   "max_simultaneous_character_slots": 2
+  },
+  {
+   "template_id": "T008",
+   "source_file": "体育教師に犯される白銀ノエル.json",
+   "title": "体育教師に犯される白銀ノエル",
+   "scene_family": "school",
+   "exact_scene": "school gym storage room (shelf-rich room)",
+   "scene": [
+    "school",
+    "gym storage",
+    "indoor"
+   ],
+   "location": [
+    "school",
+    "storage room"
+   ],
+   "time": [
+    "dark (after school)"
+   ],
+   "environment": [
+    "school",
+    "floor",
+    "shelf",
+    "desk",
+    "window"
+   ],
+   "character_count": 2,
+   "female_character_count": 1,
+   "male_character_count": 1,
+   "female_anchors": [
+    "shirogane noel"
+   ],
+   "male_identity": "PE teacher (体育教師)",
+   "male_panel_ratio": 94,
+   "panel_count": 86,
+   "narrative_type": "school rape by PE teacher (after-school)",
+   "opening_type": "school-uniform day opening → called to storage room (slow build, first sex at P14)",
+   "ending_type": "aftermath template (floor)",
+   "pace": "standard",
+   "first_sex_panel": 14,
+   "pov_ratio": 62.8,
+   "torogao_coverage": 31.4,
+   "camera_profile": [
+    "dutch angle",
+    "pov",
+    "cowboy shot",
+    "from behind",
+    "solo focus"
+   ],
+   "camera_profile_freq": {
+    "dutch angle": 56,
+    "pov": 54,
+    "cowboy shot": 52,
+    "from behind": 49,
+    "solo focus": 49
+   },
+   "composition_profile": [
+    "solo focus"
+   ],
+   "clothing_arc": "school uniform + checkered skirt + navy socks + neck bow → disrobe → after-sex",
+   "interaction_profile": [
+    "sex",
+    "penetration",
+    "penis penetration",
+    "deepthroat",
+    "handjob",
+    "cum in pussy",
+    "cum on face",
+    "cum on body"
+   ],
+   "important_props": [
+    "shelf",
+    "desk",
+    "sports equipment inventory room"
+   ],
+   "aspect_ratio_counts": {
+    "portrait(832x1216)": 40,
+    "landscape(1216x832)": 35,
+    "square(1024x1024)": 11
+   },
+   "aspect_seq": "PPPPPPPPPLLLLPPLLSLPPPLLLLPPLLPPPLLPLPPLLLSPPPPLPSLSPSSSPSLLPPPPPLLPPLLLLLLLPSPPSLLSPL",
+   "keywords": [
+    "school",
+    "teacher",
+    "PE teacher",
+    "storage room",
+    "after school",
+    "Noel"
+   ],
+   "opening_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -1.5::muted color ::, -0.5::realistic, 3d,::, ",
+   "ending_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -1.5::muted color ::, -0.5::realistic, 3d,::, ",
+   "female_characters": [
+    "shirogane noel"
+   ],
+   "male_roles": [
+    "PE teacher"
+   ],
+   "total_role_count": 2,
+   "max_simultaneous_character_slots": 2
+  },
+  {
+   "template_id": "T009",
+   "source_file": "保健室で犯される伊井野ミコ.json",
+   "title": "保健室で犯される伊井野ミコ",
+   "scene_family": "school",
+   "exact_scene": "school infirmary/medical room",
+   "scene": [
+    "school",
+    "medical room",
+    "indoor"
+   ],
+   "location": [
+    "school",
+    "medical room"
+   ],
+   "time": [
+    "daytime (unspecified)"
+   ],
+   "environment": [
+    "school",
+    "medical room",
+    "window",
+    "floor",
+    "wall",
+    "oiled"
+   ],
+   "character_count": 2,
+   "female_character_count": 1,
+   "male_character_count": 1,
+   "female_anchors": [
+    "iino miko"
+   ],
+   "male_identity": "anonymous man (faceless man)",
+   "male_panel_ratio": 100,
+   "panel_count": 82,
+   "narrative_type": "medical room rape (school)",
+   "opening_type": "immediate medical-room scene (first sex at P1)",
+   "ending_type": "aftermath template (torn residue)",
+   "pace": "standard",
+   "first_sex_panel": 1,
+   "pov_ratio": 65.9,
+   "torogao_coverage": 57.3,
+   "camera_profile": [
+    "close-up",
+    "dutch angle",
+    "cowboy shot",
+    "pov",
+    "solo focus"
+   ],
+   "camera_profile_freq": {
+    "close-up": 78,
+    "dutch angle": 64,
+    "cowboy shot": 58,
+    "pov": 54,
+    "solo focus": 53
+   },
+   "composition_profile": [
+    "solo focus"
+   ],
+   "clothing_arc": "shuuchiin school uniform + red ribbon + yellow armband → torn → oiled → after-sex",
+   "interaction_profile": [
+    "penetration",
+    "sex",
+    "penis penetration",
+    "cowgirl",
+    "rape",
+    "cum in pussy",
+    "forced",
+    "kiss"
+   ],
+   "important_props": [
+    "oil",
+    "school medical room",
+    "yellow armband",
+    "red ribbon"
+   ],
+   "aspect_ratio_counts": {
+    "portrait(832x1216)": 36,
+    "square(1024x1024)": 21,
+    "landscape(1216x832)": 25
+   },
+   "aspect_seq": "PPSPLLSSLPPPSSLPPPPPPSPLSLLSPLLLLSSLLLLPSPLLLLLLPPPPPSSSSPPSPSPPPSPPSPSPPPPPPLLLLS",
+   "keywords": [
+    "medical room",
+    "school infirmary",
+    "school uniform",
+    "oiled",
+    "Miko"
+   ],
+   "opening_extract": "0.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,  -1.5::muted color :: ,  -1.2::r",
+   "ending_extract": "0.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,  -1.5::muted color :: ,  -1.2::r",
+   "female_characters": [
+    "iino miko"
+   ],
+   "male_roles": [
+    "anonymous man"
+   ],
+   "total_role_count": 2,
+   "max_simultaneous_character_slots": 2
+  },
+  {
+   "template_id": "T010",
+   "source_file": "夜の公園で犯される中野三玖.json",
+   "title": "夜の公園で犯される中野三玖",
+   "scene_family": "park",
+   "exact_scene": "night park (bushes, cardboard under tree)",
+   "scene": [
+    "park",
+    "outdoor",
+    "night"
+   ],
+   "location": [
+    "park",
+    "park bushes"
+   ],
+   "time": [
+    "night",
+    "dark"
+   ],
+   "environment": [
+    "park",
+    "bush",
+    "tree",
+    "cardboard",
+    "floor"
+   ],
+   "character_count": 2,
+   "female_character_count": 1,
+   "male_character_count": 1,
+   "female_anchors": [
+    "nakano miku"
+   ],
+   "male_identity": "anonymous man (faceless man)",
+   "male_panel_ratio": 98,
+   "panel_count": 83,
+   "narrative_type": "night park rape",
+   "opening_type": "school-after night park opening (uniform + sweater + pantyhose) → attacker drags in bushes",
+   "ending_type": "aftermath template (cardboard bed)",
+   "pace": "standard",
+   "first_sex_panel": 6,
+   "pov_ratio": 56.6,
+   "torogao_coverage": 31.3,
+   "camera_profile": [
+    "close-up",
+    "dutch angle",
+    "pov",
+    "cowboy shot",
+    "from side"
+   ],
+   "camera_profile_freq": {
+    "close-up": 79,
+    "dutch angle": 63,
+    "pov": 47,
+    "cowboy shot": 43,
+    "from side": 43
+   },
+   "composition_profile": [
+    "solo focus"
+   ],
+   "clothing_arc": "school uniform + light blue sweater + pantyhose + green skirt + headphone → torn pantyhose → after-sex",
+   "interaction_profile": [
+    "rape",
+    "penetration",
+    "sex",
+    "penis penetration",
+    "deepthroat",
+    "cowgirl",
+    "forced",
+    "handjob"
+   ],
+   "important_props": [
+    "park",
+    "bush",
+    "cardboard",
+    "headphone around neck",
+    "pantyhose"
+   ],
+   "aspect_ratio_counts": {
+    "portrait(832x1216)": 32,
+    "landscape(1216x832)": 36,
+    "square(1024x1024)": 15
+   },
+   "aspect_seq": "PPPPPPPPPLLPSLPSSLSSSLPLLLSPLLLSLSLSLPPPPLLLLPLLLPLPLSLPPPPPPSLSPPLLPPPLLLSLLLSPLLL",
+   "keywords": [
+    "park",
+    "night",
+    "outdoor",
+    "rape",
+    "pantyhose",
+    "torn",
+    "Miku"
+   ],
+   "opening_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,   -0.3::muted color ::, -0.5::realistic, 3d, ph",
+   "ending_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,   -0.3::muted color ::, -0.5::realistic, 3d, ph",
+   "female_characters": [
+    "nakano miku"
+   ],
+   "male_roles": [
+    "anonymous man"
+   ],
+   "total_role_count": 2,
+   "max_simultaneous_character_slots": 2
+  },
+  {
+   "template_id": "T011",
+   "source_file": "夜の森で犯されるイレイナ.json",
+   "title": "夜の森で犯されるイレイナ",
+   "scene_family": "forest",
+   "exact_scene": "night forest (campfire)",
+   "scene": [
+    "forest",
+    "outdoor",
+    "lagoon camp",
+    "night"
+   ],
+   "location": [
+    "forest",
+    "camp site"
+   ],
+   "time": [
+    "night",
+    "dark"
+   ],
+   "environment": [
+    "bush",
+    "tree",
+    "campfire",
+    "forest",
+    "floor"
+   ],
+   "character_count": 2,
+   "female_character_count": 1,
+   "male_character_count": 1,
+   "female_anchors": [
+    "elaina"
+   ],
+   "male_identity": "anonymous man (faceless man)",
+   "male_panel_ratio": 95,
+   "panel_count": 76,
+   "narrative_type": "night forest rape",
+   "opening_type": "travel campfire opening (witch outfit) → captured (first sex at P13)",
+   "ending_type": "aftermath template (bush)",
+   "pace": "standard",
+   "first_sex_panel": 13,
+   "pov_ratio": 67.1,
+   "torogao_coverage": 28.9,
+   "camera_profile": [
+    "dutch angle",
+    "pov",
+    "cowboy shot",
+    "solo focus",
+    "from above"
+   ],
+   "camera_profile_freq": {
+    "dutch angle": 52,
+    "pov": 51,
+    "cowboy shot": 40,
+    "solo focus": 39,
+    "from above": 38
+   },
+   "composition_profile": [
+    "solo focus"
+   ],
+   "clothing_arc": "witch outfit (sleeveless shirt + black jacket + witch hat + skirt) → torn → after-sex",
+   "interaction_profile": [
+    "penetration",
+    "sex",
+    "penis penetration",
+    "deepthroat",
+    "cum in pussy",
+    "cum on body",
+    "cum on face",
+    "cowgirl"
+   ],
+   "important_props": [
+    "campfire",
+    "witch hat",
+    "bush"
+   ],
+   "aspect_ratio_counts": {
+    "portrait(832x1216)": 33,
+    "square(1024x1024)": 15,
+    "landscape(1216x832)": 28
+   },
+   "aspect_seq": "PPPSPSSSSSPPPPSLPPLLPLLLPPPPLPPSPLLPPPPLLPPSSSLPPPLLPLSPPLLSLLSPLLLPPSLLLLLL",
+   "keywords": [
+    "forest",
+    "camp",
+    "night",
+    "witch",
+    "Elaina"
+   ],
+   "opening_extract": "1.6:: masterpiece, best quality, detailed face: ::, year 2024,  -0.5::muted color ::, -0.5::realistic, 3d,::, ",
+   "ending_extract": "1.6:: masterpiece, best quality, detailed face: ::, year 2024,  -0.5::muted color ::, -0.5::realistic, 3d,::, ",
+   "female_characters": [
+    "elaina"
+   ],
+   "male_roles": [
+    "anonymous man"
+   ],
+   "total_role_count": 2,
+   "max_simultaneous_character_slots": 2
+  },
+  {
+   "template_id": "T012",
+   "source_file": "宿屋で犯されるシリカ.json",
+   "title": "宿屋で犯されるシリカ",
+   "scene_family": "inn",
+   "exact_scene": "traditional inn room (night)",
+   "scene": [
+    "inn",
+    "indoors",
+    "night"
+   ],
+   "location": [
+    "inn",
+    "room"
+   ],
+   "time": [
+    "night",
+    "dark",
+    "dim"
+   ],
+   "environment": [
+    "inn",
+    "wall",
+    "room",
+    "window",
+    "floor"
+   ],
+   "character_count": 2,
+   "female_character_count": 1,
+   "male_character_count": 1,
+   "female_anchors": [
+    "silica"
+   ],
+   "male_identity": "anonymous man (faceless man)",
+   "male_panel_ratio": 91,
+   "panel_count": 88,
+   "narrative_type": "inn rape",
+   "opening_type": "inn room opening (nude + white bra/panties; after bath)",
+   "ending_type": "aftermath template (inn wall)",
+   "pace": "standard",
+   "first_sex_panel": 9,
+   "pov_ratio": 68.2,
+   "torogao_coverage": 27.3,
+   "camera_profile": [
+    "dutch angle",
+    "pov",
+    "from above",
+    "cowboy shot",
+    "from side"
+   ],
+   "camera_profile_freq": {
+    "dutch angle": 69,
+    "pov": 60,
+    "from above": 50,
+    "cowboy shot": 48,
+    "from side": 43
+   },
+   "composition_profile": [
+    "solo focus"
+   ],
+   "clothing_arc": "nude + white bra + panties (after-bath) → remaining bra/panties off → after-sex",
+   "interaction_profile": [
+    "sex",
+    "penetration",
+    "penis penetration",
+    "cum on face",
+    "cowgirl",
+    "deepthroat",
+    "cum in pussy",
+    "sucking"
+   ],
+   "important_props": [
+    "inn",
+    "bra + panties residue"
+   ],
+   "aspect_ratio_counts": {
+    "portrait(832x1216)": 37,
+    "square(1024x1024)": 20,
+    "landscape(1216x832)": 31
+   },
+   "aspect_seq": "PPPPPSPPPPSSLPPLPPPPLPLLLLLSLLPLSPLSLLPSLLLPPSLPSPSPPPSPSPPLSSPPSPSSLPPPSLSLLLPLLLLLSLLP",
+   "keywords": [
+    "inn",
+    "night",
+    "trip",
+    "Silica"
+   ],
+   "opening_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  0.5::muted color ::, -0.5::realistic, 3d,::, 1",
+   "ending_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  0.5::muted color ::, -0.5::realistic, 3d,::, 1",
+   "female_characters": [
+    "silica"
+   ],
+   "male_roles": [
+    "anonymous man"
+   ],
+   "total_role_count": 2,
+   "max_simultaneous_character_slots": 2
+  },
+  {
+   "template_id": "T013",
+   "source_file": "寝ているイレイナに中出し.json",
+   "title": "寝ているイレイナに中出し",
+   "scene_family": "forest",
+   "exact_scene": "daytime forest under tree (napping)",
+   "scene": [
+    "forest",
+    "outdoor",
+    "daytime"
+   ],
+   "location": [
+    "under a tree",
+    "forest"
+   ],
+   "time": [
+    "daytime",
+    "sunlight",
+    "tree shade"
+   ],
+   "environment": [
+    "tree",
+    "grass",
+    "under a tree",
+    "tree shade",
+    "sunlight"
+   ],
+   "character_count": 2,
+   "female_character_count": 1,
+   "male_character_count": 1,
+   "female_anchors": [
+    "elaina"
+   ],
+   "male_identity": "anonymous man (faceless man)",
+   "male_panel_ratio": 95,
+   "panel_count": 92,
+   "narrative_type": "sleep assault (creating napping victim) + creampie",
+   "opening_type": "napping under tree daylight opening (outfit 4:: sleeveless shirt + black jacket + skirt + yellow bow)",
+   "ending_type": "aftermath template (still asleep/sunlight)",
+   "pace": "slow",
+   "first_sex_panel": 6,
+   "pov_ratio": 65.2,
+   "torogao_coverage": 31.5,
+   "camera_profile": [
+    "dutch angle",
+    "pov",
+    "cowboy shot",
+    "from above",
+    "from side"
+   ],
+   "camera_profile_freq": {
+    "dutch angle": 76,
+    "pov": 60,
+    "cowboy shot": 53,
+    "from above": 47,
+    "from side": 45
+   },
+   "composition_profile": [
+    "solo focus"
+   ],
+   "clothing_arc": "travelling outfit → sleep → assaulted while sleeping → creampie",
+   "interaction_profile": [
+    "sex",
+    "penetration",
+    "penis penetration",
+    "cum in pussy",
+    "cowgirl",
+    "cum on face",
+    "forced",
+    "deepthroat"
+   ],
+   "important_props": [
+    "under a tree",
+    "tree shade",
+    "magic hat"
+   ],
+   "aspect_ratio_counts": {
+    "portrait(832x1216)": 39,
+    "square(1024x1024)": 21,
+    "landscape(1216x832)": 32
+   },
+   "aspect_seq": "PPPPPPPPSPSLPSLSPLSLLSLLPLLPLLLLLSPLLPSLPSPSPPPLLLSLPSLLLPSPPSPPPSSLPPPPPSPPSPSLPPPSSLPLLLLL",
+   "keywords": [
+    "sleep",
+    "napping",
+    "daytime",
+    "forest",
+    "under tree",
+    "creampie",
+    "Elaina"
+   ],
+   "opening_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -0.8::muted color ::, -1.5::realistic, 3d,::, ",
+   "ending_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -2.5::muted color ::, -0.5::realistic, 3d,::, ",
+   "female_characters": [
+    "elaina"
+   ],
+   "male_roles": [
+    "anonymous man"
+   ],
+   "total_role_count": 2,
+   "max_simultaneous_character_slots": 2
+  },
+  {
+   "template_id": "T014",
+   "source_file": "山奥で犯される風真いろは.json",
+   "title": "山奥で犯される風真いろは",
+   "scene_family": "forest",
+   "exact_scene": "mountain forest (daytime, under tree)",
+   "scene": [
+    "mountain",
+    "forest",
+    "outdoor",
+    "daytime"
+   ],
+   "location": [
+    "mountain",
+    "forest",
+    "under a tree"
+   ],
+   "time": [
+    "daytime",
+    "sunlight",
+    "tree shade"
+   ],
+   "environment": [
+    "tree",
+    "grass",
+    "under a tree",
+    "tree shade",
+    "floor"
+   ],
+   "character_count": 2,
+   "female_character_count": 1,
+   "male_character_count": 1,
+   "female_anchors": [
+    "kazama iroha"
+   ],
+   "male_identity": "anonymous man (faceless man)",
+   "male_panel_ratio": 99,
+   "panel_count": 89,
+   "narrative_type": "mountain forest rape (collared victim)",
+   "opening_type": "mountain trip opening (leaf hair ornament + white t-shirt + denim shorts) → attacker (choker/collar device)",
+   "ending_type": "aftermath template (grass)",
+   "pace": "slow",
+   "first_sex_panel": 7,
+   "pov_ratio": 67.4,
+   "torogao_coverage": 27.0,
+   "camera_profile": [
+    "dutch angle",
+    "pov",
+    "cowboy shot",
+    "from above",
+    "from behind"
+   ],
+   "camera_profile_freq": {
+    "dutch angle": 72,
+    "pov": 60,
+    "cowboy shot": 51,
+    "from above": 46,
+    "from behind": 44
+   },
+   "composition_profile": [
+    "solo focus"
+   ],
+   "clothing_arc": "white t-shirt + denim shorts → torn + choker → bound → after-sex",
+   "interaction_profile": [
+    "sex",
+    "penetration",
+    "penis penetration",
+    "cum in pussy",
+    "cum on face",
+    "cowgirl",
+    "forced",
+    "cum on body"
+   ],
+   "important_props": [
+    "choker",
+    "leaf hair ornament",
+    "denim shorts",
+    "tree"
+   ],
+   "aspect_ratio_counts": {
+    "portrait(832x1216)": 39,
+    "square(1024x1024)": 16,
+    "landscape(1216x832)": 34
+   },
+   "aspect_seq": "PPPSPSPSPSLPSLLPSPPPPPLPPPLLPLPLLLLLLSLLPLSPLSLLPSLLPSPPSPPPPLPSPPPSPSPPPSLLLLLPLLPLPLLLL",
+   "keywords": [
+    "mountain",
+    "forest",
+    "daytime",
+    "choker",
+    "trip",
+    "Iroha"
+   ],
+   "opening_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -0.5::muted color ::, -0.5::realistic, 3d,::, ",
+   "ending_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -2.5::muted color ::, -0.5::realistic, 3d,::, ",
+   "female_characters": [
+    "kazama iroha"
+   ],
+   "male_roles": [
+    "anonymous man"
+   ],
+   "total_role_count": 2,
+   "max_simultaneous_character_slots": 2
+  },
+  {
+   "template_id": "T015",
+   "source_file": "弱みを握られた中野三玖.json",
+   "title": "弱みを握られた中野三玖",
+   "scene_family": "school",
+   "exact_scene": "school classroom (blackmail)",
+   "scene": [
+    "school",
+    "classroom",
+    "indoor"
+   ],
+   "location": [
+    "classroom",
+    "school"
+   ],
+   "time": [
+    "dark"
+   ],
+   "environment": [
+    "room",
+    "floor",
+    "desk",
+    "window",
+    "school"
+   ],
+   "character_count": 2,
+   "female_character_count": 1,
+   "male_character_count": 1,
+   "female_anchors": [
+    "nakano miku"
+   ],
+   "male_identity": "anonymous man (blackmailer, faceless man)",
+   "male_panel_ratio": 96,
+   "panel_count": 92,
+   "narrative_type": "blackmail coercion rape (弱みを握られた)",
+   "opening_type": "classroom blackmail opening (uniform + headphone; phone evidence)",
+   "ending_type": "aftermath template (desk/floor)",
+   "pace": "slow",
+   "first_sex_panel": 9,
+   "pov_ratio": 71.7,
+   "torogao_coverage": 31.5,
+   "camera_profile": [
+    "dutch angle",
+    "pov",
+    "upper body",
+    "cowboy shot",
+    "from behind"
+   ],
+   "camera_profile_freq": {
+    "dutch angle": 67,
+    "pov": 66,
+    "upper body": 59,
+    "cowboy shot": 54,
+    "from behind": 48
+   },
+   "composition_profile": [
+    "solo focus"
+   ],
+   "clothing_arc": "school uniform + sweater + pantyhose + headphone → torn → after-sex",
+   "interaction_profile": [
+    "sex",
+    "penetration",
+    "penis penetration",
+    "cum in pussy",
+    "cum on body",
+    "cowgirl",
+    "handjob",
+    "deepthroat"
+   ],
+   "important_props": [
+    "phone (blackmail evidence)",
+    "desk",
+    "window"
+   ],
+   "aspect_ratio_counts": {
+    "portrait(832x1216)": 32,
+    "square(1024x1024)": 18,
+    "landscape(1216x832)": 42
+   },
+   "aspect_seq": "PPPPPPPPSSLLLLLLLPLSLSPPLLLSPSLSLLSLLLPPSPSSPPPPLPLLLLLLSLLPLSPLSLPLLLPSPSPPPLPLPLLLPLPSSLLL",
+   "keywords": [
+    "blackmail",
+    "classroom",
+    "phone",
+    "coercion",
+    "torn",
+    "Miku"
+   ],
+   "opening_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -0.5::muted color ::, -0.5::realistic, 3d,::, ",
+   "ending_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -0.5::muted color ::, -0.5::realistic, 3d,::, ",
+   "female_characters": [
+    "nakano miku"
+   ],
+   "male_roles": [
+    "anonymous man"
+   ],
+   "total_role_count": 2,
+   "max_simultaneous_character_slots": 2
+  },
+  {
+   "template_id": "T016",
+   "source_file": "弱みを握られた星街すいせい.json",
+   "title": "弱みを握られた星街すいせい",
+   "scene_family": "apartment",
+   "exact_scene": "room interior (cardboard-strewn, shelf; later toilet)",
+   "scene": [
+    "room",
+    "indoor",
+    "apartment"
+   ],
+   "location": [
+    "room",
+    "apartment",
+    "toilet (latter part)"
+   ],
+   "time": [
+    "dark",
+    "dim"
+   ],
+   "environment": [
+    "floor",
+    "wall",
+    "window",
+    "room",
+    "shelf",
+    "cardboard",
+    "toilet"
+   ],
+   "character_count": 2,
+   "female_character_count": 1,
+   "male_character_count": 1,
+   "female_anchors": [
+    "hoshimachi suisei"
+   ],
+   "male_identity": "anonymous man (blackmailer, faceless man)",
+   "male_panel_ratio": 93,
+   "panel_count": 95,
+   "narrative_type": "blackmail coercion rape (弱みを握られた)",
+   "opening_type": "home room blackmail opening (1st costume: ribbon + choker + black thighhihgs + checkered jacket)",
+   "ending_type": "aftermath template (floor)",
+   "pace": "slow",
+   "first_sex_panel": 10,
+   "pov_ratio": 61.1,
+   "torogao_coverage": 27.4,
+   "camera_profile": [
+    "dutch angle",
+    "pov",
+    "cowboy shot",
+    "solo focus",
+    "from above"
+   ],
+   "camera_profile_freq": {
+    "dutch angle": 72,
+    "pov": 58,
+    "cowboy shot": 55,
+    "solo focus": 50,
+    "from above": 49
+   },
+   "composition_profile": [
+    "solo focus"
+   ],
+   "clothing_arc": "hair ribbon + choker + black thighhighs + checkered jacket + skirt → torn → after-sex",
+   "interaction_profile": [
+    "sex",
+    "penetration",
+    "penis penetration",
+    "sucking",
+    "cowgirl",
+    "cum in pussy",
+    "kiss",
+    "deepthroat"
+   ],
+   "important_props": [
+    "cardboard",
+    "choker",
+    "shelf"
+   ],
+   "aspect_ratio_counts": {
+    "portrait(832x1216)": 32,
+    "square(1024x1024)": 25,
+    "landscape(1216x832)": 38
+   },
+   "aspect_seq": "PPPPPPSSSSSSSPSSLLLPPSPLPPLPPSLLLPPPSSLLLLLLLLPSLLPPLLLLSLPPPPPLPPLLLSLSSLLLPSLPSSPLSLSSPLSPLLL",
+   "keywords": [
+    "blackmail",
+    "room",
+    "cardboard",
+    "coercion",
+    "choker",
+    "Suisei"
+   ],
+   "opening_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -0.5::muted color ::, -1.5::realistic, 3d,::, ",
+   "ending_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -0.5::muted color ::, -0.5::realistic, 3d,::, ",
+   "female_characters": [
+    "hoshimachi suisei"
+   ],
+   "male_roles": [
+    "anonymous man"
+   ],
+   "total_role_count": 2,
+   "max_simultaneous_character_slots": 2
+  },
+  {
+   "template_id": "T017",
+   "source_file": "敵に捕まって犯されるエミリア.json",
+   "title": "敵に捕まって犯されるエミリア",
+   "scene_family": "cabin",
+   "exact_scene": "captive cabin (night, bound)",
+   "scene": [
+    "cabin",
+    "house",
+    "night",
+    "captive"
+   ],
+   "location": [
+    "cabin",
+    "room"
+   ],
+   "time": [
+    "night",
+    "dark",
+    "dim"
+   ],
+   "environment": [
+    "cabin",
+    "room",
+    "window",
+    "wall",
+    "floor",
+    "rope"
+   ],
+   "character_count": 2,
+   "female_character_count": 1,
+   "male_character_count": 1,
+   "female_anchors": [
+    "emilia (re:zero)"
+   ],
+   "male_identity": "anonymous man (enemy, faceless man)",
+   "male_panel_ratio": 95,
+   "panel_count": 81,
+   "narrative_type": "captive abduction rape (enemy)",
+   "opening_type": "street capture opening (white capelet + purple bodysuit) → cabin bound (first sex at P13)",
+   "ending_type": "aftermath template (cabin)",
+   "pace": "standard",
+   "first_sex_panel": 13,
+   "pov_ratio": 64.2,
+   "torogao_coverage": 30.9,
+   "camera_profile": [
+    "dutch angle",
+    "pov",
+    "from above",
+    "from side",
+    "cowboy shot"
+   ],
+   "camera_profile_freq": {
+    "dutch angle": 57,
+    "pov": 52,
+    "from above": 45,
+    "from side": 43,
+    "cowboy shot": 41
+   },
+   "composition_profile": [
+    "solo focus"
+   ],
+   "clothing_arc": "white capelet + purple bodysuit → torn bodysuit → bound rope → after-sex",
+   "interaction_profile": [
+    "sex",
+    "penetration",
+    "penis penetration",
+    "deepthroat",
+    "forced",
+    "cum on face",
+    "sucking",
+    "handjob"
+   ],
+   "important_props": [
+    "rope",
+    "cabin",
+    "window",
+    "purple bodysuit"
+   ],
+   "aspect_ratio_counts": {
+    "portrait(832x1216)": 29,
+    "landscape(1216x832)": 31,
+    "square(1024x1024)": 21
+   },
+   "aspect_seq": "PPPPPPPPLLLLLSPLLSLLLLPSLLLLPPPSSLSSPPLPPLLPLLLSPPSSLPSLSSPSPPSLLSSPPSSPPPLLLSLSL",
+   "keywords": [
+    "captive",
+    "capture",
+    "cabin",
+    "rope",
+    "bound",
+    "enemy",
+    "Emilia"
+   ],
+   "opening_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -0.5::muted color ::, -0.5::realistic, 3d,::, ",
+   "ending_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -1.5::muted color ::, -0.5::realistic, 3d,::, ",
+   "female_characters": [
+    "emilia"
+   ],
+   "male_roles": [
+    "anonymous man"
+   ],
+   "total_role_count": 2,
+   "max_simultaneous_character_slots": 3
+  },
+  {
+   "template_id": "T018",
+   "source_file": "更衣室で犯されるラミィ.json",
+   "title": "更衣室で犯されるラミィ",
+   "scene_family": "changing_room",
+   "exact_scene": "changing/locker room (bench)",
+   "scene": [
+    "changing room",
+    "locker room",
+    "indoor"
+   ],
+   "location": [
+    "changing room",
+    "locker room"
+   ],
+   "time": [
+    "daytime (unspecified)"
+   ],
+   "environment": [
+    "room",
+    "locker",
+    "floor",
+    "locker room",
+    "bench"
+   ],
+   "character_count": 2,
+   "female_character_count": 1,
+   "male_character_count": 1,
+   "female_anchors": [
+    "yukihana lamy"
+   ],
+   "male_identity": "anonymous man (faceless man)",
+   "male_panel_ratio": 96,
+   "panel_count": 76,
+   "narrative_type": "changing room rape (undressing moment)",
+   "opening_type": "undressing opening (nude + white bra + panties) → assailant enters",
+   "ending_type": "aftermath template (bench)",
+   "pace": "fast",
+   "first_sex_panel": 7,
+   "pov_ratio": 56.6,
+   "torogao_coverage": 38.2,
+   "camera_profile": [
+    "dutch angle",
+    "pov",
+    "from side",
+    "from above",
+    "cowboy shot"
+   ],
+   "camera_profile_freq": {
+    "dutch angle": 57,
+    "pov": 43,
+    "from side": 39,
+    "from above": 37,
+    "cowboy shot": 35
+   },
+   "composition_profile": [
+    "solo focus"
+   ],
+   "clothing_arc": "nude + white bra + panties → bra/panties off → after-sex",
+   "interaction_profile": [
+    "sex",
+    "penetration",
+    "penis penetration",
+    "forced",
+    "deepthroat",
+    "cum in pussy",
+    "cowgirl",
+    "rape"
+   ],
+   "important_props": [
+    "locker",
+    "bench",
+    "locker room"
+   ],
+   "aspect_ratio_counts": {
+    "portrait(832x1216)": 36,
+    "square(1024x1024)": 16,
+    "landscape(1216x832)": 24
+   },
+   "aspect_seq": "PPPPPPPPSSPPPPPSPPLLLPLLSSLSLLPPSSSLSSPPSLLLPSPLLLLPPLLLPSLPPPSPPPLPLPPSPPLL",
+   "keywords": [
+    "changing room",
+    "locker",
+    "undressing",
+    "exercises club",
+    "Lamy"
+   ],
+   "opening_extract": "2.6:: masterpiece ,best quality , detailed face: :: ,year 2025, -4.7::muted color :: ,-0.5::realistic,3d, phot",
+   "ending_extract": "2.6:: masterpiece ,best quality , detailed face: :: ,year 2025, -4.7::muted color :: ,-0.5::realistic,3d, phot",
+   "female_characters": [
+    "yukihana lamy"
+   ],
+   "male_roles": [
+    "anonymous man"
+   ],
+   "total_role_count": 2,
+   "max_simultaneous_character_slots": 2
+  },
+  {
+   "template_id": "T019",
+   "source_file": "更衣室で犯される英梨々.json",
+   "title": "更衣室で犯される英梨々",
+   "scene_family": "changing_room",
+   "exact_scene": "changing room at inn (locker+bench)",
+   "scene": [
+    "changing room",
+    "inn",
+    "indoor"
+   ],
+   "location": [
+    "changing room",
+    "locker room",
+    "inn"
+   ],
+   "time": [
+    "dark",
+    "dim"
+   ],
+   "environment": [
+    "room",
+    "locker",
+    "bench",
+    "floor",
+    "locker room",
+    "inn"
+   ],
+   "character_count": 2,
+   "female_character_count": 1,
+   "male_character_count": 1,
+   "female_anchors": [
+    "sawamura spencer eriri (weighted: 1.5:: ... ::)"
+   ],
+   "male_identity": "anonymous man (faceless man)",
+   "male_panel_ratio": 98,
+   "panel_count": 84,
+   "narrative_type": "changing room rape (undressing moment)",
+   "opening_type": "undressing opening (completely nude + white bra + panties + twintails) → assailant enters",
+   "ending_type": "aftermath template (bench)",
+   "pace": "standard",
+   "first_sex_panel": 7,
+   "pov_ratio": 61.9,
+   "torogao_coverage": 32.1,
+   "camera_profile": [
+    "dutch angle",
+    "pov",
+    "cowboy shot",
+    "from above",
+    "from side"
+   ],
+   "camera_profile_freq": {
+    "dutch angle": 70,
+    "pov": 52,
+    "cowboy shot": 52,
+    "from above": 47,
+    "from side": 42
+   },
+   "composition_profile": [
+    "solo focus"
+   ],
+   "clothing_arc": "nude + white bra + panties → bra/panties off → after-sex",
+   "interaction_profile": [
+    "sex",
+    "penetration",
+    "penis penetration",
+    "forced",
+    "cowgirl",
+    "cum on face",
+    "deepthroat",
+    "sucking"
+   ],
+   "important_props": [
+    "locker",
+    "bench",
+    "locker room",
+    "inn"
+   ],
+   "aspect_ratio_counts": {
+    "portrait(832x1216)": 35,
+    "square(1024x1024)": 14,
+    "landscape(1216x832)": 35
+   },
+   "aspect_seq": "PPPPPPPPSPSLLSLPLPPLLLLLSLLLPPSLSPSPSPPPLLPLPPLLLLPPSPPPPLLPPPPLLSSLPLLPLLSLLLSLPSLL",
+   "keywords": [
+    "changing room",
+    "locker",
+    "undressing",
+    "inn",
+    "Eriri"
+   ],
+   "opening_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -0.5::muted color ::, -0.5::realistic, 3d,::, ",
+   "ending_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -0.5::muted color ::, -0.5::realistic, 3d,::, ",
+   "female_characters": [
+    "sawamura spencer eriri"
+   ],
+   "male_roles": [
+    "anonymous man"
+   ],
+   "total_role_count": 2,
+   "max_simultaneous_character_slots": 2
+  },
+  {
+   "template_id": "T020",
+   "source_file": "泥酔ラミィに中出し.json",
+   "title": "泥酔ラミィに中出し",
+   "scene_family": "room",
+   "exact_scene": "home room (drunken victim)",
+   "scene": [
+    "room",
+    "home",
+    "indoor"
+   ],
+   "location": [
+    "room",
+    "bedroom"
+   ],
+   "time": [
+    "dim interior"
+   ],
+   "environment": [
+    "wall",
+    "room",
+    "floor",
+    "bedroom",
+    "window"
+   ],
+   "character_count": 2,
+   "female_character_count": 1,
+   "male_character_count": 1,
+   "female_anchors": [
+    "yukihana lamy"
+   ],
+   "male_identity": "anonymous man (faceless man)",
+   "male_panel_ratio": 100,
+   "panel_count": 79,
+   "narrative_type": "drunken rape + creampie (泥酔, unconscious-level)",
+   "opening_type": "drunken-return opening (dress + corset + sleeveless shirt + skirt + thighhighs) → collapses (first sex at P3)",
+   "ending_type": "aftermath template (still drunk residue)",
+   "pace": "fast",
+   "first_sex_panel": 3,
+   "pov_ratio": 59.5,
+   "torogao_coverage": 58.2,
+   "camera_profile": [
+    "dutch angle",
+    "cowboy shot",
+    "pov",
+    "from above",
+    "solo focus"
+   ],
+   "camera_profile_freq": {
+    "dutch angle": 60,
+    "cowboy shot": 53,
+    "pov": 47,
+    "from above": 43,
+    "solo focus": 42
+   },
+   "composition_profile": [
+    "solo focus"
+   ],
+   "clothing_arc": "dress + corset + skirt + white thighhighs → undressed → creampie",
+   "interaction_profile": [
+    "rape",
+    "sex",
+    "penetration",
+    "penis penetration",
+    "cowgirl",
+    "forced",
+    "cum in pussy",
+    "cum on body"
+   ],
+   "important_props": [
+    "drunken state",
+    "room"
+   ],
+   "aspect_ratio_counts": {
+    "portrait(832x1216)": 33,
+    "square(1024x1024)": 20,
+    "landscape(1216x832)": 26
+   },
+   "aspect_seq": "PPPPPPSSPPPSSSSPPPPLLLLPLPSSSPLSSLPLLSLLLSPPLSPPPSPPPLPLSPLLPPPSPPSPSLLLLLLSLLL",
+   "keywords": [
+    "drunk",
+    "drunken",
+    "creampie",
+    "unconscious",
+    "Lamy",
+    "high torogao"
+   ],
+   "opening_extract": "0.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,  -1.5::muted color :: ,  1.0::re",
+   "ending_extract": "0.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,  -0.5::muted color :: ,  1.0::re",
+   "female_characters": [
+    "yukihana lamy"
+   ],
+   "male_roles": [
+    "anonymous man"
+   ],
+   "total_role_count": 2,
+   "max_simultaneous_character_slots": 2
+  },
+  {
+   "template_id": "T021",
+   "source_file": "犯される佐天涙子&初春飾利.json",
+   "title": "犯される佐天涙子&初春飾利",
+   "scene_family": "school",
+   "exact_scene": "school classroom (two girls)",
+   "scene": [
+    "school",
+    "classroom",
+    "indoor"
+   ],
+   "location": [
+    "classroom",
+    "school"
+   ],
+   "time": [
+    "night",
+    "dark",
+    "dim"
+   ],
+   "environment": [
+    "school",
+    "room",
+    "window",
+    "floor",
+    "door",
+    "desk"
+   ],
+   "character_count": 3,
+   "female_character_count": 2,
+   "male_character_count": 1,
+   "female_anchors": [
+    "saten ruiko",
+    "uiharu kazari"
+   ],
+   "male_identity": "anonymous man (faceless man)",
+   "male_panel_ratio": 99,
+   "panel_count": 83,
+   "narrative_type": "double-female rape (duo scene, 2 victims)",
+   "opening_type": "classroom opening both girls (saten school uniform serafuku + flower ornament / uiharu) → attackers (first sex at P4)",
+   "ending_type": "aftermath template (both)",
+   "pace": "standard",
+   "first_sex_panel": 4,
+   "pov_ratio": 72.3,
+   "torogao_coverage": 31.3,
+   "camera_profile": [
+    "dutch angle",
+    "pov",
+    "from above",
+    "cowboy shot",
+    "solo focus"
+   ],
+   "camera_profile_freq": {
+    "dutch angle": 66,
+    "pov": 60,
+    "from above": 54,
+    "cowboy shot": 52,
+    "solo focus": 50
+   },
+   "composition_profile": [
+    "solo focus"
+   ],
+   "clothing_arc": "school uniforms (white serafuku + red bow / flower ornament) → torn → after-sex (both)",
+   "interaction_profile": [
+    "sex",
+    "penetration",
+    "penis penetration",
+    "deepthroat",
+    "cowgirl",
+    "cum on body",
+    "cum in pussy",
+    "handjob"
+   ],
+   "important_props": [
+    "school",
+    "desk",
+    "flower hair ornament"
+   ],
+   "aspect_ratio_counts": {
+    "square(1024x1024)": 21,
+    "portrait(832x1216)": 29,
+    "landscape(1216x832)": 33
+   },
+   "aspect_seq": "SSPPPPPPSSPPPPLPLPLLSPSLPLSPSLPSLLPLLPLLSPSSPPPPLSLSLLLLLLLLLLLSPPPPLSSPLSSLSPLSLLL",
+   "keywords": [
+    "two girls",
+    "double",
+    "classroom",
+    "school uniform",
+    "groped",
+    "Saten",
+    "Uiharu"
+   ],
+   "opening_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -0.5::muted color ::, -0.5::realistic, 3d,::, ",
+   "ending_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -0.5::muted color ::, -0.5::realistic, 3d,::, ",
+   "female_characters": [
+    "saten ruiko",
+    "uiharu kazari"
+   ],
+   "male_roles": [
+    "anonymous man"
+   ],
+   "total_role_count": 3,
+   "max_simultaneous_character_slots": 3
+  },
+  {
+   "template_id": "T022",
+   "source_file": "犯される鈴原るる.json",
+   "title": "犯される鈴原るる",
+   "scene_family": "room",
+   "exact_scene": "dark room (sweat-heavy)",
+   "scene": [
+    "room",
+    "indoor"
+   ],
+   "location": [
+    "room"
+   ],
+   "time": [
+    "dark",
+    "dim"
+   ],
+   "environment": [
+    "room",
+    "sweat",
+    "floor",
+    "wall"
+   ],
+   "character_count": 2,
+   "female_character_count": 1,
+   "male_character_count": 1,
+   "female_anchors": [
+    "suzuhara lulu"
+   ],
+   "male_identity": "anonymous man (faceless man)",
+   "male_panel_ratio": 100,
+   "panel_count": 81,
+   "narrative_type": "rape (dark room, quick start)",
+   "opening_type": "room opening (beret + pantyhose + black skirt + pink cardigan + white shirt) → immediate assault (first sex at P3)",
+   "ending_type": "aftermath template (room)",
+   "pace": "standard",
+   "first_sex_panel": 3,
+   "pov_ratio": 66.7,
+   "torogao_coverage": 49.4,
+   "camera_profile": [
+    "dutch angle",
+    "pov",
+    "cowboy shot",
+    "from above",
+    "solo focus"
+   ],
+   "camera_profile_freq": {
+    "dutch angle": 70,
+    "pov": 54,
+    "cowboy shot": 48,
+    "from above": 45,
+    "solo focus": 38
+   },
+   "composition_profile": [
+    "solo focus"
+   ],
+   "clothing_arc": "beret + pantyhose + black skirt + pink cardigan + neck bow → torn pantyhose → after-sex",
+   "interaction_profile": [
+    "sex",
+    "penetration",
+    "penis penetration",
+    "forced",
+    "cowgirl",
+    "rape",
+    "kiss",
+    "deepthroat"
+   ],
+   "important_props": [
+    "pantyhose",
+    "beret"
+   ],
+   "aspect_ratio_counts": {
+    "portrait(832x1216)": 29,
+    "square(1024x1024)": 17,
+    "landscape(1216x832)": 35
+   },
+   "aspect_seq": "PPPPSPPSSPPSPLLSLLLLLLLPPLLPPLLSSPLLLLPSSSPSSPPPPLLPLLLLLLPLLSLLLSPPSLPLSPPSPPLLL",
+   "keywords": [
+    "room",
+    "pantyhose",
+    "quick start",
+    "Lulu"
+   ],
+   "opening_extract": "2.6:: masterpiece ,best quality , detailed face: :: ,year 2025, -1.5::muted color :: ,-0.8::realistic,3d, phot",
+   "ending_extract": "2.6:: masterpiece ,best quality , detailed face: :: ,year 2025, -1.5::muted color :: ,-0.8::realistic,3d, phot",
+   "female_characters": [
+    "suzuhara lulu"
+   ],
+   "male_roles": [
+    "anonymous man"
+   ],
+   "total_role_count": 2,
+   "max_simultaneous_character_slots": 2
+  },
+  {
+   "template_id": "T023",
+   "source_file": "用務員に犯される早坂愛.json",
+   "title": "用務員に犯される早坂愛",
+   "scene_family": "school",
+   "exact_scene": "school (windowed room/corridor, janitor)",
+   "scene": [
+    "school",
+    "indoor"
+   ],
+   "location": [
+    "school",
+    "room"
+   ],
+   "time": [
+    "dark"
+   ],
+   "environment": [
+    "school",
+    "window",
+    "wall",
+    "floor",
+    "room"
+   ],
+   "character_count": 2,
+   "female_character_count": 1,
+   "male_character_count": 1,
+   "female_anchors": [
+    "hayasaka ai (weighted: 1.3:: / 1.2::)"
+   ],
+   "male_identity": "school janitor (用務員; male chest hair)",
+   "male_panel_ratio": 99,
+   "panel_count": 87,
+   "narrative_type": "school rape by janitor (用務員)",
+   "opening_type": "school day opening (school uniform + cardigan around waist + black vest + black socks) → janitor trap (first sex at P6)",
+   "ending_type": "aftermath template (window)",
+   "pace": "slow",
+   "first_sex_panel": 6,
+   "pov_ratio": 65.5,
+   "torogao_coverage": 34.5,
+   "camera_profile": [
+    "dutch angle",
+    "pov",
+    "cowboy shot",
+    "from above",
+    "from side"
+   ],
+   "camera_profile_freq": {
+    "dutch angle": 70,
+    "pov": 57,
+    "cowboy shot": 49,
+    "from above": 48,
+    "from side": 43
+   },
+   "composition_profile": [
+    "solo focus"
+   ],
+   "clothing_arc": "school uniform + cardigan around waist + black vest + white shirt + black skirt + socks → disrobe → after-sex",
+   "interaction_profile": [
+    "sex",
+    "penetration",
+    "penis penetration",
+    "cum in pussy",
+    "cum on face",
+    "cowgirl",
+    "cum on body",
+    "forced"
+   ],
+   "important_props": [
+    "window",
+    "guard room"
+   ],
+   "aspect_ratio_counts": {
+    "portrait(832x1216)": 43,
+    "square(1024x1024)": 15,
+    "landscape(1216x832)": 29
+   },
+   "aspect_seq": "PPPPSPSPSLPPSLPPLPPLLLLLPPSPLLPLLPLSSLPSLLLPPSPSPSPPPPPLPPPLPPPSPLSSPLPPPSLLLPLPPPLPLLL",
+   "keywords": [
+    "janitor",
+    "school",
+    "after class",
+    "uniform",
+    "Ai"
+   ],
+   "opening_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -0.5::muted color ::, -0.5::realistic, 3d,::, ",
+   "ending_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -0.5::muted color ::, -0.5::realistic, 3d,::, ",
+   "female_characters": [
+    "hayasaka ai"
+   ],
+   "male_roles": [
+    "school janitor"
+   ],
+   "total_role_count": 2,
+   "max_simultaneous_character_slots": 2
+  },
+  {
+   "template_id": "T024",
+   "source_file": "痴漢に犯される喜多川海夢.json",
+   "title": "痴漢に犯される喜多川海夢",
+   "scene_family": "school",
+   "exact_scene": "school toilet (groping serial)",
+   "scene": [
+    "school",
+    "toilet",
+    "indoor"
+   ],
+   "location": [
+    "school",
+    "toilet"
+   ],
+   "time": [
+    "dim"
+   ],
+   "environment": [
+    "school",
+    "wall",
+    "toilet",
+    "floor"
+   ],
+   "character_count": 2,
+   "female_character_count": 1,
+   "male_character_count": 1,
+   "female_anchors": [
+    "kitagawa marin"
+   ],
+   "male_identity": "anonymous man (groping man, faceless man)",
+   "male_panel_ratio": 96,
+   "panel_count": 85,
+   "narrative_type": "groping serial → rape (school toilet)",
+   "opening_type": "groping opening (school uniform + white shirt + blue skirt + black choker + necktie) → dragged to toilet (first sex at P10)",
+   "ending_type": "aftermath template (toilet)",
+   "pace": "standard",
+   "first_sex_panel": 10,
+   "pov_ratio": 58.8,
+   "torogao_coverage": 57.6,
+   "camera_profile": [
+    "dutch angle",
+    "pov",
+    "cowboy shot",
+    "solo focus",
+    "from behind"
+   ],
+   "camera_profile_freq": {
+    "dutch angle": 57,
+    "pov": 50,
+    "cowboy shot": 48,
+    "solo focus": 47,
+    "from behind": 43
+   },
+   "composition_profile": [
+    "solo focus"
+   ],
+   "clothing_arc": "school uniform + blue skirt + choker → disrobe → after-sex",
+   "interaction_profile": [
+    "sex",
+    "penetration",
+    "penis penetration",
+    "cowgirl",
+    "forced",
+    "rape",
+    "cum on face",
+    "cum in pussy"
+   ],
+   "important_props": [
+    "toilet",
+    "school"
+   ],
+   "aspect_ratio_counts": {
+    "portrait(832x1216)": 45,
+    "landscape(1216x832)": 30,
+    "square(1024x1024)": 10
+   },
+   "aspect_seq": "PPPPPPPPPPPPPPPPPLLPPPSPPPPLPPLPPLLLLLLLLLLLSPPSSSSPLLSSPLLPLLLLLPLPPPPPPPSSLPLPPLLPL",
+   "keywords": [
+    "groping",
+    "chikan",
+    "toilet",
+    "school uniform",
+    "Marin"
+   ],
+   "opening_extract": "2.6:: masterpiece ,best quality , detailed face: ::   ,  year 2025, -2.0::muted color :: ,  -1.1::realistic, 3",
+   "ending_extract": "2.6:: masterpiece ,best quality , detailed face: ::   ,  year 2025, -2.0::muted color :: ,  -1.1::realistic, 3",
+   "female_characters": [
+    "kitagawa marin"
+   ],
+   "male_roles": [
+    "anonymous man"
+   ],
+   "total_role_count": 2,
+   "max_simultaneous_character_slots": 2
+  },
+  {
+   "template_id": "T025",
+   "source_file": "痴漢に犯される宝鐘マリン.json",
+   "title": "痴漢に犯される宝鐘マリン",
+   "scene_family": "park",
+   "exact_scene": "night park (bushes behind wire fence)",
+   "scene": [
+    "park",
+    "outdoor",
+    "night"
+   ],
+   "location": [
+    "park",
+    "park bushes"
+   ],
+   "time": [
+    "night",
+    "dark",
+    "dim"
+   ],
+   "environment": [
+    "park",
+    "bush",
+    "wall",
+    "wire fence",
+    "grass",
+    "floor"
+   ],
+   "character_count": 2,
+   "female_character_count": 1,
+   "male_character_count": 1,
+   "female_anchors": [
+    "houshou marine"
+   ],
+   "male_identity": "anonymous man (groping man, faceless man)",
+   "male_panel_ratio": 97,
+   "panel_count": 98,
+   "narrative_type": "groping serial → rape (night park behind wire fence)",
+   "opening_type": "groping opening (twintails + hair ribbon + white t-shirt + denim shorts) → dragged into park bushes (first sex at P6)",
+   "ending_type": "aftermath template (wire fence grass)",
+   "pace": "slow",
+   "first_sex_panel": 6,
+   "pov_ratio": 63.3,
+   "torogao_coverage": 28.6,
+   "camera_profile": [
+    "dutch angle",
+    "pov",
+    "from behind",
+    "from above",
+    "cowboy shot"
+   ],
+   "camera_profile_freq": {
+    "dutch angle": 69,
+    "pov": 62,
+    "from behind": 52,
+    "from above": 51,
+    "cowboy shot": 48
+   },
+   "composition_profile": [
+    "solo focus"
+   ],
+   "clothing_arc": "white t-shirt + denim shorts (−skirt/−thighhighs in CC) → torn → after-sex",
+   "interaction_profile": [
+    "sex",
+    "penetration",
+    "penis penetration",
+    "cum on body",
+    "cum on face",
+    "deepthroat",
+    "cowgirl",
+    "forced"
+   ],
+   "important_props": [
+    "wire fence",
+    "bush",
+    "grass"
+   ],
+   "aspect_ratio_counts": {
+    "portrait(832x1216)": 38,
+    "square(1024x1024)": 27,
+    "landscape(1216x832)": 33
+   },
+   "aspect_seq": "PPPPPPSPPPPPSLLLLLLLSLSSPPLLLLLLPSSLLLPLSSPSPSSPPLPPLPLSSLPSPPLLPPPSSSSPLLPLSPSLPPPPPSSLLSPSPSLSLL",
+   "keywords": [
+    "groping",
+    "chikan",
+    "park",
+    "night",
+    "wire fence",
+    "Marine"
+   ],
+   "opening_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -0.5::muted color ::, -0.5::realistic, 3d,::, ",
+   "ending_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -0.5::muted color ::, -0.5::realistic, 3d,::, ",
+   "female_characters": [
+    "houshou marine"
+   ],
+   "male_roles": [
+    "anonymous man"
+   ],
+   "total_role_count": 2,
+   "max_simultaneous_character_slots": 2
+  },
+  {
+   "template_id": "T026",
+   "source_file": "空き家で犯されるモモ・デビルーク.json",
+   "title": "空き家で犯されるモモ・デビルーク",
+   "scene_family": "house",
+   "exact_scene": "abandoned house (空き家)",
+   "scene": [
+    "house",
+    "abandoned house",
+    "indoor"
+   ],
+   "location": [
+    "abandoned house",
+    "room"
+   ],
+   "time": [
+    "dim",
+    "dark"
+   ],
+   "environment": [
+    "room",
+    "floor",
+    "wall",
+    "school (uniform refs)",
+    "road"
+   ],
+   "character_count": 2,
+   "female_character_count": 1,
+   "male_character_count": 1,
+   "female_anchors": [
+    "momo velia deviluke"
+   ],
+   "male_identity": "anonymous man (faceless man, boy on top)",
+   "male_panel_ratio": 98,
+   "panel_count": 96,
+   "narrative_type": "abandoned house rape (dragged by classmate)",
+   "opening_type": "school → dragged off opening (to love-ru school uniform + white shirt + yellow vest + green skrit + black thighhighs) (first sex at P4)",
+   "ending_type": "aftermath template (room)",
+   "pace": "slow",
+   "first_sex_panel": 4,
+   "pov_ratio": 66.7,
+   "torogao_coverage": 32.3,
+   "camera_profile": [
+    "dutch angle",
+    "pov",
+    "cowboy shot",
+    "from above",
+    "solo focus"
+   ],
+   "camera_profile_freq": {
+    "dutch angle": 74,
+    "pov": 64,
+    "cowboy shot": 55,
+    "from above": 49,
+    "solo focus": 49
+   },
+   "composition_profile": [
+    "solo focus"
+   ],
+   "clothing_arc": "school uniform + yellow vest + black thighhighs → disrobe → after-sex",
+   "interaction_profile": [
+    "sex",
+    "penetration",
+    "penis penetration",
+    "deepthroat",
+    "forced",
+    "cum on face",
+    "cowgirl",
+    "rape"
+   ],
+   "important_props": [
+    "school uniform",
+    "black thighhighs"
+   ],
+   "aspect_ratio_counts": {
+    "portrait(832x1216)": 38,
+    "square(1024x1024)": 25,
+    "landscape(1216x832)": 33
+   },
+   "aspect_seq": "PPSPPPPPPPPPPLLLPLLSPPLLLLLLPSSPPLPLPLLSLLLLPPLLPSPPSSSSSLPSSLLPLSSPSPSPLSSLSSLPPLPLPPLLPPPSLSSS",
+   "keywords": [
+    "abandoned house",
+    "empty house",
+    "classmate",
+    "rape",
+    "Momo"
+   ],
+   "opening_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -0.5::muted color ::, -0.5::realistic, 3d,::, ",
+   "ending_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -0.5::muted color ::, -0.5::realistic, 3d,::, ",
+   "female_characters": [
+    "momo velia deviluke"
+   ],
+   "male_roles": [
+    "anonymous man"
+   ],
+   "total_role_count": 2,
+   "max_simultaneous_character_slots": 3
+  },
+  {
+   "template_id": "T027",
+   "source_file": "空き家で犯される中野三玖.json",
+   "title": "空き家で犯される中野三玖",
+   "scene_family": "house",
+   "exact_scene": "abandoned house (空き家)",
+   "scene": [
+    "house",
+    "abandoned house",
+    "indoor"
+   ],
+   "location": [
+    "abandoned house",
+    "room"
+   ],
+   "time": [
+    "dim"
+   ],
+   "environment": [
+    "room",
+    "sweat",
+    "floor",
+    "wall"
+   ],
+   "character_count": 2,
+   "female_character_count": 1,
+   "male_character_count": 1,
+   "female_anchors": [
+    "nakano miku"
+   ],
+   "male_identity": "anonymous man (faceless man)",
+   "male_panel_ratio": 93,
+   "panel_count": 91,
+   "narrative_type": "abandoned house rape (kept in vacant house)",
+   "opening_type": "sweat-heavy kept-in-house opening (school uniform + black jacket + skirt + headphone + pantyhose) (first sex at P6)",
+   "ending_type": "aftermath template (room)",
+   "pace": "slow",
+   "first_sex_panel": 6,
+   "pov_ratio": 62.6,
+   "torogao_coverage": 37.4,
+   "camera_profile": [
+    "dutch angle",
+    "pov",
+    "from behind",
+    "cowboy shot",
+    "from above"
+   ],
+   "camera_profile_freq": {
+    "dutch angle": 65,
+    "pov": 57,
+    "from behind": 47,
+    "cowboy shot": 47,
+    "from above": 46
+   },
+   "composition_profile": [
+    "solo focus"
+   ],
+   "clothing_arc": "school uniform + headphone + pantyhose → torn → after-sex",
+   "interaction_profile": [
+    "sex",
+    "penetration",
+    "penis penetration",
+    "forced",
+    "cum in pussy",
+    "cowgirl",
+    "kiss",
+    "rape"
+   ],
+   "important_props": [
+    "phone",
+    "sweat",
+    "pantyhose"
+   ],
+   "aspect_ratio_counts": {
+    "portrait(832x1216)": 41,
+    "square(1024x1024)": 25,
+    "landscape(1216x832)": 25
+   },
+   "aspect_seq": "PPPPPPPPPSSPPSSPPPPPPPLLSLLLLLLLLPSSSSSSSSLSPPSPPPPSLLLLSSSSPLLPPPPPPSPPLSLLLLPPPLSPPSPLPLS",
+   "keywords": [
+    "abandoned house",
+    "empty house",
+    "Miku",
+    "sweat"
+   ],
+   "opening_extract": "2.6:: masterpiece ,best quality , detailed face: :: ,year 2025, -1.7::muted color :: ,-0.6::realistic,3d, phot",
+   "ending_extract": "2.6:: masterpiece ,best quality , detailed face: :: ,year 2025, -1.7::muted color :: ,-0.6::realistic,3d, phot",
+   "female_characters": [
+    "nakano miku"
+   ],
+   "male_roles": [
+    "anonymous man"
+   ],
+   "total_role_count": 2,
+   "max_simultaneous_character_slots": 2
+  },
+  {
+   "template_id": "T028",
+   "source_file": "空き家に連れ込まれた渋谷凛.json",
+   "title": "空き家に連れ込まれた渋谷凛",
+   "scene_family": "house",
+   "exact_scene": "abandoned house (abducted from school)",
+   "scene": [
+    "house",
+    "abandoned house",
+    "school",
+    "indoor"
+   ],
+   "location": [
+    "abandoned house",
+    "room",
+    "school (opening)"
+   ],
+   "time": [
+    "dark",
+    "dim"
+   ],
+   "environment": [
+    "school",
+    "room",
+    "floor",
+    "desk",
+    "window"
+   ],
+   "character_count": 2,
+   "female_character_count": 1,
+   "male_character_count": 1,
+   "female_anchors": [
+    "shibuya rin"
+   ],
+   "male_identity": "anonymous man (faceless man, male chest hair)",
+   "male_panel_ratio": 98,
+   "panel_count": 89,
+   "narrative_type": "abduction into abandoned house rape (immediate, first sex at P1)",
+   "opening_type": "immediate assault opening (school uniform + lifted up skirt + black socks + bare legs) (first sex at P1)",
+   "ending_type": "aftermath template (floor/desk)",
+   "pace": "slow",
+   "first_sex_panel": 1,
+   "pov_ratio": 61.8,
+   "torogao_coverage": 36.0,
+   "camera_profile": [
+    "dutch angle",
+    "pov",
+    "cowboy shot",
+    "from above",
+    "from side"
+   ],
+   "camera_profile_freq": {
+    "dutch angle": 71,
+    "pov": 55,
+    "cowboy shot": 54,
+    "from above": 47,
+    "from side": 46
+   },
+   "composition_profile": [
+    "solo focus"
+   ],
+   "clothing_arc": "shirt + necktie + black sweater + school uniform lifted skirt → strip → after-sex",
+   "interaction_profile": [
+    "sex",
+    "penetration",
+    "penis penetration",
+    "forced",
+    "deepthroat",
+    "cum in pussy",
+    "cum on face",
+    "cowgirl"
+   ],
+   "important_props": [
+    "school uniform",
+    "bound"
+   ],
+   "aspect_ratio_counts": {
+    "landscape(1216x832)": 35,
+    "square(1024x1024)": 15,
+    "portrait(832x1216)": 39
+   },
+   "aspect_seq": "LSPPLPLPPLLLLPPPPPPSPPSPSLPLPPPLPLLLLLLLLLSLLPPSLLPSPSPPPLLLLSSLPSLLLPSPSPPPPPPLPPLLSLSPP",
+   "keywords": [
+    "abduction",
+    "abandoned house",
+    "empty house",
+    "immediate",
+    "Rin"
+   ],
+   "opening_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -0.5::muted color ::, -0.5::realistic, 3d,::, ",
+   "ending_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -0.5::muted color ::, -0.5::realistic, 3d,::, ",
+   "female_characters": [
+    "shibuya rin"
+   ],
+   "male_roles": [
+    "anonymous man"
+   ],
+   "total_role_count": 2,
+   "max_simultaneous_character_slots": 2
+  },
+  {
+   "template_id": "T029",
+   "source_file": "錦木千束 睡眠姦.json",
+   "title": "錦木千束 睡眠姦",
+   "scene_family": "school",
+   "exact_scene": "gym (napping, sportswear)",
+   "scene": [
+    "school",
+    "gym",
+    "indoor"
+   ],
+   "location": [
+    "gym"
+   ],
+   "time": [
+    "dark"
+   ],
+   "environment": [
+    "gym",
+    "floor",
+    "wall",
+    "window"
+   ],
+   "character_count": 2,
+   "female_character_count": 1,
+   "male_character_count": 1,
+   "female_anchors": [
+    "nishikigi chisato"
+   ],
+   "male_identity": "anonymous man (faceless man, boy)",
+   "male_panel_ratio": 100,
+   "panel_count": 97,
+   "narrative_type": "sleep assault (睡眠姦, gym)",
+   "opening_type": "napping in gym opening (red-black sport bikini + red shorts + bare legs) (first sex at P8)",
+   "ending_type": "aftermath template (gym)",
+   "pace": "slow",
+   "first_sex_panel": 8,
+   "pov_ratio": 61.9,
+   "torogao_coverage": 28.9,
+   "camera_profile": [
+    "dutch angle",
+    "pov",
+    "cowboy shot",
+    "from side",
+    "from behind"
+   ],
+   "camera_profile_freq": {
+    "dutch angle": 75,
+    "pov": 60,
+    "cowboy shot": 55,
+    "from side": 55,
+    "from behind": 49
+   },
+   "composition_profile": [
+    "solo focus"
+   ],
+   "clothing_arc": "sport bikini + red shorts + bare legs → sleep → assaulted while sleeping → after-sex",
+   "interaction_profile": [
+    "sex",
+    "penetration",
+    "penis penetration",
+    "forced",
+    "sucking",
+    "deepthroat",
+    "cum on face",
+    "cum in pussy"
+   ],
+   "important_props": [
+    "gym",
+    "sport bikini"
+   ],
+   "aspect_ratio_counts": {
+    "portrait(832x1216)": 33,
+    "square(1024x1024)": 23,
+    "landscape(1216x832)": 41
+   },
+   "aspect_seq": "PPPPPPPPPSSPSPSSSLLLLSLLLSLLSPPLLSLLSLLLPPPLSPPLLPPLLPLLLLLLLLSLLPSPSPPPPSPPSLLPPSSSSLSPLLLLPSLLL",
+   "keywords": [
+    "sleep",
+    "sleeplessness",
+    "gym",
+    "sportswear",
+    "Chisato"
+   ],
+   "opening_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -0.5::muted color ::, -0.5::realistic, 3d,::, ",
+   "ending_extract": "2.6:: masterpiece, best quality, detailed face: ::, year 2024,  -0.5::muted color ::, -0.5::realistic, 3d,::, ",
+   "female_characters": [
+    "nishikigi chisato"
+   ],
+   "male_roles": [
+    "anonymous man"
+   ],
+   "total_role_count": 2,
+   "max_simultaneous_character_slots": 2
+  },
+  {
+   "template_id": "T030",
+   "source_file": "雪花ラミィ 痴漢・中出し.json",
+   "title": "雪花ラミィ 痴漢・中出し",
+   "scene_family": "school",
+   "exact_scene": "school toilet (groping + creampie trio)",
+   "scene": [
+    "school",
+    "toilet",
+    "indoor"
+   ],
+   "location": [
+    "school",
+    "toilet"
+   ],
+   "time": [
+    "dim"
+   ],
+   "environment": [
+    "school",
+    "wall",
+    "floor",
+    "toilet",
+    "oiled"
+   ],
+   "character_count": 2,
+   "female_character_count": 1,
+   "male_character_count": 1,
+   "female_anchors": [
+    "yukihana lamy"
+   ],
+   "male_identity": "anonymous man (groping man; many other people / trio)",
+   "male_panel_ratio": 95,
+   "panel_count": 66,
+   "narrative_type": "groping serial + creampie (school toilet)",
+   "opening_type": "groping corridor opening (aogami high school uniform + white shirt + blue bow + blue skirt) → toilet creampie (first sex at P14)",
+   "ending_type": "creampie aftermath template",
+   "pace": "fast",
+   "first_sex_panel": 14,
+   "pov_ratio": 56.1,
+   "torogao_coverage": 62.1,
+   "camera_profile": [
+    "cowboy shot",
+    "dutch angle",
+    "from behind",
+    "pov",
+    "solo focus"
+   ],
+   "camera_profile_freq": {
+    "cowboy shot": 44,
+    "dutch angle": 39,
+    "from behind": 38,
+    "pov": 37,
+    "solo focus": 35
+   },
+   "composition_profile": [
+    "solo focus"
+   ],
+   "clothing_arc": "aogami high school uniform + white shirt + blue bow + blue skirt → disrobe → creampie",
+   "interaction_profile": [
+    "sex",
+    "penetration",
+    "rape",
+    "penis penetration",
+    "cum in pussy",
+    "forced",
+    "kiss",
+    "cowgirl"
+   ],
+   "important_props": [
+    "school toilet",
+    "oiled"
+   ],
+   "aspect_ratio_counts": {
+    "portrait(832x1216)": 31,
+    "square(1024x1024)": 12,
+    "landscape(1216x832)": 23
+   },
+   "aspect_seq": "PPPPPPPPPPPPPPPPSLPSPSPSPPSPLLLLLLLPSSSSPPPSPPLLLPLLLLLLPSLLLLPLLS",
+   "keywords": [
+    "groping",
+    "chikan",
+    "creampie",
+    "toilet",
+    "school uniform",
+    "Lamy",
+    "short 66 panels"
+   ],
+   "opening_extract": "2.0::amazing quality, 4k, very aesthetic, absurdres , masterpiece::,year 2025,-1.0::muted color ::  2::extreme",
+   "ending_extract": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::whit",
+   "female_characters": [
+    "yukihana lamy"
+   ],
+   "male_roles": [
+    "anonymous man"
+   ],
+   "total_role_count": 2,
+   "max_simultaneous_character_slots": 2
+  }
+ ]
+}

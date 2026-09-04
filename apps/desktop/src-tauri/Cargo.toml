@@ -1,0 +1,26 @@
+[package]
+name = "storyboard-desktop"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Storyboard Studio desktop shell (Tauri 2 bridge)."
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+serde.workspace = true
+serde_json.workspace = true
+uuid.workspace = true
+app-server.workspace = true
+storyboard-domain.workspace = true
+storyboard-importer.workspace = true
+model-providers.workspace = true
+agent-runtime.workspace = true
+agent-protocol.workspace = true
+storyboard-tools.workspace = true
+
+[lib]
+name = "storyboard_desktop_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]

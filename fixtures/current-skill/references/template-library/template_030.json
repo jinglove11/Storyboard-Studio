@@ -1,0 +1,3077 @@
+{
+  "schemaVersion": 2,
+  "id": "72f6b6d7-1cf2-41ee-a2d7-083e4a804e12",
+  "title": "雪花ラミィ 痴漢・中出し",
+  "globalStylePrompt": "",
+  "globalNegativePrompt": "kneeling, blurry, lowres, error, film grain, scan artifacts, worst quality, bad quality, jpeg artifacts, very displeasing, chromatic aberration, multiple views, logo, too many watermarks, camera, tiara, coat, graffiti, Boxing glove, futa, poorly drawn, lowers, bokeh, low quality, out of focus, ugly, {{{{censor, bar censor}}}}, mosaic censorship, puffy nipples, extra digits, POV hands, hutanari, low quality:1.4), text, bad anatomy, watermark, extra fingers, missing fingers, extra arms, missing arms, extra legs, counter, body writing，",
+  "sizeMode": "uniform",
+  "initialGenerationCount": 1,
+  "globalParams": {
+    "model": "nai-diffusion-4-5-full",
+    "stylePrompt": "",
+    "positivePrompt": "",
+    "negativePrompt": "kneeling, blurry, lowres, error, film grain, scan artifacts, worst quality, bad quality, jpeg artifacts, very displeasing, chromatic aberration, multiple views, logo, too many watermarks, camera, tiara, coat, graffiti, Boxing glove, futa, poorly drawn, lowers, bokeh, low quality, out of focus, ugly, {{{{censor, bar censor}}}}, mosaic censorship, puffy nipples, extra digits, POV hands, hutanari, low quality:1.4), text, bad anatomy, watermark, extra fingers, missing fingers, extra arms, missing arms, extra legs, counter, body writing，",
+    "width": 832,
+    "height": 1216,
+    "steps": 28,
+    "cfgScale": 6,
+    "cfgRescale": 0.5,
+    "sampler": "k_euler_ancestral",
+    "noiseSchedule": "karras",
+    "seed": 722652769,
+    "seedMode": "fixed",
+    "ucPreset": 3,
+    "qualityPreset": "none",
+    "qualityToggle": false,
+    "transparentBackground": false,
+    "smea": false,
+    "smeaDyn": false,
+    "variety": false,
+    "fileNamePrefix": ""
+  },
+  "preciseReferences": [],
+  "characters": [],
+  "panels": [
+    {
+      "id": "44062e36-3452-48a3-87aa-e960bad0ead4",
+      "index": 1,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "2.0::amazing quality, 4k, very aesthetic, absurdres , masterpiece::,year 2025,-1.0::muted color ::  2::extremely detailed hair::, {{year 2024}},,0.5::ai-generated, ai-assisted:: ,-0.5::white skin:: 1.5::shiny skin:: ,0.0::oiled ::,-1.3::anime coloring::,  -1.0::loli ,::  medium breast, -1.0::realistic, 3d, photorealistic,shade::   0.6::artsit: jon_(pixiv31559095)  :: ,0.7::artist: @@@_(eckzahn)  :: , 1.0::artist: houkisei::,　 0.1::artist: mamerakkk-kko ::    0.5:: artist: modare:: ,  2::cute::, 1.7::no lineart::    -2::male blush, ,male teeth,separated screens::,3.5::nose blush,::,4::standing,:: 3::many other people::   {{expressionless}}  3::in train station, walking,  ::  looking down,  [[closed mouth]]  2::crowded,,suits person:: ,  2::large eye, embarrassed, , torogao, blush, :: ::solo focus, focus face::   , 3::standing, from side::   closed mouth, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": "nsfw,official style, yukihana lamy (1st costume), [hololive], 3::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat:: 3::shouldering navy school bag:: ,  bare legs",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        },
+        {
+          "prompt": "boy, 2::sitting, thick thighs::  pov hands over leg,",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 2501716311,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "b975cb28-8906-4d29-93cb-088e4685b89f",
+      "index": 2,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "2.0::amazing quality, 4k, very aesthetic, absurdres , masterpiece::,year 2025,-1.0::muted color ::  2::extremely detailed hair::, {{year 2024}},,1.5::ai-generated, ai-assisted:: ,1.5::shiny skin:: ,0.0::oiled ::,-1.3::anime coloring::,  -1.0::loli ,::  medium breast, -1.0::realistic, 3d, photorealistic,shade::   0.6::artsit: jon_(pixiv31559095)  :: ,0.7::artist: @@@_(eckzahn)  :: , 1.0::artist: houkisei::,　 0.1::artist: mamerakkk-kko ::    0.5:: artist: modare:: ,  2::cute::, 1.7::no lineart::    -2::male blush, ,male teeth,separated screens::,3.5::nose blush,::,4::standing:: 3::many other people::   4::molestation ::  3::in train,  ::   [[closed mouth]]  2::crowded,,suits person:: , from below,from behind,  white panties,  3::!?::  3::surprised, blush, embarrassed, ::  2::1 boy grope her  from behind ::  nsfw, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": "nsfw,official style, yukihana lamy (1st costume), [hololive], 3::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat:: 3::shouldering navy school bag:: ,  bare legs",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 114351480,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "dbb80815-a92d-490c-af25-719292fd0aeb",
+      "index": 3,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "2.0::amazing quality, 4k, very aesthetic, absurdres , masterpiece::,year 2025,-1.0::muted color ::  2::extremely detailed hair::, {{year 2024}},,1.5::ai-generated, ai-assisted:: ,1.5::shiny skin:: ,0.0::oiled ::,-1.3::anime coloring::,  -1.0::loli ,::  medium breast, -1.0::realistic, 3d, photorealistic,shade::   0.6::artsit: jon_(pixiv31559095)  :: ,0.7::artist: @@@_(eckzahn)  :: , 1.0::artist: houkisei::,　 0.1::artist: mamerakkk-kko ::    0.5:: artist: modare:: ,  2::cute::, 1.7::no lineart::    -2::male blush, ,male teeth,separated screens::,3.5::nose blush,::,4::standing:: 3::many other people::   4::molestation ::  3::in train,  ::   [[closed mouth]]  2::crowded,,suits person:: , from below, white panties,  3::surprised, blush, embarrassed, ::  2::1 boy grabbing another's ass  from behind ::  nsfw, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": "nsfw,official style, yukihana lamy (1st costume), [hololive], 3::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat:: 3::shouldering navy school bag:: ,  bare legs",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        },
+        {
+          "prompt": "boy, 2::sitting, thick thighs::  pov hands over leg,",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 2188723975,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "0a5c6104-133b-4b0f-ae05-383ea27ec2eb",
+      "index": 4,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "2.0::amazing quality, 4k, very aesthetic, absurdres , masterpiece::,year 2025,-1.0::muted color ::  2::extremely detailed hair::, {{year 2024}},,1.5::ai-generated, ai-assisted:: ,1.5::shiny skin:: ,0.0::oiled ::,-1.3::anime coloring::,  -1.0::loli ,::  medium breast, -1.0::realistic, 3d, photorealistic,shade::   0.6::artsit: jon_(pixiv31559095)  :: ,0.7::artist: @@@_(eckzahn)  :: , 1.0::artist: houkisei::,　 0.1::artist: mamerakkk-kko ::    0.5:: artist: modare:: ,  2::cute::, 1.7::no lineart::    -2::male blush, ,male teeth,separated screens::,3.5::nose blush,::,4::standing:: 3::many other people::   4::molestation ::  3::in train,  ::   [[closed mouth]]  2::crowded,,suits person:: , from below,from behind, [closed mouth]  white panties,  3::one eye closed::  3::torogao, , blush, embarrassed, ::  2::1 boy grope her  and hand in panties from behind ::  nsfw, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": "nsfw,official style, yukihana lamy (1st costume), [hololive], 3::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat:: 3::shouldering navy school bag:: ,  bare legs",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 1855061122,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "057df798-a900-474d-8776-1aaf5d15a3e1",
+      "index": 5,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "2.0::amazing quality, 4k, very aesthetic, absurdres , masterpiece::,year 2025,-1.0::muted color ::  2::extremely detailed hair::, {{year 2024}},,0.5::ai-generated, ai-assisted:: ,1.5::shiny skin:: ,0.0::oiled ::,-1.3::anime coloring::,  -1.0::loli ,::  medium breast, -1.0::realistic, 3d, photorealistic,shade::   0.6::artsit: jon_(pixiv31559095)  :: ,0.7::artist: @@@_(eckzahn)  :: , 1.0::artist: houkisei::,　 0.1::artist: mamerakkk-kko ::    0.5:: artist: modare:: ,  2::cute::, 1.7::no lineart::    -2::male blush, ,male teeth,separated screens::,3.5::nose blush,::,4::standing, one eye closed:: 3::many other people::   4::molestation ::  3::in train,  ::   [[closed mouth]]  2::crowded,,suits person:: , from below,from behind,  white panties,3::closed eyes, tears, , blush, embarrassed, ::  looking bak,   {female ejaculation} 2::1 boy finger in panties  from behind ::  nsfw, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": "nsfw,official style, yukihana lamy (1st costume), [hololive], 3::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat:: 3::shouldering navy school bag:: ,  bare legs",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        },
+        {
+          "prompt": "boy, 2::sitting, thick thighs::  pov hands over leg,",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 941223904,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "93044e62-7221-4574-8a07-ed0ced045680",
+      "index": 6,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "2.0::amazing quality, 4k, very aesthetic, absurdres , masterpiece::,year 2025,-1.5::muted color ::  2::extremely detailed hair::, {{year 2024}},,1.5::ai-generated, ai-assisted:: ,0.5::shiny skin:: ,0.2::oiled ::,-1.0::anime coloring::,  -1.0::loli ,:: small breast, -0.6::realistic, 3d, photorealistic,shade:: 0.6::artsit: jon_(pixiv31559095)  :: ,0.8::artist: @@@_(eckzahn)  :: ,  1.0::artist: houkisei::, 0.5::artist: mamerakkk-kko ::    0.2:: artist: modare:: , 2::cute, night , dim::  nose blush ::    , ,{{{extremely detailed hair}}}, 3::from side::   , 3::embarrassed, ::,  walking, {school bag shouldering}, {{blush}} 0.2::nose blush::   2::nigiht, ::  {{1 girl walking in residental area, train station,   , modern house }},  {{cowboy shot, solo focus}} ,on street,   closed mouth,,  [[oil painting (medium)]],  from side,  -2::other people :: , , very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": "nsfw,official style, yukihana lamy (1st costume), [hololive], 3::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat:: 3::shouldering navy school bag:: ,  bare legs",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 1956555138,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "34ad8b4f-d4fa-42cc-a60b-a84da569b038",
+      "index": 7,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "2.0::amazing quality, 4k, very aesthetic, absurdres , masterpiece::,year 2025,-1.5::muted color ::  2::extremely detailed hair::, {{year 2024}},,1.5::ai-generated, ai-assisted:: ,0.5::shiny skin:: ,0.2::oiled ::,-1.0::anime coloring::,  -1.0::loli ,:: small breast, -0.6::realistic, 3d, photorealistic,shade:: 0.6::artsit: jon_(pixiv31559095)  :: ,0.8::artist: @@@_(eckzahn)  :: ,  1.0::artist: houkisei::, 0.5::artist: mamerakkk-kko ::    0.2:: artist: modare:: , 2::cute, night , dim::  nose blush ::    , ,{{{extremely detailed hair}}}, 3::from side::   , 3::embarrassed, ::,  walking, {school bag shouldering}, {{blush}} 0.2::nose blush::   2::nigiht, ::  {{1 girl walking in residental area, dim,   , modern house }},  {{cowboy shot, solo focus}} ,on street,   closed mouth,,  [[oil painting (medium)]],  from behind, pov hands, arm grab, 3::surprised, !? ::  ,  -2::other people :: , , very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": "nsfw,official style, yukihana lamy (1st costume), [hololive], 3::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat:: 3::shouldering navy school bag:: ,  bare legs",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 2465714003,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "e7de1601-d4d4-490b-861f-b646b9167265",
+      "index": 8,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "2.0::amazing quality, 4k, very aesthetic, absurdres , masterpiece::,year 2025,-1.5::muted color ::  2::extremely detailed hair::, {{year 2024}},,1.5::ai-generated, ai-assisted:: ,0.5::shiny skin:: ,0.2::oiled ::,-1.0::anime coloring::,  -1.0::loli ,:: small breast, -0.6::realistic, 3d, photorealistic,shade:: 0.6::artsit: jon_(pixiv31559095)  :: ,0.8::artist: @@@_(eckzahn)  :: ,  1.0::artist: houkisei::, 0.5::artist: mamerakkk-kko ::    0.2:: artist: modare:: , 2::cute, night , dim::  nose blush ::    , ,{{{extremely detailed hair}}}, 3::from side::   , 3::embarrassed, ::,  walking, {school bag shouldering}, {{blush}} 0.2::nose blush::   2::nigiht, ::  {{1 girl walking in residental area, dim,   , modern house }},  {{cowboy shot, solo focus}} ,on street,   closed mouth,,  [[oil painting (medium)]],  from behind, 1.6::1 clothed fat man, black pants,standing behind girl, ::  looking back,,  3::grope from behind, hug,:: , 3::surprised, !? ::  ,  -2::other people :: , , very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": "nsfw,official style, yukihana lamy (1st costume), [hololive], 3::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat:: 3::shouldering navy school bag:: ,  bare legs",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 1928508029,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "8a406890-f161-43fd-ae8d-b216d8e5a80e",
+      "index": 9,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "2.0::amazing quality, 4k, very aesthetic, absurdres , masterpiece::,year 2025,-1.5::muted color ::  2::extremely detailed hair::, {{year 2024}},,1.5::ai-generated, ai-assisted:: ,0.5::shiny skin:: ,0.2::oiled ::,-1.0::anime coloring::,  -1.0::loli ,:: small breast, -0.6::realistic, 3d, photorealistic,shade:: 0.6::artsit: jon_(pixiv31559095)  :: ,0.8::artist: @@@_(eckzahn)  :: ,  1.0::artist: houkisei::, 0.5::artist: mamerakkk-kko ::    0.2:: artist: modare:: , 2::cute, night , dim::  nose blush ::    , ,{{{extremely detailed hair}}}, 3::from side::   , 3::embarrassed, ::,  walking, {school bag shouldering}, {{blush}} 0.2::nose blush::   2::nigiht,, tree, park::  {{1 girl walking in residental area, dim,   , modern house }},  {{cowboy shot, solo focus}} ,on street,   closed mouth,,  [[oil painting (medium)]],  from behind, 1.6::1 clothed fat man, black pants,standing behind girl, ::  looking back,,  3::covering another's mouth  from behind, hug,:: , 3::surprised, !? ::  ,  -2::other people :: , , very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": "nsfw,official style, yukihana lamy (1st costume), [hololive], 3::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat:: 3::shouldering navy school bag:: ,  bare legs",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 1434819398,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "66ddb4f8-fbdd-4ec3-ad7e-10b5dbf60899",
+      "index": 10,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.5::amazing quality, 4k, very aesthetic, 1.5::amazing quality, 4k, very aesthetic, absurdres::,1.5::masterpiece::,year 2025,-2.5::muted color :: , 0.4::white skin ::,  3::thin drawing lines ::,   {{{extremely detailed hair}}}, {{year 2024}}, ,2.0::ai-generated  , ai-assisted  :: ,0.5::shiny skin:: ,  0.3::oiled ::,1.3::anime coloring::,  -0.2::loli ,:: {{large breast}} ,  0.8::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: ,  2::cute, :: , 1.3::in public toilet, white wall,  , ::     constricted pupils,  2::toilet::   3::standing, arms behind back bound wrists by tape,  from behind, looking back,  pov hands, arm grab::   3::nose blush, teras, embarrassed,, trembling, ::  3::body leaning to wall::   2::toilet:: , very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat:: bare legs  -2::corset::",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 175562641,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "f5ee44d0-5ed1-45e9-8ce9-1f32ee6d076e",
+      "index": 11,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.5::amazing quality, 4k, very aesthetic, 1.5::amazing quality, 4k, very aesthetic, absurdres::,1.5::masterpiece::,year 2025,-2.5::muted color :: , 0.4::white skin ::,  3::thin drawing lines ::,   {{{extremely detailed hair}}}, {{year 2024}}, ,2.0::ai-generated  , ai-assisted  :: ,0.5::shiny skin:: ,  0.3::oiled ::,1.3::anime coloring::,  -0.2::loli ,:: {{large breast}} ,  0.8::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: ,  2::cute, :: , 1.3::in public toilet, white wall, , ::   3::standing, arms behind back bound wrists by tape, from front,  pov hands,::   3::nose blush, teras, embarrassed,, trembling, ::  3::body leaning to wall::   2::toilet::    1.5::1 nude fat man, black pants, faceless, white t-shirt::   3::breast grab, kiss from front::   2::one eye closed, tears, face to face::   2::looking to the side , facing to the side, frown:: , very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat:: bare legs  -2::corset::",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 1129720871,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "d296660b-e2be-4a73-b8da-09232bcaebff",
+      "index": 12,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.5::amazing quality, 4k, very aesthetic, 1.5::amazing quality, 4k, very aesthetic, absurdres::,1.5::masterpiece::,year 2025,-2.5::muted color :: , 0.4::white skin ::,  3::thin drawing lines ::,   {{{extremely detailed hair}}}, {{year 2024}}, ,2.0::ai-generated  , ai-assisted  :: ,0.5::shiny skin:: ,  0.3::oiled ::,1.3::anime coloring::,  -0.2::loli ,:: {{large breast}} ,  0.8::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: ,  2::cute, :: , 1.3::in public toilet, white wall, , ::   3::standing, arms behind back bound wrists by tape, from front,  pov hands,::   3::nose blush, teras, embarrassed,, trembling, ::  3::body leaning to wall::   2::toilet::    1.5::1 nude fat man, black pants, faceless, white t-shirt::    3::grabbing another's shirt to open,  white bra::     2::surprised::,  [[closed mouth]]  [[glaring]], very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat:: bare legs  -2::corset::",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 685363843,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "09f32cdb-aac3-49cc-89df-5bd14f656371",
+      "index": 13,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.5::amazing quality, 4k, very aesthetic, 1.5::amazing quality, 4k, very aesthetic, absurdres::,1.5::masterpiece::,year 2025,-2.5::muted color :: , 0.4::white skin ::,  3::thin drawing lines ::,   -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,2.0::ai-generated  , ai-assisted  :: ,0.5::shiny skin:: ,  0.3::oiled ::,1.3::anime coloring::,  -0.2::loli ,:: {{large breast}} ,  0.8::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: ,  2::cute, :: , 1.3::in public toilet, white wall, , ::    2::one eye closed, torogao,, embarrassed::  3::standing, arms behind back bound wrists by tape, from side,  pov hands,::  6::nose blush, sucking  another's breast, breast sucking:: {{surprised}}  4::leaning back against wall::  3::nose blush, teras, embarrassed,, trembling, ::  3::body leaning to wall::   0.0::toilet::    1.5::1 nude fat man, black pants, faceless, white t-shirt::    3::grabbing another's bra to life up, lifted up white bra, nipples, ::     2::surprised::,  [[closed mouth]]   nsfw, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat:: bare legs  -2::corset::",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 1582790283,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "7f9c5047-93bd-43ba-acd0-7919628859e2",
+      "index": 14,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.5::amazing quality, 4k, very aesthetic, 1.5::amazing quality, 4k, very aesthetic, absurdres::,1.5::masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::,  3::thin drawing lines ::,   -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,2.0::ai-generated  , ai-assisted  :: ,0.5::shiny skin:: ,  0.3::oiled ::,1.3::anime coloring::,  -0.2::loli ,:: {{large breast}} ,  1.1::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 9.5::nose blush, ::  2::cute, :: 1.8::no lineart, :: , 1.8::open clothes, nipples, white bra, :: 1.3::in public accessible restroom, grey tile floor, white wall, , :: 2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, faceless,  white t-shirt, ::   -2::male blush, male teeth,nose, separated screens:: 5.5::nose blush,::,　,,, 4::surprised, angry ::,{{closed mouth}},turn pale,  1.5::glaring, , slight open mouth, blush::   2::looking at penis, looking at boy, solo focus, cowboy shot:: ,3::!? ::  ,,[[slight smile]] ,{slight open mouth, torogao}  mouth gaged by hand,  {{{nose blush}}}  3::lifted up skirt , white panties ::   ,   {upper body}, 1.0::constricted pupils:: , {{standing}},, looking at man,   facing side,  {{{leaning back against wall}}}, {{{one leg up, one leg grab}}}, 3::standing, grabbing another's skirt :: leg up, folded, {{head tilt}},  , {{{large hip}}, ,  nsfw,, penis, , very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat:: white socks, loafers,   -2::corset::",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        },
+        {
+          "prompt": "boy, 3::before sex,  grab another's skirt  to lift up, , ::",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 580493647,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "c019eda8-67e6-439a-a470-b1cd4ea38e1f",
+      "index": 15,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::,  3::thin drawing lines ::,   -1.0::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: ,1.5::shiny skin:: ,  0.3::oiled ::,1.3::anime coloring::,  -0.4::loli ,:: {{large breast}} ,  1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.8::no lineart, :: , 1.8::open clothes, nipples, lifted up white bra, :: 1.3::in public accessible restroom, grey tile floor, white wall, , :: 2:: arms behind back, bound wrists, white panties aside::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, faceless,  white t-shirt, ::   -2::male blush, male teeth,separated screens:: 5.5::nose blush,::,1.5::large eye, surprised::  2::slit pupils::  {{clenched teeth}}  [[defloration blood on penis]]  1.5::crying, slight open mouth, blush:: {{teardrop}},  penis penetration , [[open mouth]]  , ,, {slight open mouth, torogao}   3::covering another's head by single hand, ::   {{{nose blush}}} 3::standing sex from behind:: , 2:: one eye closed,  torogao, cowboy shot, deep penetration::,   {upper body}, , {{standing}},, looking at man,   facing side,  {{{leaning back against wall}}}, {{{one leg up, one leg grab}}}, split   , {{head tilt}},   surprised, ,, {{tears}},{{{penis}} {{large hip}}, crying,  nsfw,, location, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat:: white socks, loafers,   -2::corset::",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 572980459,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "5cb00f7f-ddd6-4c8f-a49c-d84c167452db",
+      "index": 16,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::,  3::thin drawing lines ::,   -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: ,0.5::shiny skin:: ,  0.3::oiled ::,1.3::anime coloring::,  -0.2::loli ,:: {{large breast}} ,  1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.8::no lineart, :: , 1.8::open clothes, nipples, lifted up white bra, :: 1.3::in public accessible restroom, grey tile floor, white wall, , :: 2:: arms behind back, bound wrists, white panties aside::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, faceless,  white t-shirt, ::   -2::male blush, male teeth,separated screens:: 5.5::nose blush,::, {defloration blood on penis} 1.5::crying, slight open mouth, blush:: {{teardrop}},  penis penetration , , ,, {slight open mouth, torogao}   3::covering another's mouth by single hand, ::  mouth gaged by hand,  {{{nose blush}}} 3::standing sex from behind:: , 2:: closed eyes, torogao, cowboy shot, deep penetration::,   {upper body}, , {{standing}},, looking at man,   facing side,  {{{leaning back against wall}}}, {{{one leg up, one leg grab}}}, split   , {{head tilt}},   surprised, ,, {{tears}},{{{x-ray}}}, {{penis}} {{large hip}}, crying,  nsfw,, location, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat:: white socks, loafers,   -2::corset::",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 3665257381,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "d0486cc2-31da-4466-aa6c-4421790a5d49",
+      "index": 17,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::,  3::thin drawing lines ::,   -1.0::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: ,1.5::shiny skin:: ,  0.3::oiled ::,  -1.3::anime coloring::,  -0.4::loli ,:: {{large breast}} ,  1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: , 1.8::open clothes, nipples, lifted up white bra, :: 1.3::in public accessible restroom, grey tile floor, white wall, , :: 2:: arms behind back, bound wrists, white panties aside::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, faceless,  white t-shirt, ::   -2::male blush, male teeth,separated screens:: 6.5::nose blush,::  4::head bent over wall:: ,, 2::breast grab from behind::  5::against white wall, closed eyes, tears::, ,2:: trembling, against wall, deep penetration::[[clenched teeth]]  ,3::cowboy shot, solo focus, arched back, large penis penetration,::    ,4::hug from behind::   sex from behind,6::from side, ::  [[[slight spread pink anus]]] {{hip up}}  -2::kneeling, doggystyle, full body:: -4::nipples, face:: 3::anus:: ,{deeo penetration }   {{{{{sex, penis}}}}}  ,3::dutch angle, :: 3::standing, back of head,  sex from behind, :: blush, {{{standing doggystyle }}}  spread anus, {{{sex from behind}}}, {{sex}},, [nose blush]nsfw,, location, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat:: white socks, loafers,   -2::corset::",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        },
+        {
+          "prompt": "boy,  , arched back, dynamic , head ouf of the frame,",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 1170271744,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1024,
+        "height": 1024
+      }
+    },
+    {
+      "id": "6b2a4d89-fcb3-48d2-8faa-22a971d4477e",
+      "index": 18,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::,  3::thin drawing lines ::,   -1.0::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: ,1.5::shiny skin:: ,  0.3::oiled ::,1.3::anime coloring::,  -0.4::loli ,:: {{large breast}} ,  1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.8::no lineart, :: , 1.8::open clothes, nipples, lifted up white bra, :: 1.3::in public accessible restroom, grey tile floor, white wall, , :: 2:: arms behind back, bound wrists, white panties aside::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, faceless,  white t-shirt, ::   -2::male blush, male teeth,separated screens:: 5.5::nose blush,::,,1.6::glaring:: ,5::against white wall, closed eyes, tears::, ,2:: trembling, against wall, deep penetration::[[clenched teeth]]  ,3::large ass, ass focus,:: ass ripples::   , sex from behind, [[[slight spread pink anus]]] {{hip up}}  -2::kneeling, doggystyle, full body:: -4::nipples, face:: 3::anus:: ,{deeo penetration }   {{{{{sex, penis}}}}}  ,3::dutch angle, looking back, from behind:: 3::standing, back of head, from behind,  sex from behind, pov:: blush, {{{standing doggystyle }}}  spread anus, {{{sex from behind}}}, {{sex}},, [nose blush], 2::ass grab from behind::   ,  nsfw,, location, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat:: white socks, loafers,   -2::corset::",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        },
+        {
+          "prompt": "boy,  2::standing sex from behind, ::",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 4080381071,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1216,
+        "height": 832
+      }
+    },
+    {
+      "id": "cff9c04c-7ab5-409c-b9e9-7722d17894ce",
+      "index": 19,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::,  3::thin drawing lines ::,   -1.0::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: ,1.5::shiny skin:: ,  0.3::oiled ::,1.3::anime coloring::,  -0.4::loli ,:: {{large breast}} ,  1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.8::no lineart, :: , 1.8::open clothes, nipples, lifted up white bra, :: 1.3::in public accessible restroom, grey tile floor, white wall, , :: 2:: arms behind back, bound wrists, white panties aside::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, faceless,  white t-shirt, ::   -2::male blush, male teeth,separated screens:: 9.5::nose blush,::,  2::against white wall:: ,,[[defloraton blood]],,tears::,,[[clenched teeth]]  , {{trembling}}2::torogao,:: , {{spread legs}}  ,{{clenched teeth}},  2::leaning foward, solo focus::  {{large eye, surprised}},, 4::cowboy shot, pussy, testicles , , ::  standing with spread legs::   {{arms behind back, bound wrists}}  4::from front, from below,  focus pussy  ::  {{bouncing breast}} 3::slight open mouth, focus face, ::,  2:: pussy, large hip, thick thighs,::,slight open mouth, -2::dutch angle, from side::   {{{head back}}} 2::,bouncing breast, one eye closed ,::   ,3::breast grab by two hands,::   ,   3::sex from behind, standing sex from behind, ::, 1.5::focus nipples:: {upper body}, {{{standing sex}}},, {{head tilt}},   surprised, ,, {{tears}}{{large hip}}, , ,,nsfw,, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat:: white socks, loafers,   -2::corset::",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 894907396,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "6fdfb11b-3fac-4b6f-9642-273137cb14b1",
+      "index": 20,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::,  3::thin drawing lines ::,   -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: ,0.5::shiny skin:: ,  0.3::oiled ::,1.3::anime coloring::,  -0.2::loli ,:: {{large breast}} ,  1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.8::no lineart, :: , 1.8::open clothes, nipples, lifted up white bra, :: 1.3::in public accessible restroom, grey tile floor, white wall, , :: 2:: arms behind back, bound wrists, white panties aside::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, faceless,  white t-shirt, ::   -2::male blush, male teeth,separated screens:: 5.5::nose blush,::, {defloration blood on penis} 1.5::crying, slight open mouth, blush:: {{teardrop}},  penis penetration , , ,, {slight open mouth, torogao}   3::head grab, ::  mouth gaged by hand,  {{{nose blush}}} 3::standing sex from behind:: , 2:: closed eyes, torogao, cowboy shot, deep penetration::,   {upper body}, , {{standing}},, looking at man,   facing side,  {{{leaning back against wall}}}, {{{one leg up, one leg grab}}}, split   , {{head tilt}},   surprised, ,, {{tears}}, {{penis}} {{large hip}}, crying,  nsfw,, location, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat:: white socks, loafers,   -2::corset::",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 287047067,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1024,
+        "height": 1024
+      }
+    },
+    {
+      "id": "953c903d-7566-4635-8433-71f47127ee10",
+      "index": 21,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::,  3::thin drawing lines ::,   -1.0::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: ,1.5::shiny skin:: ,  0.3::oiled ::,  -1.3::anime coloring::,  -0.4::loli ,:: {{large breast}} ,  1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: , 1.8::open clothes, nipples, lifted up white bra, :: 1.3::in public accessible restroom, grey tile floor, white wall, , :: 2:: arms behind back, bound wrists, white panties aside::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, faceless,  white t-shirt, ::   -2::male blush, male teeth,separated screens:: 6.5::nose blush,:: ,1.6::closed eyes:: ,5::leaning back against white wall,  head on wall::,,3::one leg up, one leg folde, cum in pussy, ejaculation :: 5::split::  [[open mouth]] 2::crying:: ,,2::trembling, motion lines, , ::,,3:: x-ray, head grab,head on wall, messy hair:: ,,,2::standing against wall::, 3::boy standing behind girl, sex from behind:: , {clenched teeth, ahegao }{{bent over}}, 3::eye closed, head tilt::   2::standing::   ,3::slight open mouth::, [[teeth]] , 3::upper body, focus pussy::  {{teardrop}}  blush, crying,from above,[[from side]] , {upper body}, deep penetration {{{standing sex}}},  {{{one leg up, one leg grab}}}, split ,{{tears}},{{grabbing_another's_one leg}},,nsfw,, , very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat:: white socks, brown loafers,   -2::corset::",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        },
+        {
+          "prompt": "boy,  , arched back, dynamic , head ouf of the frame,",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 159894653,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "4d8567d8-f412-4817-ab42-c4c4b8e73bf3",
+      "index": 22,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::,  3::thin drawing lines ::,   -1.0::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: ,1.5::shiny skin:: ,  0.3::oiled ::,  -1.3::anime coloring::,  -0.4::loli ,:: {{large breast}} ,  1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: , 1.8::open clothes, nipples, lifted up white bra, :: 1.3::in public accessible restroom, grey tile floor, white wall, , :: 2:: arms behind back, bound wrists, white panties aside::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, faceless,  white t-shirt, ::   -2::male blush, male teeth,separated screens:: 6.5::nose blush,:: 6::face to face, kiss face to face, forced kiss::  ,1.6::closed eyes:: ,5::leaning back against white wall,  head on wall::,,3::one leg up, one leg folde, cum in pussy, ejaculation :: 5::split::  [[open mouth]] 2::crying:: ,,2::trembling, motion lines, , ::,,3:: x-ray, head grab,head on wall, messy hair:: ,,,2::standing against wall::, 3::boy standing behind girl, sex from behind:: , {clenched teeth, ahegao }{{bent over}}, 3::eye closed, head tilt::   2::standing::   ,3::slight open mouth::, [[teeth]] , 3::upper body, focus pussy::  {{teardrop}}  blush, crying,from above,[[from side]] , {upper body}, deep penetration {{{standing sex}}},  {{{one leg up, one leg grab}}}, split ,{{tears}},{{grabbing_another's_one leg}},,nsfw,, , very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat:: white socks, brown loafers,   -2::corset::",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        },
+        {
+          "prompt": "boy,  , arched back, dynamic , head ouf of the frame,",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 699189873,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1024,
+        "height": 1024
+      }
+    },
+    {
+      "id": "8bc355c5-d1f3-4578-a1bd-fea663e2c3ed",
+      "index": 23,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: -2::male blush, ,male teeth,separated screens::,-2::,bed, pillow:: 6.5::nose blush, ,::  toilet, 3::torogao,tearful ::3::cum in pussy::,,1.0::tears,full body::  on floor ,,empty eyes,  slight open mouth, [[jitome]] , crying{blush, cute},  3::lying on back:: {{{empty eyes}}}    0.0::dutch angle, cum on body, cum on face, cum in anal::    crying, looking at viewer, {{lying on back}},    from above, ,looking down ,   -2::bound legs::   ,,  tears,  arms at sides, face focus,  {{dutch angle}} ,  {{lying on back}},after sex,,{spread legs, m-legs}, {{cum in pussy}}, {{{cum drop}}},  {{pussy}}   nsfw,   1::  1 boy pov hands, feet grab, :: , very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat,::    2::white socks, ::",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 1442100399,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "2ad8b948-0867-429f-a62c-65359406b061",
+      "index": 24,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.3::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush:: nsfw,  2::sitting, spread legs, pov hands, leg grab, pussy,  soles, feet::    -2::bound legs, ::   2::surprised, blush, embarrassed::    1.2::realistic feet skin ::   [[glaring]] , tears,  2::cum drop  in pussy:: , very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat,  white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 1348515198,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1024,
+        "height": 1024
+      }
+    },
+    {
+      "id": "673324da-01b3-4150-a5b5-d30374e5d694",
+      "index": 25,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush, rape,:: 3::torogao,tearful :: ,3::,dutch angle, lying on back, from above:: [[closed mouth]] ,,-1.5::,constricted pupils,  , torogao, rape, ,::  , 2::on back, :: {slight open mouth, torogao}  ,,[{surprised, large eyes , slight turn pale,  {before sex}, 2.5::looking at penis::  ,  {{crying}},  lying on back, tip of penis, , {{tears}},  {{cowboy shot,}},  {{tip of penis}}, looking up to another,  {{dutch angle}},,,  wide-spread legs,    from above, on back, ,{tip of penis},   -2::sex::  , 2::before sex::,   pov hands,  1boy {{sex}},,nsfw,,, {{grab penis}} , , very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat, white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        },
+        {
+          "prompt": "boy,  2::pov hands, grabbing   penis to insert::, ,  tip of penis",
+          "negativePrompt": "lowres, aliasing,",
+          "useCoords": false,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 3366673750,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "96bde604-ddf1-45c4-a586-4c9be22edf42",
+      "index": 26,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush, rape,:: 3::torogao,tearful :: , separated screens 4::close-up pussy penetration :: {{clenched teeth}}, ,3::tears,dutch angle, tip of penis in pussy ::  [[closed mouth]] ,  1.5::,  trembling, torogao, rape, , ,tears,, , pain::  2.2::spread legs , m-legs:: 3::from side:: ,,,,-2::sitting:: ,1.5::on back, cute, solo focus, cowboy shot::  ,2::dutch angle:: {{surprised, constricted pupils}}, looking to penis, ,1.4:: one eye closed::,   {upper body},   blush, , lying on back, , from above, {{pov}} ,   on back,  upper body,  ,{{sex}},, ,{{before sex}}, penis in pussy   {{pussy}}, ,,nsfw,, , very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat, white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        },
+        {
+          "prompt": "boy,  3::sitting, knees, pov hands, grabbing   penis to insert::, ,5:: penis grab and single leg grab::   tip of penis",
+          "negativePrompt": "lowres, aliasing,",
+          "useCoords": false,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 204802046,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "c4da2870-8dee-498c-80fb-625df4c5acfd",
+      "index": 27,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush, rape,:: 3::torogao,tearful :: , 2::empty eyes, surprised::  separated screens 4::close-up pussy penetration ::  4::spread legs, m-legs, torso gab,:: , -2::leg grab:: ,,0.4::constricted pupils, clenched teeth, , looking to penis, ::  ,1.5::solo focus, cowboy shot::,,2::on back, dutch angle:: ,,2::looking at pussy, looking down ::  , {{sex}}, -0.9::deep penetration::   4::sex::, 2::on back, sex, missionary::,  {{from above}},  {{boy's arms on girl's thighs}}, pov,  {{{sex}}}, 2:: surprised, tears, pain ::   crying, , {{cowboy shot}}, ,from above, {solo focus}, {{pov hands}}, {{lying on back}},  {{missionafry}} ,{{{motion lines}}},  sex, 1boy, pov hands, {penis},,{{{{torso grab}}}}, ,,  nsfw, , very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat, white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        },
+        {
+          "prompt": "boy, 2::sitting, thick thighs::  3::arms on girl's leg::",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 2366654879,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1024,
+        "height": 1024
+      }
+    },
+    {
+      "id": "6feff29d-835f-4abc-bd78-63ea4a07d674",
+      "index": 28,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush, rape,:: 3::torogao,tearful ::   1.8::trembling, head back::   [[slight open mouth]]clenched teeth,, missionary, head tilt::  , 2::cute , torogao,pussy::  -2::legs up,pov,  feet,, ::{ closed eyes,, }  2.2::x-ray, deep penetration::    1.2::penis penetration, pussy::  4::looking to the side, facing to the side::  , 2:: eyes closed:: ,  {{dutch angle}}, {{{lying on back}}}, spread legs, 2::cowboy shot::  {missionary}, 2::torso grab by both hands::{from above , pov}, {{cowboy shot , solo focus}},    {{{large penis}}}, ,nsfw,, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat, white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        },
+        {
+          "prompt": "boy, 2::sitting, thick thighs under girl's leg::  pov hands over leg,",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 2396265729,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "6f1f6a7e-a18b-430d-b113-c52144290b68",
+      "index": 29,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush, rape,:: 3::torogao,tearful :: [[defloration blood]]  {glaring}  ,,2::,large eyes, half-closed eyes,tears,, torogao,,single leg grab, folded leg, leg grab, ,trembling, on back:: ,, 5::looking to the side::clenched teeth ,1.5::, large penis::, 1.2:: head back:: ,1.5::solo focus, cowboy shot,:: 2::, focus breast, ,tears, , one eye closed ,dutch angle, torogao,::  4:: split sex ::2::thick thighs:: , 2::from side, pov, one leg up,:: {{dynamic angle}} -2::sitting up, head up,arched back,::  4::split , one leg up::  :: , 2::missionary position::, {{holding another's single leg}},  {{sex from side}},  ,one leg up, 0.5::deep penetration::,  {{missionary position}}, {{{grabbing another's leg}}}, nsfw,,, , very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat, white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        },
+        {
+          "prompt": "boy, sitting, thick thighs,",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 4054308931,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1216,
+        "height": 832
+      }
+    },
+    {
+      "id": "368d2061-9bea-4184-b38d-cf75ab35106e",
+      "index": 30,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "0.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,  -2.5::muted color :: , -0.4::white skin ::, -1.0::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,0.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::, ,, 1.0::anime coloring::,  -0.4::loli ,:: {{large breast}},1.1::artist: houkisei  ::  0.7::artsit: jon_(pixiv31559095)  :: ,0.6::artist: mamerakkk-kko ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: ,  2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush, rape,:: 3::torogao,tearful ::   1.6::torogao,  clenched teeth::crying, , 5::looking to the side, facing to the side:: 1.5::trembling, torogao, ,tears,pain::,0.8::empty eyes:: 3::one eye closed, solo focus, :: [[cloed mouth]] ,looking at viewer,   4::pov hands,  grabbing  another's  breast by single  hand::   -3::bound legs, feet:: , , 3::focus soles::  ,,2:: on back, , head up, :::: ,0.2::deep penetration, soles::  3::m-legs, folded legs, realistic feet skin::  ,{solo focus, cowboy shot}, 2::sex, ::  2::upper body, solo focus:: {{dynamic angle}} ,  sex, -2::pov::   2::from side, from above, dutch angle :: , {{{lying on back}}}, {slight open mouth}, penis,  {{missionary}}, ,  3:: folded, m-legs, feet, , ::,    {{missionary position}},    ,[[torogao]]  , nsfw,,, location",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat, white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 3979081130,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1216,
+        "height": 832
+      }
+    },
+    {
+      "id": "7c6a47e3-30ad-4661-afdb-010803910c5c",
+      "index": 31,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "0.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,  -2.5::muted color :: , -0.4::white skin ::, -1.0::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,2.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::, ,, 1.0::anime coloring::,  -0.4::loli ,:: {{large breast}},1.1::artist: houkisei  ::  0.7::artsit: jon_(pixiv31559095)  :: ,0.6::artist: mamerakkk-kko ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: ,  2::cute, ::  2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, faceless,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush, rape,:: 3::torogao,tearful :: ,2::tears,torogao::  1.2::clenched teeth::,5::looking to the side::  ,3::cowboy shot, ::2::trembling, motion lines, bouncing breast, squeezed breast, bouncing breast ::   -2::feet:: open mouth, crying,2::grabbing_another's_breast by both hands:: , deep penetration, , 2::one eye closed, large eye::,  3::on back , ::{{{{{sucking another's breast}}}}},  ,from above,, nsfw,{{1boy, nude man}},1girl, faceless man ,nude,sex,hetero, spread legs, {{lying on back}},  {large penis},   motion lines,,   nsfw,,, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat, white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 1321942851,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1216,
+        "height": 832
+      }
+    },
+    {
+      "id": "1c966b8b-a6a2-423b-a2bf-46bc0473ff5c",
+      "index": 32,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush, rape,:: 3::torogao,tearful :: ,1.5::trembling, torogao, motiln lines,,::, [clenched teeth],[[[open mouth]]] ,1.5::solo focus, cowboy shot::,, 4::tears, upside-down,from above,  motion lines::, arched back:: -1.3::spread legs ::   2::on back. pussy,  missionary, head tilt::  ,4::trembling, motion lines::  2::dutch angle, cute , torogao,pussy::  -2::legs up, upside-down, ::{ closed eyes,  } 0.75::deep penetration::    1.2::penis penetration, pussy::  {{{looking to the side, facing to the side}}}, {{torogao}},  2:: eyes closed, nose blush, torogao:: ,  {{dutch angle}}, {{{lying on back}}}, spread legs, 2::cowboy shot::  {missionary}, 2::torso grab by both hands::{from above, pov}, {{cowboy shot , solo focus}},  missionary position,   {{{large penis}}}, ,nsfw, from side, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat, white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        },
+        {
+          "prompt": "boy, 2::sitting, thick thighs::  pov hands over leg,",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 2718933264,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1216,
+        "height": 832
+      }
+    },
+    {
+      "id": "ce220868-ba2c-449e-80fc-4c197976d319",
+      "index": 33,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "0.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,  -2.5::muted color :: , -0.4::white skin ::, -1.0::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,0.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::, ,, 1.0::anime coloring::,  -0.4::loli ,:: {{large breast}},1.1::artist: houkisei  ::  0.7::artsit: jon_(pixiv31559095)  :: ,0.6::artist: mamerakkk-kko ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: ,  2::cute, :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush, rape,:: 3::torogao,tearful :: closed eyes, open mouth,,0.6::closed eyes::,head back,1.2::closed eyes,  clenched teeth ::  0.2::clenched teeth::   ,4::from above,, looking at penis, ejaculation, focus stomach, cum overflow, x-ray,, arched back:: -1.3::spread legs, from side ::   2::on back. pussy,  missionary,crying ::  ,4::pov, trembling, motion lines::  2::dutch angle, cute , torogao,pussy,  looking at penis,::  -2::legs up, upside-down, ::  1.5::penis penetration, ::,  0.75::deep penetration::  1.5::trembling::  2::  nose blush, torogao:: ,  {{dutch angle}}, {{{lying on back}}}, spread legs, 2::cowboy shot::  {missionary}, 2::torso grab by both hands::{from above, pov}, {{cowboy shot , solo focus}},,   {{{large penis}}},  ,nsfw, from side, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat, white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        },
+        {
+          "prompt": "boy,  3::sitting,  thighs::",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 1142089480,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1216,
+        "height": 832
+      }
+    },
+    {
+      "id": "22f92005-307e-4717-98ec-3f4381af8f8f",
+      "index": 34,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants,faceless ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush, rape,:: 3::torogao,tearful :: 2::empty eyes, large eyes, surprised, ::  ,1.5::trembling, torogao,,tears,, ahegao, pain::  ,3.5::nose blush,::,,,cus face::, 4::boy lying on girl, body tody ,,1.5::solo focus, cowboy shot:, 2::,  on back,bent over ::, -2::, upside-down, sitting up, -nipples, ::, 3::, ejaculation, cum , boy's arm,  ::     2::head back, head on floor, ass on floor:: ,,2::dutch angle::,spread legs,{{cowboy shot, focus female}}  {2::forced kiss, face to face::  3::face grab, grab head::,2::deep penetration::,  {{{body press}}}, , {{missionary position}}, {{legs up}} nsfw, , very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat, white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        },
+        {
+          "prompt": "boy,  3:: bent over girl, face grab to kiss::",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 935761009,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1216,
+        "height": 832
+      }
+    },
+    {
+      "id": "dd30c45d-85d6-45c8-8c83-5c6ae1621ccf",
+      "index": 35,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants,faceless ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush, rape,:: 3::torogao,tearful :: 3::cross-section, cum in womb::   3.5::nose blush, focus face::, 4::from above, cum overflow, dutch angle, boy lying on girl, body tody ,french kiss,,::,1.5::solo focus, cowboy shot::, 2::,  on back,bent over ::, 2::, upside-down,  ::, 3:: closed eyes, , cum , boy's arm,  ::     2::head back, head on floor, ass on floor:: ,,2::dutch angle::, spread legs,{{cowboy shot, focus female}}  {2::forced kiss, face to face::  3::head grab to kiss::,2::deep penetration::,  {{{body press}}}, , {{missionary position}}, {{legs up}} nsfw, , very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat, white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        },
+        {
+          "prompt": "boy, 2.5::grabbing to kiss::",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 1726190458,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1216,
+        "height": 832
+      }
+    },
+    {
+      "id": "f8c395c2-be2d-4556-8a0e-e2fedd8a277b",
+      "index": 36,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush, ,:: 3::torogao,tearful ::  ,0.2::ahegao:: 2::nose blush, teardrop, sitting, ::　 penis on cheek,  {waiza}   {{looking to penis, scared, }}  [[glaring]] ,  -0.3::large penis:: -3::male head,,  handjob, fellatio, oral:: ,  {{dutch angle}}, {from side},   looking at penis,  {{{surprised}}}, looking  down to penis, {frown}, {{frown , surprised}}  , {{{all fours}}}, {{{close-up face}}},  head grab , {{{putting penis over girl's face}}}, before fellatio,  {{{boy standing}}} penis, {pov hands}, headgrab,1girl,leaning forward,wariza ,,{{{1boy grabbing another's head}}},full-face ,2::boy grabbing own penis to girl's face::,  ,,from above   nsfw, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat,  white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        },
+        {
+          "prompt": "boy,  3::grab own penis, standing::",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 2950045227,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "8d054449-b7c0-4054-8707-dcbb8f833b13",
+      "index": 37,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush, ,:: 3::torogao,tearful ::,0.6::glaring::   ,,0.2::ahegao::{kneeling} ,,, 3::half-closed eyes, frown, trembling::    4.3:: surprised,::  slit pupils :: empty eyes,,,,crying,4::girl's face to penis::,,,3::fellatio::,,3::tears,::  , 2::, torogao:: 2::cowboy shot, solo focus:: ,-4::feet, lower body, , :: 4::upper body, focus face, ::  2::,  large eye,  ::  {{ fellatio, head back}}  constricted pupils, surprised, ::  4.5::nose blush,:: , 2::kneeling::     1.2::deepthroat:: 2::sucking tip of penis:: 2::from  above, dutch angle, from side::  deep penetration,  2::forced fellatio::  , cry,    {{kneeling}} nipples, , {nose blush},upper body, from above, , , looking up,  2::grabbing another's head by two hands:: , 1.2::head back:: , crying, {{penis}} ,,, nsfw,,, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat,  white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 2036328569,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1024,
+        "height": 1024
+      }
+    },
+    {
+      "id": "ebc278ec-57cd-4f58-8f94-de378f87cc9a",
+      "index": 38,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush, ,:: 3::torogao,tearful ::,1.6::glaring::   1.6::strangling ::  ,0.2::ahegao::{kneeling} ,,, ,1.1::deepthroat:: ,4:: closed eyes, crying,cowboy shot, solo focus:: ,2::cheek bulde,trembling, motion lines ::  slight head back,  large penis penetration,dashed_eyes,   {{messy hair}} 4::focus face,uppre body, from side:: -2::feet, legs,  from behind, ass focus , asshole, , focus back of head::  ,-2::feet,, lower body :: crying,upper body, from side, from behind, dutch angle ,   kneeling, boy standing, {{spread legs}} forced fellatio,  -3::pussy::  surprised,    dutch angle, crying, backhead, back,  leaning forward,  fellatio, {{large penis}},back of head, 2::grabbing another's face and neck,  by both hands, messy hair::, , nsfw,, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat,  white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 3345981891,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1024,
+        "height": 1024
+      }
+    },
+    {
+      "id": "f0afaf89-14e0-4579-91bc-da0684554fcb",
+      "index": 39,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush, ,:: 3::torogao,tearful ::,1.6::glaring::   ,0.2::ahegao::{kneeling} ,,, ,,crying,4::girl's face to penis::,, ,5::focus face, pov::  {{empty eyes}} 2::from above, dutch angle, from side , boy standing:: 2::kneeling, girl's hand are out of the frame::  ,  1.0::deep penetration, empty eyes:: 1.5::excessive cum:: {{{surprised, large eyes, contricted pupils}}} , crying,, {{dutch angle}}  {{{kneeling}}}  cum in throat,  2::pov, focus face, upper body,, ::   [[constricted pupils]],  open clothes,   head up, ,cum on face,, penis,    {{close-up face}}, 1.5::head back, ::   1.5::messy hair::   {{{fellatio}}}, {penis}, oral sex, ejaculation,  2::looking at penis::  2::grabbing_another's_head by two hands:: ,   ,   ,   nsfw,, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat,  white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 3962762656,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1024,
+        "height": 1024
+      }
+    },
+    {
+      "id": "419106b1-b443-42d6-b723-46c374c5073a",
+      "index": 40,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush, ,:: 3::torogao,tearful ::,1.6::glaring::  [[[closed eyes, x-ray of  throat ]]   ,0.2::ahegao::{kneeling} ,,, ,,crying,4::girl's face ::,, ,5::focus face, pov::  {{empty eyes}} 2::from above, dutch angle, from side , boy standing:: 2::kneeling, girl's hand are out of the frame::  ,  1.0::deep penetration, empty eyes:: 1.5::excessive cum:: {{{surprised, large eyes, contricted pupils}}} , crying,, {{dutch angle}}  {{{kneeling}}}  cum in throat,  2::pov, focus face, upper body,, ::   [[constricted pupils]],  open clothes,   head up, ,cum on face,, penis,    {{close-up face}}, 1.5::head back, ::   1.5::messy hair::   {{{fellatio}}}, {penis}, oral sex, ejaculation,  2::grabbing_another's_head by two hands:: ,   ,   ,   nsfw,, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat,  white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 2070249606,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1024,
+        "height": 1024
+      }
+    },
+    {
+      "id": "fbde3df3-ef56-43ab-b73b-2c572ae7e358",
+      "index": 41,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush, ,:: 3::torogao,tearful :: ,1.6::glaring::   ,4::kneeling, from above:: ,, [[glaring]],, {{trembling}},2::, torogao:: 2::cowboy shot, solo focus:: , 2::one eye closed,  sex::{{teardrop}}, {{{kneeling}}}　{{nose blush}}, , 1.3::head down ::   {{nose blush}},  1.5::focus face:: , crying , cute, {nose blush, crying},  {{dutch angle, full body}} , \n,   kneeling, upper body, focus face, [[[torogao]]]{{facing down}}, looking at viewer,  half-open eyes, jitome, ,{{ cum on face}}, tongue , cum in mouth,  [slight open mouth] , after sex, ,\nonly 1girl, , looking at viewer, cowboy shot, solo focus,,   ,   nsfw,,, location, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat,  white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 48357593,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "5171e0a5-c9dc-426f-a2a8-9d5dc049fed4",
+      "index": 42,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants,faceless ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::,bed, pillow:: 6.5::nose blush, rape,:: 3::torogao,tearful :: ,torogao, ,clenched teeth, 1.5::,  surprised, wariza,feet.trembling, torogao,::  1.5::solo focus, cowboy shot:: , {torso grab}   {body tilt, head tilt}, ,1.2::deep penetration:: {{tip of penis in pussy}}  ,{arch::ed back, stomach focus} [[slight open mouth]],2::crying, ::  ,2::head down, pov, :: , 3::cowgirl position, from below::  {from below}looking at viewer,  , [bouncing breast],  {{full body}}, {{{large penis penetration }}} ,  2::kneeling, ::   cowboy shot, surprised,  2::one eye closed, :: 2:: torso grab by both hands::  , -3::grabbing from behind::,  2::pov hands::   {{cowbooy shot}},{{{{{cowgirl position}}}}},  {knee}, {penis} ,sitting,  [nose blush], {{head tilt}}, nipples, {{girl on top}},   {{{torso  grab by single hand}}},     {{{sex}}},  {{pov hands}},  nsfw,, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat, white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 1314081151,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "6ad7bdaf-2939-47a5-9cc8-39bb5e6a7672",
+      "index": 43,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants,faceless ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::,bed, pillow:: 6.5::nose blush, rape,:: 3::torogao,tearful :: , toilet,1.5::,  trembling, torogao, rape, , ,tears,,:: feet,  full body ,1.5::solo focus, cowboy shot, ass focus:: ,side view,,-3::looking back, close-up, gang bang::  : 2::ass focus, feet, from below, upper body, crying, pink anus, solo focus, closed eyes::  2::sitting,  feet, ::,wariza::   {{{{{cowgirl position}}}}}, {head back, forced kiss} ,2::head tilt, one eye closed ::  1.5::deep penetration::   ,1.5::surprised, large eyes, cute::  1.3::penis penetration::   1.2::bouncing breast::  4:: kiss, face to face, forced kiss::,  3::ass grab, upright_straddle , face to face,  ::  {{girl on top}},    2::from below, , from behind, dutch angle:: ,,[[wariza]],  bent over man, , spread legs ,nsfw,, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat, white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        },
+        {
+          "prompt": "boy, 4::grabbing another's ass ::,",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 2248061722,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "4ca1577b-a353-4301-af65-b3ceae332c2b",
+      "index": 44,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants,faceless ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush, rape,:: 3::torogao,tearful :: sh, ,male teeth,separated screens::,3.5::nose blush,::   ,,1.5::,  trembling, torogao, rape, , ,tears,, , pain::  1.5::solo focus, cowboy shot:: ,{clenched teeth}  2:: lying on boy, thick thighs,  on stomach, closed eyes,::  2:: bouncing ass, motion lines, from behind, dutch angle::  {{surprised}} , open mouth,   1.5::large penis penetration::,   -2::sex from behind::  {{{cowgirl positioin}}},  {{sex}},, 2::deep penetration, crying,  head back :: , {{ejaculation, cum in pussy}},   ass grab,   leaning foward, ,1.3::spread anus, pink anus::,   {{head down}},   nose blush, ,{{rape}} {{sitting up}}, slight open mouth,  {{lifted up by man}}, , {1 girl  sitting up on man},, {{dutch angle}},,,   {{{from side}}},   dutch angle,    ,{{{grabbing girl's ass }}},     {{sex}},,nsfw, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat, white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 3022058589,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1024,
+        "height": 1024
+      }
+    },
+    {
+      "id": "c02d43ea-e8b4-48e2-96e7-529cbb04fc64",
+      "index": 45,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "0.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,  -2.5::muted color :: , -0.4::white skin ::, -1.0::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,0.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::, ,, 1.0::anime coloring::,  -0.4::loli ,:: {{large breast}},1.1::artist: houkisei  ::  0.7::artsit: jon_(pixiv31559095)  :: ,0.6::artist: mamerakkk-kko ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: ,  2::cute, ::  1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants,faceless ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::,bed, pillow:: 6.5::nose blush, rape,:: 3::torogao,tearful :: ,{{trembling}},{clenched teeth } 4::torogao::  , 2::, trembling ::  ,  [[open mouth]] , ,{crying},  dutch angle  -3::feet:: 5::unaligned_breasts, upper body:: , bare legs, 4::breast , , reverse cowgirl position ::  , 2::pussy, one eye closed, breast grab, bouncing breast, crying::  {{cowboy shot}},slight open mouth,  [half-closed mouth],{{{{torogao}}}},    {{{nose blush}}}, 3::grope  by two hands from behind:: ,    lying,, nsfw,{{1boy, nude man}},1girl,,sex,hetero, spread legs, {{lying on back}},  {large penis},  {{{{grabbing another's breast}}}},motion lines,,  nsfw,, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat, white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        },
+        {
+          "prompt": "boy,  3::sitting behind girl::  -2::male teeth::",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 3945868290,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "ec7ba282-fd1a-499c-87b8-6facb0940c96",
+      "index": 46,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "0.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,  -2.5::muted color :: , -0.4::white skin ::, -1.0::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,0.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::, ,, 1.0::anime coloring::,  -0.4::loli ,:: {{large breast}},1.1::artist: houkisei  ::  0.7::artsit: jon_(pixiv31559095)  :: ,0.6::artist: mamerakkk-kko ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: ,  2::cute, :: : 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants,faceless ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush, rape,:: 3::torogao,tearful ::  ,{{{{trembling}}}},,, looking at viewer, ,-1.5::feet::   [[open mouth]] ,4::licking face from behind::  [[[[closed mouth]]]]],{crying},  dutch angle   nipples,bare legs, 2::wariza ,looking down, clenched teeth,  one eye closed,  pussy, tears, reverse cowgirl position ::  crying, 4::breast focus,dutch angle::  {{cowboy shot}},   2::breast grab by both hands, bouncing breast::   slight open mouth,  [half-closed mouth],{{{{torogao}}}},    {{{nose blush}}}, 3::breast grab by two hands from behind:: ,    lying,  {{{{{kiss}}}}}, nsfw,{{1boy, nude man}},1girl,,sex,hetero, spread legs, {{lying on back}},  {large penis},  {{{{grabbing another's breast}}}},motion lines,,  nsfw,, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat, white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 3830417326,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "8e37abee-cbee-4359-b3ff-3403ad78948f",
+      "index": 47,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants,faceless ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush, rape,:: 3::torogao,tearful :: {clenched teeth}  1.5::trembling, torogao,,tears,, ahegao, pain::  ,,cum, {{{{trembling}}}} 1.5::,    trembling, torogao, rape, , ,tears,, , pain::   ,1.5::feet,  solo focus, cowboy shot, crying::  head back, 3::hug from behind to lift up girl, single breast grab::   3::closed eyes, head up, head tilt:: ,, 2::front view::, 2::deep penetration,:: , ,2::ejaculation, legs down, ::{{sitting up, }} ,{{penis penetration}}  ,,{{girl on top}}, -2::x-ray, girl's hand, bound legs:: ,3::cross-section, cum in pussy::  {{sex from behind}},cowboy shot, 3::deep penetration:: 2::reverse cowgirl position, from below:: , 2::m-legs, spread legs::,    spread legs,, {{sex from behind, girl sitting on boy}},  nsfw, , very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat, white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 527677979,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1216,
+        "height": 832
+      }
+    },
+    {
+      "id": "dfd6f0e2-d56b-464a-b0ff-a574b0bd0e51",
+      "index": 48,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::   1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants,faceless ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush, ,::  [[arms up]] , {{clenched teeth}},,{body tilt}, 3::from above, from side,surprised,  ass focus ::,penis, {{faceless female, back of head}},cum on penis,  tip of penis on pussy,  1.2::looking back, , tears::  ,,{{closed legs, legs together}}, {{upper body}}, 3::pov::,  ,3::on stomach,::,    1.5::pink anus,crying, ::  ,3::sex from behind:: , {{lying on stomach}},  -2::kneepits, all fours::  {back of head focus},  :,  2::grabbing own penis to insert , sex, pussy,  ::   pink asshole, , ,{pink anus}, nsfw, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat, white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        },
+        {
+          "prompt": "boy,  3::prone bone, pov hands, penis grab, grabbing own penis to insert::,  sitting on girl,",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 3460302000,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1216,
+        "height": 832
+      }
+    },
+    {
+      "id": "77792fc8-e87a-4a8e-b649-d2111cd2785a",
+      "index": 49,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "0.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,  -2.5::muted color :: , -0.4::white skin ::, -1.0::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,0.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::, ,, 1.0::anime coloring::,  -0.4::loli ,:: {{large breast}},1.1::artist: houkisei  ::  0.7::artsit: jon_(pixiv31559095)  :: ,0.6::artist: mamerakkk-kko ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: ,  2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::   1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants,faceless ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush, ,::  [[arms up]] , {{clenched teeth}},,,,head back,::,, {{clenched teeth, cry}},4::one eye closed, cross-section penis , cum in womb::,,1.3:: deep penetration, ,  :: ,-2::ejaculation:: ,1.5::solo focus, cowboy shot:: ,,,large penis insert ,,{body tilt},4::from above, from side, focus ass::  ,penis, {{faceless female, back of head}},  , {pink anus}  -0.::looking back, closed eyes, tears::  , -0.8::deep penetration ::  {bottomless}   2::large hip, boucing hip::,{{closed legs, legs together}}, {{upper body}}, 3::pov,surprised, ,::, 3::on stomach::,   teeth,  1.5::pink anus::  ,3::prone bone:: , {lying on stomach}},  -2::kneepits, all fours:: ,{streched arms}, {back of head focus}, {{ass grab}}, asshole,  sex from behind,, ,{pink anus},,nsfw, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat, white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        },
+        {
+          "prompt": "boy,  4::sitting on girl, knees, ass grab::",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 656686725,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1216,
+        "height": 832
+      }
+    },
+    {
+      "id": "9901e85a-47cd-43ae-b24b-45e69712dd21",
+      "index": 50,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::   1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants,faceless ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush, ,::  [[arms at sides]] , : 4::dutch angle::  ,3::focus ass, , focus face ::  {clenched teeth},2::closed eyes, crying::  ,1.5::solo focus, cowboy shot:: ,,,large penis insert ,,{body tilt}, from above,penis, {{faceless female, back of head}},  , {pink anus}  -0.2::looking back, tears::  , -0.2::deep penetration ::   3::index finger in anus::  2::large hip, boucing hip::,{{closed legs, legs together}}, {{upper body}}, 3::pov,::, {{deep penetration}},3::on stomach::,   teeth,  1.5::pink anus::  ,3::prone bone:: , bouncing ass, from above, {{lying on stomach}},  -2::kneepits, all fours:: ,{streched arms}, {back of head focus}, {{ass grab}}, asshole,  sex from behind, {{{{from behind, pov}}}}, , ,{pink anus},,nsfw, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat, white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        },
+        {
+          "prompt": "boy 3::prone bone sex, sitting on girl, , sex from behind, bent over girl, ass  grab ::",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 382494761,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "5b991a92-d2db-4759-beb8-314bdf24e2d6",
+      "index": 51,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::   1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants,faceless ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush, ,::  [[arms up]] , 6::all fours::, ,,,2::one eye closed,crying ::, ,2::arched back,  cowboy shot, solo focus::  {{clenched teeth}}   2::trembling, all fours, head on floor,kneeling::, open mouth 5::torso grab from behind, ::  ,  2::dutch angle::  -0.2::anal sex:: 3::pov, from behind, ass focus, pink anus::   2::top-down bottom-up,  hip up::, {{deep penetration}}  -3::arm grab:: -1.5::looking back, nipples, face, :: , {spread legs, feet} bottom up, 1.2::large penis, deep penetration, bottom up, hip up::, {{{doggystyle }}} {{torso grab from behind by both hands}},, {{{sex from behind}}},  1.5:: pink anus :: \n  , {{1boy, pov hands, torso grab, kneeling to sex}}, ,  nsfw,, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat, white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 1373187214,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1216,
+        "height": 832
+      }
+    },
+    {
+      "id": "77b361ba-dc97-4598-a54b-d555eac40eed",
+      "index": 52,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::   1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants,faceless ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush, ,:: 6::all fours::, ,2::trembling, motion lines, hand on floor :: ,2::crying, clenched teeth, head down,  open mouth, kneepits:: 5::wariza, ,bottom up::  3::from side, from below, dutch angle, , squatting, folded legs, bent over, ::   hand on floor,,, -1.2::large hip, thick thighs, looking down::,-2::looking back:: ,2::all fours, , spread legs,  cowboy shot, solo focus:: -2::dutch angle, pov::   -0.2::anal sex:: from side,   2::top-down bottom-up,  hip up::, , 1.2::large penis, deep penetration, bottom up, hip up::, {{{doggystyle }}} {{ass grab by both hands, }},, {{{sex from behind}}},  \n {{ass grab}},  , {{1boy, pov hands, ass grab, kneeling to sex}}, ,  nsfw,, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat, white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        },
+        {
+          "prompt": "boy, 4:: ass grab by both hands:: 2::kneeling , sex from behind::",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 79152683,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1216,
+        "height": 832
+      }
+    },
+    {
+      "id": "1eb56087-3531-423e-b8e2-52bd506f047f",
+      "index": 53,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::   1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants,faceless ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush, ,:: 6::all fours::,    all fours, {{clenched teeth, crying}} :,   ,,4::top-down bottom-up , knees, folded, wariza::,,3::focus ass, dutch angle:: ,3::hip up, ::,1.5::solo focus, cowboy shot:: ,,-2::waiza:: ,,{body tilt}, from above,, {{faceless female, back of head}},  , -2.5::looking back, eyes::  2::penis:: , closed eyes, tears::    -1.2::large hip,::, 3::pov, sex,,both hands, ::  ,::, 0.8::deep penetration:: ,,-3::on stomach::,   ,  1.5::pink anus::  ,3::all fours, :: , bouncing ass, from above, {{lying on stomach}},  2::, all fours:: ,{streched arms}, {back of head focus}, {{ass  grab}}, asshole,  sex from behind, {{{{from behind, pov}}}}, , ,{pink anus},,nsfw, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat, white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        },
+        {
+          "prompt": "boy,  2::sitting on girl, thick thighs::  3::pov hands, both hands::",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 1849064445,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1216,
+        "height": 832
+      }
+    },
+    {
+      "id": "786401c2-d9af-4b49-9a4b-8fc603e25d39",
+      "index": 54,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::   1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants,faceless ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush, ,:: 6::all fours::,  all fours, ,,,1.5::empty eyes, surprised, ::constricted pupils,{{{{trembling}}}}, 4::top-down bottom-up,:: , {open mouth, crying}, 0.6::separated screens:: 3::dutch angle, focus face, solo focus:: ,1.5::, deep penetration , ,large hip, spread legs,   trembling, torogao,,tears,::  ,1.5::arched back, cowboy shot:: ,,,3::all fours ::  ,2::hip up, large ass:: ,  2::cross-section,womb, ahegao, clenched teeth,::  {{hip up}},,  2:: deep penetration ,ass grab from behind by two hands, ,::  ,  {{ejaculation, cum in pussy, cum overflow, ::{{{{{sex, penis}}}}} 2::cum overflow:: , 2::ejaculation, cum overflow::  {{{sex from behind}}},\n  ,  nsfw,, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat, white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 1400589548,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1216,
+        "height": 832
+      }
+    },
+    {
+      "id": "e5382d22-0b0a-4fd7-b742-1cfad51aa9d8",
+      "index": 55,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::   1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants,faceless ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush, ,:: 6::all fours::,  all fours, , 1.5::, ahegao, trembling, torogao, rape, , ,tears,, , pain::   4::from behind, pov, , boy's hand, knees,:: 3::mouth coverd by arms::  cum overflow:: on floor,,4::closed eyes, deep penetration::  3::all fours::  ,,3::dutch angle ::  from above, 3::torso grab by both hands::  ,3::ass focus, anus:: 1.2::ass ripples, pink anus, ::  [[head back]]:: ,, open mouth, boy bent over girl , :: ,1.5::large penis penetration, solo focus, cowboy shot:: ,,, [[constricted pupils]]  ,[[large penis penetration]] , -3::x-ray,  :: 3:: torso grab from behind:: 1.2:: crying,  ,  cute, slight open mouth:: ,, 2::head on floor, head tilt ::  3::male head::  3::doggystyle:: , {spread legs} ,2:: ejaculation dynamicly :: ,   sex from behind,  nsfw,, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat, white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 2242799690,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1216,
+        "height": 832
+      }
+    },
+    {
+      "id": "6291fd43-007a-48e5-b45c-748d19cca513",
+      "index": 56,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::   1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, faceless, black pants,faceless ,  white t-shirt, ::  toilet,   -2::male blush, ,male teeth,separated screens::,-2::,bed, pillow:: 6.5::nose blush, ,::   {closed eyes} , arms up, ,,1.5::solo focus, cowboy shot:: ,,[[large penis penetr]]  -2:::on floor, on stomach:: ]] ,  1.2::crying,  4::hug from behind, closed eyes::  surprised, slight open mouth:: ,,  {{clenched teeth}} 3::cum in pussy, from front, focus face , cross-section,  focus face, body on floor, on stomach, prone bone , focus face, on stomach::,   1.4::constricted pupils, dutch angle,  cowboy shot::, ,{{lying on stomach}}, A man covers a woman and holds her close, 2::sex from behind, body to body, hands on floor,   head down::  , open mouth, 2::prone bone, large hip, single hand on floor::  boy's hand on floor, -2::feet, male teeth, bottom up, ::, 1.3::cum overflow::   {{{sex from behind  , prone bone}}},  {{boy lying on girl}},2::messy hair::   2::ejaculation::  ,  0.3::closed eyes:: , cum, nsfw,{{mating press from behind}}, , very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat, white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 840812647,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1216,
+        "height": 832
+      }
+    },
+    {
+      "id": "4481b459-9124-4825-9ca8-8592e41127dc",
+      "index": 57,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::   1.4:: lifted up skirt, ::   -2::male blush, ,male teeth,separated screens::,-2::,bed, pillow:: 6.5::nose blush ::  {{{{trembling}}}},, toilet,,1.5::,  , torogao, cum in pussy,  , , ,tears,, , pain:: ,,1.5::solo  focus::    , cowboy shot:: ,,,{{all-fours, from behind}} ,3::from above, squatting, looking at viewer::  , 0.5::crying::  ,{{closed mouth}}{{looking back, glaring}} {{teardrop}}, {{teardrop}},, cute, crying , cute,sitting,, from above, ,  {{from behind}} ,  {{head tilt}},  {{{cum drop, cum in pussy}}}, {{kneepits}}, {{{leaning forward}}},  {kneeling},  {{dutch angle, dynamic angle}}, {anus}  , ,pov,  {{ass focus,}}, {{{{ass grab}}}},  ,head down,  pov, from below, pussy focus,    ,    spread legs, , tears,  {head tilt}}, ,  nsfw,,, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat, white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 2151013192,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "b480f334-611f-46a9-8e6c-6b82833e6aff",
+      "index": 58,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.3::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2::  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, ,  white t-shirt, standing::   -2::male blush, ,male teeth,separated screens::,-2::bed, pillow:: 6.5::nose blush,, sitting,, :sitting on toilet::  3::torogao,tearful ::,,0.6::glaring::      1.5::,  trembling, torogao, rape,tears, pain::, -3::head back::  3::tip of penis on anal, before sex,from side ::  3::pussy:: ,,clenched teeth , 2::empty eyes, surprised ::  ,1.2::trembling, slight open mouth, blush:: , 1.2::, torogao, cute, slight open mouth:: ,-2::standing, close-up::  [[[open mouth]]] ,0.4:: closed mouth::,,,ght open mouth, blush:: , 1.2::, slight open mouth:: ,-2::bound legs::   ,,3:: spread legs, missionary, pov from above, ::, ,,,,,, {slight open mouth}, 3::on back::  from above, {{dutch anle}},spread legs,   -2::spooning sex::       , , ,nsfw,",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat,  white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        },
+        {
+          "prompt": "boy, 4::grabbing own penis to insert anal::",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 1328220239,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1024,
+        "height": 1024
+      }
+    },
+    {
+      "id": "ecad44bd-7e67-45c4-85cf-f9cfe81bd94f",
+      "index": 59,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.3::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2::  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, ,  white t-shirt, standing::   -2::male blush, ,male teeth,separated screens::,-2::bed, pillow:: 6.5::nose blush,, sitting,, :sitting on toilet::1.6::glaring:: ,5::against white wall::, 3::anal sex::    ,,0.0::cross-section of anal:: against grey wall::,   deep penetratoin, 2::empty eyes, surprised, one eye closed ::  ,{constricted pupils},,, crying ,[[slight teeth]]  {{teardrop}},,, , {surprised, large eyes},  {{{anal sex}}} -2::male head::  ,   one eye closed,  lying on back, , {{tears}},  {{cowboy shot, close-up pussy}}, looking up to another,  {{dutch angle}},,[[[clenched teeth]]] ,  wide-spread legs,  {missionary},   from above, on back,   ,  -0.2::deep penetration::,  pov hands,  ,{{{leg  grab}}}, legsup ,  penis,  penetration, {{sex}},,      , nsfw, ,",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat,  white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 3623180136,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1216,
+        "height": 832
+      }
+    },
+    {
+      "id": "4cd5f7e5-7219-4467-bd5a-e05d46506e75",
+      "index": 60,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.3::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2::  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, ,  white t-shirt, standing::   -2::male blush, ,male teeth,separated screens::,-2::bed, pillow:: 6.5::nose blush,, sitting,, :sitting on toilet::,0.0::glaring:: ,,barefoot, {{{clenched teeth}}} ,::  [sligt pupils] ,,barefoot, ,,,,3::single feet ouf of the frame::,,,-2::bound legs:: ,,{{ open mouth }}    3::spread legs, soles, anal sex, realistic feet skin:: ,2::large soles::  3::realistic feet skin, rape , ::,,3::single soles, focus soles, large soles, closed eyes, crying, torogao,:: ,3::shinny skin toes::  {solo focus, cowboy shot}, 0.3::slight spread toes:: 2::upper body, solo focus:: {{dynamic angle}} ,  sex, 2::from above, pov, :: , {{{lying on back}}}, thick penis, 3::dutch angle:: , {{missionary}}, {{dutch anle}}, ,one leg folded, spread legs,, 3::one leg up::,    2::kneepits::  2::kneepits  grab::  feet,    {{missionary position}},    ,[[torogao]]  , nsfw,,, location",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat,  white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        },
+        {
+          "prompt": "boy,  3::sitting, knees::",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 1500274094,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1216,
+        "height": 832
+      }
+    },
+    {
+      "id": "7cab6182-ce6f-47b2-8115-545edc3055df",
+      "index": 61,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.3::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2::  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, ,  white t-shirt, standing::   -2::male blush, ,male teeth,separated screens::,-2::bed, pillow:: 6.5::nose blush,, sitting,, :sitting on toilet::tears,1.6:: surprised, crying, one eye closed  :: ,,5::against grey wall::,   [sligt pupils] ,,barefoot, ,2::arched back,  cowboy shot, solo focus::  4::anal sex::   2::head on floor,kneeling::,  2::dutch angle:: 3::pov, from behind, ass focus, :: , ,2::, cute, ::   2::top-down bottom-up,  hip up::, {{deep penetration}} -1.5::looking back, nipples, face, :: , {spread legs, feet} bottom up, 1.2::large penis, deep penetration, bottom up, hip up::, {{{doggystyle }}} {{torso grab from behind by both hands}},, {{{sex from behind}}}, \n {{ass grab}},  , {{1boy, pov hands, torso grab, kneeling to sex}}, ,  nsfw,",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat,  white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 2124011921,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1216,
+        "height": 832
+      }
+    },
+    {
+      "id": "32d788bb-0e0c-4fa2-917d-11bb5fcd7926",
+      "index": 62,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.3::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2::  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, ,  white t-shirt, standing::   -2::male blush, ,male teeth,separated screens::,-2::bed, pillow:: 6.5::nose blush,, sitting,, :sitting on toilet::uncensored, ,1.6::glaring::   ,,5::against grey wall::,  4::closed eyes::  ,,barefoot, ,[[large penis penetration]] ,  1.2::crying,::2::empty eyes, surprised ::  5::full body, :: surprised, slight open mouth:: ,,  {{clenched teeth}} 3::from side, cross-section,  focus face, body on floor, on stomach, prone bone , focus face, on stomach, feet up::,   1.4::constricted pupils, excessive cum,  cum in anal cowboy shot::, ,{{lying on stomach}}, A man covers a woman and holds her close, 2::sex from behind, body to body, hands on floor,   head down::  , open mouth, 2::prone bone, large hip, single hand on floor::  boy's hand on floor, -2::, male teeth, bottom up, ::, 1.3::cum overflow::   {{{sex from behind  , prone bone}}},  {{boy lying on girl}},2::messy hair::   2::ejaculation::  ,  0.3::closed eyes:: nsfw,{{mating press from behind}},",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat,  white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 3592097552,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1216,
+        "height": 832
+      }
+    },
+    {
+      "id": "15ffed30-971f-4033-b760-e9066dd5273d",
+      "index": 63,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush, ,:: 3::torogao,tearful ::,,3::anal sex, cum::  {{deep penetration}}  ,, ,5::against white wall, one eye closed, tears::, ,2:: trembling, against wall, deep penetration::  ,3::large ass, ass focus,:: ass ripples::   , sex from behind, [[[slight spread pink anus]]] {{hip up}}  -2::kneeling, doggystyle, full body::  3::anus:: , {{{{{sex, penis}}}}}  ,3::dutch angle, looking back, from behind:: 3::standing, back of head, from behind,  sex from behind, pov:: blush, {{{standing doggystyle }}}  spread anus, {{{sex from behind}}}, {{sex}},, [nose blush], 2::ass grab from behind::   ,  nsfw,, location, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat,  white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        },
+        {
+          "prompt": "boy,  2::standing sex from behind, ::",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 3323334880,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 832,
+        "height": 1216
+      }
+    },
+    {
+      "id": "59989771-acdf-4a06-8cb0-e0ab7b5f0ca1",
+      "index": 64,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush, ,:: 3::torogao,tearful ::,,3::anal sex, cum::  {{deep penetration}}  ,, ,5::against white wall, eyes  closed, tears::, ,2:: trembling, against wall, deep penetration::  ,3::large ass, ass focus,:: ass ripples::   , sex from behind, [[[slight spread pink anus]]] {{hip up}}  -2::kneeling, doggystyle, full body::  3::anus:: , {{{{{sex, penis}}}}}  ,3::dutch angle, looking back, from behind:: 3::standing, back of head, from behind,  sex from behind, pov:: blush, {{{standing doggystyle }}}  spread anus, {{{sex from behind}}}, {{sex}},, [nose blush], 2::ass grab from behind::   ,  nsfw,, location, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat,  white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        },
+        {
+          "prompt": "boy,  2::standing sex from behind, ::",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 2975375311,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1216,
+        "height": 832
+      }
+    },
+    {
+      "id": "ce633932-a0ed-4d9d-8d0b-d1eecbae61df",
+      "index": 65,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: 1.5:: 1 clothed fat man, black pants, ,  white t-shirt, ::   -2::male blush, ,male teeth,separated screens::,-2::toilet,bed, pillow:: 6.5::nose blush,, anal sex ,:: 3::torogao,tearful ::,,,5::against white wall::, {{clenched teeth}},  4::from front, focu face, dutch angle, arched back, dynamic angle, head back, ::  , {{trembling}},,[[closed mouth]] ,2::ejaculation, ::, ,2::open mouth ::,   {cowboy shot} , 3::solo focus::,  4::bent over, ass ripple,::  2::standing sex from behind, arm grab , hand grab, ::  2::both arms are grabbed by man::, ,     {{torogao}} , {{{nose blush, crying}}},, 1.5::closed eyes, trembling, hanging breasts,  head up::, 1.5::deep penetration, cross-section ::, {arched back}  , {{arched back}} ,  -2::looking back::  ,  {{{{standing}}}},,{standing sex from behind},,{{fucking from behind}},   {{{hand grab}}}, ,  {torogao}, nsfw,1boy,1girl,,sex,hetero,sex from behind, , {{{sex from behind}},   nsfw, , very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat,  white socks:: barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 3547753140,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1216,
+        "height": 832
+      }
+    },
+    {
+      "id": "2ade29de-e76a-4887-9038-1ecf25b371e6",
+      "index": 66,
+      "title": "雪花ラミィ 痴漢・中出し",
+      "prompt": "1.8::amazing quality, 4k, very aesthetic, absurdres, masterpiece::,year 2025,-2.5::muted color :: , -0.4::white skin ::, -1.5::realistic, 3d, photorealistic,shade::   {{{extremely detailed hair}}}, {{year 2024}}, ,1.5::ai-generated  , ai-assisted  :: 1.0::shiny skin:: ,  0.3::oiled ::,  0.9::anime coloring::,  -0.4::loli ,:: {{large breast}},1.0::artist: houkisei  ::  0.4::artist: modare  ::,0.5:: artist:ask (askzy),  :: , 0.4::artist: mamerakkk-kko ::  0.6:: artist:gweda ::, 0.5::artist: mako_(makoda) :: , 2::cute, :: 1.9::no lineart, :: ,1.3::in public accessible restroom, open clothes, nipples, white wall, , :: 2:: on  grey tile floor, ::  2:: arms behind back, bound wrists::  1.4:: lifted up skirt, :: -2::male blush, ,male teeth,separated screens::,-2::,bed, pillow:: 6.5::nose blush, ,::  toilet, 3::torogao,tearful ::3::cum in pussy::,,1.0::tears,full body::  on floor ,,empty eyes,  slight open mouth, [[jitome]] , ::,::crying{blush, cute},  3::lying on back:: {{{empty eyes}}}    0.0::dutch angle, cum on body, cum on face, cum in anal::    crying, looking at viewer, {{lying on back}},    from above, ,looking down ,   -2::bound legs::   ,,  tears,  arms at sides, face focus,  {{dutch angle}} ,  {{lying on back}},after sex,,{spread legs, m-legs}, {{cum in pussy}}, {{{cum drop}}},  {{pussy}}   nsfw,, very aesthetic, masterpiece, no text",
+      "preciseReferences": [],
+      "charactersMode": "custom",
+      "characterRefs": [],
+      "customCharacters": [
+        {
+          "prompt": ",official style, yukihana lamy (1st costume), [hololive], 2.8::aogami high school uniform :: ,white shirt, blue bow, blue skirt,  -2::hat,::    2::barefoot",
+          "negativePrompt": "",
+          "useCoords": false,
+          "x": 0.9,
+          "y": 0.3
+        }
+      ],
+      "paramsOverride": {
+        "enabled": true,
+        "params": {
+          "stylePrompt": "",
+          "steps": 28,
+          "cfgScale": 6,
+          "cfgRescale": 0.5,
+          "seed": 369694134,
+          "sampler": "k_euler_ancestral",
+          "noiseSchedule": "karras",
+          "smea": false,
+          "smeaDyn": false,
+          "model": "nai-diffusion-4-5-full",
+          "ucPreset": 3,
+          "qualityPreset": "none",
+          "variety": false,
+          "seedMode": "fixed"
+        }
+      },
+      "status": "ready",
+      "candidates": [],
+      "imageSize": {
+        "width": 1024,
+        "height": 1024
+      }
+    }
+  ]
+}

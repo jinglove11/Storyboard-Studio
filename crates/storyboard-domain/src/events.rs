@@ -5,7 +5,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(tag = "kind", rename_all = "snake_case")]
 pub enum AuditEvent {
-    WorkspaceInitialized { workspace_root: String },
+    WorkspaceInitialized {
+        workspace_root: String,
+    },
     TemplateImported {
         template_id: String,
         revision_id: String,
@@ -53,5 +55,14 @@ pub enum AuditEvent {
         version: u64,
         path: String,
     },
-    ManifestCreated { run_id: String },
+    ManifestCreated {
+        run_id: String,
+    },
+    /// Extension point for controller-level events (provider key changes,
+    /// crash recovery, …) that predate a dedicated variant. The audit kind
+    /// recorded in SQLite is the `event_kind` field.
+    Custom {
+        event_kind: String,
+        detail: String,
+    },
 }

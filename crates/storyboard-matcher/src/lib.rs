@@ -9,7 +9,9 @@ pub mod intent;
 pub mod score;
 
 pub use intent::parse_intent;
-pub use score::{Candidate, MatchMode, Matcher, MatcherConfig, ScoreBreakdown, ScoreWeights, Selection};
+pub use score::{
+    Candidate, MatchMode, Matcher, MatcherConfig, ScoreBreakdown, ScoreWeights, Selection,
+};
 
 /// Tiny deterministic RNG (SplitMix64) so weighted random is reproducible
 /// from a seed without an external dependency.

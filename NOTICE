@@ -26,3 +26,12 @@ If Codex crates are adopted in a later phase, record here:
 Template fixtures under fixtures/current-skill/ are the frozen
 "novelai-author-storyboard" skill bundle kept as a read-only migration
 baseline (plan §30).
+
+ASSET RIGHTS NOTICE: the 30 author templates bundled in
+fixtures/current-skill/references/template-library/ are third-party works.
+The code license (Apache-2.0, see LICENSE) covers this repository's source
+code ONLY. Redistribution of the templates — in source archives, installed
+packages or generated outputs — requires the original authors' permission,
+which has NOT been established in this repository. Downstream users must
+confirm distribution rights before shipping the fixtures; a template-free
+build starts with an empty workspace and imports via the UI.

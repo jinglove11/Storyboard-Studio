@@ -49,7 +49,10 @@ impl TemplateSnapshot {
     }
 
     pub fn global_negative_prompt(&self) -> &str {
-        self.raw.get("globalNegativePrompt").and_then(|t| t.as_str()).unwrap_or("")
+        self.raw
+            .get("globalNegativePrompt")
+            .and_then(|t| t.as_str())
+            .unwrap_or("")
     }
 }
 

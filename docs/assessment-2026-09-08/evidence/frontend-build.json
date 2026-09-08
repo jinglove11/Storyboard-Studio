@@ -1,0 +1,15 @@
+{
+  "label": "frontend-build",
+  "cwd": "/home/five/Desktop/Storyboard-Studio/apps/desktop",
+  "argv": [
+    "npm",
+    "run",
+    "build"
+  ],
+  "command": "npm run build",
+  "input": "current checkout; no stdin",
+  "started_at": "2026-09-08T05:25:23.435074+00:00",
+  "elapsed_seconds": 20.931,
+  "exit_status": 0,
+  "log": "evidence/frontend-build.log"
+}

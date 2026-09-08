@@ -2,7 +2,6 @@
 /// compressing, adjacent duplication when expanding. Never invents new
 /// prompts — every output panel's prompt is copied verbatim from a source
 /// panel.
-
 pub struct SplitMix64 {
     state: u64,
 }

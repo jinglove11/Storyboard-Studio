@@ -118,7 +118,11 @@ pub fn scan_characters(raw: &serde_json::Value) -> CharacterScan {
     }
     female_anchors.sort();
     anchor_variants.sort();
-    let male_leads = if male_slot_panels > 0 { Some(1u32) } else { None };
+    let male_leads = if male_slot_panels > 0 {
+        Some(1u32)
+    } else {
+        None
+    };
     let total = female_anchors.len() as u32 + male_leads.unwrap_or(0);
     CharacterScan {
         female_anchors,
@@ -162,7 +166,11 @@ pub fn scan_template(
         serde_json::from_slice(bytes).map_err(|e| ScanError::Parse(source_name.into(), e))?;
     let issues = schema::validate_storyboard_json(&raw);
     if strict && !issues.is_empty() {
-        let msg = issues.iter().map(|i| i.to_string()).collect::<Vec<_>>().join("; ");
+        let msg = issues
+            .iter()
+            .map(|i| i.to_string())
+            .collect::<Vec<_>>()
+            .join("; ");
         return Err(ScanError::Schema(source_name.into(), msg));
     }
     let sha256 = content_hash(bytes);
@@ -174,7 +182,11 @@ pub fn scan_template(
         raw,
     };
     let character_scan = scan_characters(&snapshot.raw);
-    Ok(ScannedTemplate { snapshot, character_scan, schema_issues: issues })
+    Ok(ScannedTemplate {
+        snapshot,
+        character_scan,
+        schema_issues: issues,
+    })
 }
 
 /// Aspect ratio profile ordered by frequency (metadata field).
@@ -190,7 +202,8 @@ mod tests {
 
     #[test]
     fn anchor_extraction() {
-        let cc = ", official style, azki (4th costume) (hololive),, 4::completely nude:: , long hair";
+        let cc =
+            ", official style, azki (4th costume) (hololive),, 4::completely nude:: , long hair";
         let (base, variant) = extract_anchor(cc).unwrap();
         assert_eq!(base, "azki");
         assert_eq!(variant, "azki (4th costume) (hololive)");

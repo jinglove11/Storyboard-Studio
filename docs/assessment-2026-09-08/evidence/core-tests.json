@@ -1,0 +1,24 @@
+{
+  "label": "core-tests",
+  "cwd": "/home/five/Desktop/Storyboard-Studio",
+  "argv": [
+    "timeout",
+    "300s",
+    "cargo",
+    "test",
+    "--workspace",
+    "--exclude",
+    "storyboard-desktop",
+    "--all-targets",
+    "--locked",
+    "--offline",
+    "--",
+    "--test-threads=1"
+  ],
+  "command": "timeout 300s cargo test --workspace --exclude storyboard-desktop --all-targets --locked --offline -- --test-threads=1",
+  "input": "current checkout; no stdin",
+  "started_at": "2026-09-08T05:25:23.464157+00:00",
+  "elapsed_seconds": 148.618,
+  "exit_status": 0,
+  "log": "evidence/core-tests.log"
+}

@@ -1,9 +1,9 @@
 use crate::token::{count_occurrences, find_occurrences, replace_all};
+use std::collections::BTreeSet;
 use storyboard_domain::{
     diff, OperationKind, PatchError, PatchOperation, PatchProposal, ProjectSnapshot, SeedStrategy,
     TextTarget, TokenReplacement,
 };
-use std::collections::BTreeSet;
 
 /// Result of applying a proposal in memory. Nothing here touches disk.
 #[derive(Debug, Clone)]
@@ -16,7 +16,10 @@ pub struct PatchApplication {
 
 /// Apply a proposal to `base` in memory. Precondition failures abort the
 /// whole patch — no partial application, no fuzzy matching (plan §12.3).
-pub fn apply_proposal(base: &ProjectSnapshot, proposal: &PatchProposal) -> Result<PatchApplication, PatchError> {
+pub fn apply_proposal(
+    base: &ProjectSnapshot,
+    proposal: &PatchProposal,
+) -> Result<PatchApplication, PatchError> {
     // Gate 0: stale baseline.
     if proposal.base_project_version != base.version {
         return Err(PatchError::StalePatch {
@@ -28,14 +31,23 @@ pub fn apply_proposal(base: &ProjectSnapshot, proposal: &PatchProposal) -> Resul
     let mut applied = Vec::new();
     let mut touched: BTreeSet<u32> = BTreeSet::new();
 
-    let panels_len = draft.get("panels").and_then(|p| p.as_array()).map(|a| a.len()).unwrap_or(0);
+    let panels_len = draft
+        .get("panels")
+        .and_then(|p| p.as_array())
+        .map(|a| a.len())
+        .unwrap_or(0);
 
     for op in &proposal.operations {
         apply_operation(base, &mut draft, op, panels_len, &mut applied, &mut touched)?;
     }
 
     let d = crate::diff::diff_projects(base.version, base.version + 1, &base.raw, &draft);
-    Ok(PatchApplication { draft, applied, touched_panels: touched, diff: d })
+    Ok(PatchApplication {
+        draft,
+        applied,
+        touched_panels: touched,
+        diff: d,
+    })
 }
 
 fn apply_operation(
@@ -62,7 +74,10 @@ fn apply_operation(
     // panel targeting preconditions
     if let Some(idx) = op.common.panel_index {
         if idx == 0 || idx as usize > panels_len {
-            return Err(PatchError::TargetMissing { op_id, reason: format!("panel index {idx} out of range 1..={panels_len}") });
+            return Err(PatchError::TargetMissing {
+                op_id,
+                reason: format!("panel index {idx} out of range 1..={panels_len}"),
+            });
         }
         if let Some(pid) = &op.common.panel_id {
             let current_id = draft
@@ -82,13 +97,33 @@ fn apply_operation(
     }
 
     match &op.kind {
-        OperationKind::ReplaceCharacterIdentity { replacements, slots } => {
-            apply_token_replacements(draft, replacements, slots.as_deref(), &op_id, touched)?;
-            applied.push(format!("{op_id}: replace_character_identity ({} mappings)", replacements.len()));
+        OperationKind::ReplaceCharacterIdentity {
+            replacements,
+            slots,
+            appearance_replacements,
+        } => {
+            // name/anchor mappings + inherent appearance mappings apply in
+            // one pass so a name that appears inside an appearance token
+            // cannot be double-replaced
+            let mut all = replacements.clone();
+            all.extend(appearance_replacements.iter().cloned());
+            apply_token_replacements(draft, &all, slots.as_deref(), &op_id, touched)?;
+            applied.push(format!(
+                "{op_id}: replace_character_identity ({} name + {} appearance mappings)",
+                replacements.len(),
+                appearance_replacements.len()
+            ));
         }
-        OperationKind::ReplaceSceneToken { replacements } => {
+        OperationKind::ReplaceSceneToken {
+            replacements,
+            kept_tokens,
+        } => {
             apply_token_replacements(draft, replacements, None, &op_id, touched)?;
-            applied.push(format!("{op_id}: replace_scene_token ({} mappings)", replacements.len()));
+            applied.push(format!(
+                "{op_id}: replace_scene_token ({} mappings, {} explicit keeps)",
+                replacements.len(),
+                kept_tokens.len()
+            ));
         }
         OperationKind::PatchPromptBlock { target, new_text } => {
             let idx = require_panel(&op_id, op)?;
@@ -112,7 +147,9 @@ fn apply_operation(
             draft["id"] = serde_json::Value::String(new_pid.to_string());
             if let Some(panels) = draft.get_mut("panels").and_then(|p| p.as_array_mut()) {
                 for p in panels.iter_mut() {
-                    p["id"] = serde_json::Value::String(crate::resize::uuid_from_rng(&mut rng).to_string());
+                    p["id"] = serde_json::Value::String(
+                        crate::resize::uuid_from_rng(&mut rng).to_string(),
+                    );
                 }
             }
             applied.push(format!("{op_id}: regenerate_ids"));
@@ -122,11 +159,12 @@ fn apply_operation(
                 SeedStrategy::Keep => {}
                 SeedStrategy::Fixed(s) => {
                     if let Some(gp) = draft.get_mut("globalParams") {
-                        gp["seed"] = serde_json::Value::Number((*s as u64).into());
+                        gp["seed"] = serde_json::Value::Number((*s).into());
                     }
                     if let Some(panels) = draft.get_mut("panels").and_then(|p| p.as_array_mut()) {
                         for p in panels.iter_mut() {
-                            p["paramsOverride"]["params"]["seed"] = serde_json::Value::Number((*s as u64).into());
+                            p["paramsOverride"]["params"]["seed"] =
+                                serde_json::Value::Number((*s).into());
                         }
                     }
                 }
@@ -145,7 +183,8 @@ fn apply_operation(
                     if let Some(panels) = draft.get_mut("panels").and_then(|p| p.as_array_mut()) {
                         for p in panels.iter_mut() {
                             let s = next(&mut rng);
-                            p["paramsOverride"]["params"]["seed"] = serde_json::Value::Number(s.into());
+                            p["paramsOverride"]["params"]["seed"] =
+                                serde_json::Value::Number(s.into());
                         }
                     }
                 }
@@ -155,7 +194,10 @@ fn apply_operation(
         OperationKind::ResizeStoryboard { target_panel_count } => {
             let n = *target_panel_count;
             if n == 0 || n > 500 {
-                return Err(PatchError::InvalidOperation { op_id, reason: format!("target panel count {n} out of sane range") });
+                return Err(PatchError::InvalidOperation {
+                    op_id,
+                    reason: format!("target panel count {n} out of sane range"),
+                });
             }
             crate::resize::resize_panels(draft, n, seed_from(&op_id));
             applied.push(format!("{op_id}: resize_storyboard -> {n} panels"));
@@ -172,19 +214,25 @@ fn apply_operation(
 }
 
 fn require_panel(op_id: &str, op: &PatchOperation) -> Result<u32, PatchError> {
-    op.common.panel_index.ok_or_else(|| PatchError::InvalidOperation {
-        op_id: op_id.into(),
-        reason: "panel-scoped operation without panel_index".into(),
-    })
+    op.common
+        .panel_index
+        .ok_or_else(|| PatchError::InvalidOperation {
+            op_id: op_id.into(),
+            reason: "panel-scoped operation without panel_index".into(),
+        })
 }
 
 /// Resolve `expected_old` and verify its hash precondition when present.
 fn expected_old_checked(base: &ProjectSnapshot, op: &PatchOperation) -> Result<String, PatchError> {
     let op_id = &op.common.operation_id;
-    let expected = op.common.expected_old.clone().ok_or_else(|| PatchError::PreconditionFailed {
-        op_id: op_id.clone(),
-        reason: "mutating existing content requires expected_old".into(),
-    })?;
+    let expected =
+        op.common
+            .expected_old
+            .clone()
+            .ok_or_else(|| PatchError::PreconditionFailed {
+                op_id: op_id.clone(),
+                reason: "mutating existing content requires expected_old".into(),
+            })?;
     if let Some(h) = &op.common.expected_old_hash {
         if crate::text_hash(&expected) != *h {
             return Err(PatchError::PreconditionFailed {
@@ -219,10 +267,17 @@ fn patch_text_block(
     let panels = draft
         .get_mut("panels")
         .and_then(|p| p.as_array_mut())
-        .ok_or_else(|| PatchError::TargetMissing { op_id: op_id.into(), reason: "no panels array".into() })?;
-    let panel = panels
-        .get_mut(panel_index as usize - 1)
-        .ok_or_else(|| PatchError::TargetMissing { op_id: op_id.into(), reason: format!("panel {panel_index} missing") })?;
+        .ok_or_else(|| PatchError::TargetMissing {
+            op_id: op_id.into(),
+            reason: "no panels array".into(),
+        })?;
+    let panel =
+        panels
+            .get_mut(panel_index as usize - 1)
+            .ok_or_else(|| PatchError::TargetMissing {
+                op_id: op_id.into(),
+                reason: format!("panel {panel_index} missing"),
+            })?;
     let field = match target {
         TextTarget::PanelPrompt => panel.get_mut("prompt"),
         TextTarget::CharacterSlot { slot } => panel
@@ -247,7 +302,10 @@ fn patch_text_block(
         });
     }
     if hits.len() > 1 {
-        return Err(PatchError::AmbiguousAnchor { op_id: op_id.into(), count: hits.len() });
+        return Err(PatchError::AmbiguousAnchor {
+            op_id: op_id.into(),
+            count: hits.len(),
+        });
     }
     let mut new_full = String::with_capacity(text.len());
     let p = hits[0];
@@ -295,13 +353,20 @@ fn apply_token_replacements(
         if found == 0 {
             return Err(PatchError::PreconditionFailed {
                 op_id: op_id.into(),
-                reason: format!("token `{}` not present in scope — stale or wrong mapping", r.old_token),
+                reason: format!(
+                    "token `{}` not present in scope — stale or wrong mapping",
+                    r.old_token
+                ),
             });
         }
     }
 
     // apply
-    if let Some(title) = draft.get("title").and_then(|t| t.as_str()).map(String::from) {
+    if let Some(title) = draft
+        .get("title")
+        .and_then(|t| t.as_str())
+        .map(String::from)
+    {
         let mut t = title;
         for r in replacements {
             t = replace_all(&t, &r.old_token, &r.new_token).0;
@@ -311,7 +376,11 @@ fn apply_token_replacements(
     if let Some(panels) = draft.get_mut("panels").and_then(|p| p.as_array_mut()) {
         for (i, panel) in panels.iter_mut().enumerate() {
             let mut changed = false;
-            if let Some(prompt) = panel.get("prompt").and_then(|x| x.as_str()).map(String::from) {
+            if let Some(prompt) = panel
+                .get("prompt")
+                .and_then(|x| x.as_str())
+                .map(String::from)
+            {
                 let mut t = prompt;
                 for r in replacements {
                     t = replace_all(&t, &r.old_token, &r.new_token).0;
@@ -319,13 +388,18 @@ fn apply_token_replacements(
                 panel["prompt"] = serde_json::Value::String(t);
                 changed = true;
             }
-            if let Some(ccs) = panel.get_mut("customCharacters").and_then(|c| c.as_array_mut()) {
+            if let Some(ccs) = panel
+                .get_mut("customCharacters")
+                .and_then(|c| c.as_array_mut())
+            {
                 for (j, cc) in ccs.iter_mut().enumerate() {
                     let in_scope = slots.map(|s| s.contains(&(j as u32))).unwrap_or(true);
                     if !in_scope {
                         continue;
                     }
-                    if let Some(prompt) = cc.get("prompt").and_then(|x| x.as_str()).map(String::from) {
+                    if let Some(prompt) =
+                        cc.get("prompt").and_then(|x| x.as_str()).map(String::from)
+                    {
                         let mut t = prompt;
                         for r in replacements {
                             t = replace_all(&t, &r.old_token, &r.new_token).0;

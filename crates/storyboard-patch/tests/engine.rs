@@ -82,9 +82,13 @@ fn identity_replacement_touches_only_identity_tokens() {
                         old_token: "nakano miku".into(),
                         new_token: "hoshino ai".into(),
                     },
-                    TokenReplacement { old_token: "pink hair".into(), new_token: "purple hair".into() },
+                    TokenReplacement {
+                        old_token: "pink hair".into(),
+                        new_token: "purple hair".into(),
+                    },
                 ],
                 slots: None,
+                appearance_replacements: Vec::new(),
             },
         }],
         vec![],
@@ -98,13 +102,17 @@ fn identity_replacement_touches_only_identity_tokens() {
         assert!(prompt.contains("park"));
         assert!(prompt.contains("pov"));
         assert!(prompt.contains("2.6:: masterpiece ::"));
-        let cc0 = app.draft["panels"][i]["customCharacters"][0]["prompt"].as_str().unwrap();
+        let cc0 = app.draft["panels"][i]["customCharacters"][0]["prompt"]
+            .as_str()
+            .unwrap();
         assert!(cc0.contains("hoshino ai (school uniform)"));
         assert!(cc0.contains("purple hair"));
         assert!(cc0.contains("3::pantyhose::"));
     }
     // male block untouched
-    let cc1 = app.draft["panels"][0]["customCharacters"][1]["prompt"].as_str().unwrap();
+    let cc1 = app.draft["panels"][0]["customCharacters"][1]["prompt"]
+        .as_str()
+        .unwrap();
     assert_eq!(cc1, "boy, standing, 3::standing in front of girl::");
 }
 
@@ -114,7 +122,13 @@ fn stale_patch_rejected() {
     let mut p = proposal(vec![], vec![]);
     p.base_project_version = 2; // project is at v1
     let err = apply_proposal(&base, &p).unwrap_err();
-    assert!(matches!(err, storyboard_domain::PatchError::StalePatch { expected: 2, current: 1 }));
+    assert!(matches!(
+        err,
+        storyboard_domain::PatchError::StalePatch {
+            expected: 2,
+            current: 1
+        }
+    ));
 }
 
 #[test]
@@ -129,12 +143,16 @@ fn missing_token_fails_precondition() {
                     new_token: "x".into(),
                 }],
                 slots: None,
+                appearance_replacements: Vec::new(),
             },
         }],
         vec![],
     );
     let err = apply_proposal(&base, &p).unwrap_err();
-    assert!(matches!(err, storyboard_domain::PatchError::PreconditionFailed { .. }));
+    assert!(matches!(
+        err,
+        storyboard_domain::PatchError::PreconditionFailed { .. }
+    ));
 }
 
 #[test]
@@ -143,7 +161,10 @@ fn wrong_panel_id_fails_precondition() {
     let mut c = common("op1", Some(1));
     c.panel_id = Some("someone-elses-id".into());
     let p = proposal(
-        vec![PatchOperation { common: c, kind: OperationKind::RegenerateIds }],
+        vec![PatchOperation {
+            common: c,
+            kind: OperationKind::RegenerateIds,
+        }],
         vec![],
     );
     assert!(matches!(
@@ -175,7 +196,10 @@ fn patch_prompt_block_replaces_exact_block_once() {
     assert!(prompt.contains("office, night"));
     assert!(!prompt.contains("park"));
     // other panel untouched
-    assert!(app.draft["panels"][1]["prompt"].as_str().unwrap().contains("park"));
+    assert!(app.draft["panels"][1]["prompt"]
+        .as_str()
+        .unwrap()
+        .contains("park"));
 }
 
 #[test]
@@ -186,7 +210,10 @@ fn anchor_not_found_is_stale() {
     let p = proposal(
         vec![PatchOperation {
             common: c,
-            kind: OperationKind::PatchPromptBlock { target: TextTarget::PanelPrompt, new_text: "x".into() },
+            kind: OperationKind::PatchPromptBlock {
+                target: TextTarget::PanelPrompt,
+                new_text: "x".into(),
+            },
         }],
         vec![1],
     );
@@ -202,7 +229,9 @@ fn update_title_updates_all_panels() {
     let p = proposal(
         vec![PatchOperation {
             common: common("op1", None),
-            kind: OperationKind::UpdateTitle { new_title: "新タイトル".into() },
+            kind: OperationKind::UpdateTitle {
+                new_title: "新タイトル".into(),
+            },
         }],
         vec![],
     );
@@ -219,7 +248,9 @@ fn resize_compress_and_expand() {
     let p = proposal(
         vec![PatchOperation {
             common: common("op1", None),
-            kind: OperationKind::ResizeStoryboard { target_panel_count: 5 },
+            kind: OperationKind::ResizeStoryboard {
+                target_panel_count: 5,
+            },
         }],
         vec![],
     );
@@ -227,7 +258,16 @@ fn resize_compress_and_expand() {
     let n = app.draft["panels"].as_array().unwrap().len();
     assert_eq!(n, 5);
     // indexes renumbered, first kept, last kept
-    assert_eq!(app.draft["panels"][0]["prompt"].as_str().unwrap().trim_end_matches('1'), base.raw["panels"][0]["prompt"].as_str().unwrap().trim_end_matches('1'));
+    assert_eq!(
+        app.draft["panels"][0]["prompt"]
+            .as_str()
+            .unwrap()
+            .trim_end_matches('1'),
+        base.raw["panels"][0]["prompt"]
+            .as_str()
+            .unwrap()
+            .trim_end_matches('1')
+    );
     let last_new = app.draft["panels"][4]["prompt"].as_str().unwrap();
     assert!(last_new.ends_with("10"));
     for (i, p) in app.draft["panels"].as_array().unwrap().iter().enumerate() {
@@ -238,7 +278,9 @@ fn resize_compress_and_expand() {
     let p2 = proposal(
         vec![PatchOperation {
             common: common("op2", None),
-            kind: OperationKind::ResizeStoryboard { target_panel_count: 12 },
+            kind: OperationKind::ResizeStoryboard {
+                target_panel_count: 12,
+            },
         }],
         vec![],
     );
@@ -252,10 +294,17 @@ fn seeds_regenerate_strategies() {
     let p = proposal(
         vec![PatchOperation {
             common: common("op1", None),
-            kind: OperationKind::RegenerateSeeds { strategy: SeedStrategy::Fixed(777) },
+            kind: OperationKind::RegenerateSeeds {
+                strategy: SeedStrategy::Fixed(777),
+            },
         }],
         vec![],
     );
     let app = apply_proposal(&base, &p).unwrap();
-    assert_eq!(app.draft["panels"][0]["paramsOverride"]["params"]["seed"].as_u64().unwrap(), 777);
+    assert_eq!(
+        app.draft["panels"][0]["paramsOverride"]["params"]["seed"]
+            .as_u64()
+            .unwrap(),
+        777
+    );
 }

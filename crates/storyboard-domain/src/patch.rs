@@ -74,11 +74,29 @@ pub enum OperationKind {
         replacements: Vec<TokenReplacement>,
         /// CC slot indices the replacement applies to (default: all).
         slots: Option<Vec<u32>>,
+        /// CharacterReplacementPlan (skill §3.1): inherent appearance /
+        /// outfit / signature props beyond the name anchor — hair colour,
+        /// eyes, hairstyle, signature garment, signature item. Replacing the
+        /// name alone leaves the old character's traits behind (Identity
+        /// Leak); these mappings close that hole.
+        #[serde(default, skip_serializing_if = "Vec::is_empty")]
+        appearance_replacements: Vec<TokenReplacement>,
     },
     /// Scene mapping replacements (location/environment/scene props).
-    ReplaceSceneToken { replacements: Vec<TokenReplacement> },
+    ReplaceSceneToken {
+        replacements: Vec<TokenReplacement>,
+        /// SceneMappingPlan (skill §4.2): old scene tokens the user
+        /// explicitly decided to KEEP (e.g. a time-of-day word that survives
+        /// the move). Everything else left unmapped fails the strict Scene
+        /// Leak gate instead of degrading to a warning.
+        #[serde(default, skip_serializing_if = "Vec::is_empty")]
+        kept_tokens: Vec<String>,
+    },
     /// Minimal text block edit on one panel at an explicit anchor.
-    PatchPromptBlock { target: TextTarget, new_text: String },
+    PatchPromptBlock {
+        target: TextTarget,
+        new_text: String,
+    },
     /// Update project title (and every panel title — schema requires consistency).
     UpdateTitle { new_title: String },
     /// New project + panel UUIDs.
@@ -103,7 +121,9 @@ impl PatchOperation {
         match &self.kind {
             OperationKind::UpdateTitle { .. }
             | OperationKind::RegenerateIds
-            | OperationKind::RegenerateSeeds { strategy: SeedStrategy::Keep }
+            | OperationKind::RegenerateSeeds {
+                strategy: SeedStrategy::Keep,
+            }
             | OperationKind::ResizeStoryboard { .. } => None,
             _ => self.common.panel_index,
         }
@@ -152,7 +172,10 @@ impl PatchProposal {
 pub enum PatchError {
     /// base_project_version != current version (plan §12.3).
     #[error("STALE_PATCH: proposal targets v{expected} but project is at v{current}")]
-    StalePatch { expected: VersionNumber, current: VersionNumber },
+    StalePatch {
+        expected: VersionNumber,
+        current: VersionNumber,
+    },
     /// expected_old / expected_old_hash / panel_id no longer match (F03).
     #[error("PRECONDITION_FAILED: {op_id}: {reason}")]
     PreconditionFailed { op_id: String, reason: String },

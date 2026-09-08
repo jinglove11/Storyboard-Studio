@@ -83,6 +83,7 @@ export interface ValidationReport {
   scene_leak: GateResult;
   reference_integrity: GateResult;
   json_parse: GateResult;
+  clothing_chain?: GateResult;
   preservation_ratio: number;
 }
 
@@ -107,6 +108,53 @@ export interface CommitOutcome {
   parent_version: number;
   diff_path: string;
   preservation_ratio: number;
+}
+
+export interface VersionRow {
+  version: number;
+  parent_version: number | null;
+  created_at: string;
+  has_diff: boolean;
+}
+
+export interface ProviderSummary {
+  id: string;
+  name: string;
+  type: string;
+  base_url: string;
+  model: string;
+  has_api_key: boolean;
+  active: boolean;
+}
+
+export interface PatchDetailResult {
+  patch_id: number;
+  project_id: string;
+  base_version: number;
+  status: string;
+  run_id: string | null;
+  created_at: string;
+  proposal: {
+    intent: string;
+    operations: { operation_id: string; type: string }[];
+    rationale: string[];
+  };
+  validation: ValidationReport | null;
+  preview: {
+    applied: string[];
+    touched_panels: number[];
+    diff: { panels_changed?: number; summary?: string };
+  };
+  turn?: {
+    kind: string;
+    patch_id?: number;
+    auto_approved?: boolean;
+    risk?: string;
+    detail?: PatchDetailResult;
+    reply?: string;
+    error?: string;
+    failures?: string[];
+  };
 }
 
 export interface AppEvent {

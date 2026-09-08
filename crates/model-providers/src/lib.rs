@@ -44,13 +44,28 @@ pub struct ChatMessage {
 
 impl ChatMessage {
     pub fn system(content: impl Into<String>) -> Self {
-        Self { role: Role::System, content: content.into(), tool_calls: Vec::new(), tool_call_id: None }
+        Self {
+            role: Role::System,
+            content: content.into(),
+            tool_calls: Vec::new(),
+            tool_call_id: None,
+        }
     }
     pub fn user(content: impl Into<String>) -> Self {
-        Self { role: Role::User, content: content.into(), tool_calls: Vec::new(), tool_call_id: None }
+        Self {
+            role: Role::User,
+            content: content.into(),
+            tool_calls: Vec::new(),
+            tool_call_id: None,
+        }
     }
     pub fn assistant(content: impl Into<String>) -> Self {
-        Self { role: Role::Assistant, content: content.into(), tool_calls: Vec::new(), tool_call_id: None }
+        Self {
+            role: Role::Assistant,
+            content: content.into(),
+            tool_calls: Vec::new(),
+            tool_call_id: None,
+        }
     }
     pub fn tool_result(call_id: impl Into<String>, content: impl Into<String>) -> Self {
         Self {
@@ -78,7 +93,11 @@ pub struct SamplingParams {
 
 impl Default for SamplingParams {
     fn default() -> Self {
-        Self { temperature: 0.7, top_p: 1.0, max_tokens: 4096 }
+        Self {
+            temperature: 0.7,
+            top_p: 1.0,
+            max_tokens: 4096,
+        }
     }
 }
 
@@ -117,8 +136,14 @@ pub struct ProviderCapabilities {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(tag = "kind", rename_all = "snake_case")]
 pub enum TurnStreamEvent {
-    Delta { text: String },
-    ToolCallDelta { id: String, name: String, arguments_delta: String },
+    Delta {
+        text: String,
+    },
+    ToolCallDelta {
+        id: String,
+        name: String,
+        arguments_delta: String,
+    },
 }
 
 #[derive(Debug, thiserror::Error)]
@@ -166,8 +191,12 @@ pub trait StoryboardModelProvider: Send + Sync {
 // ---------------------------------------------------------------------------
 
 /// Feeds bytes, yields complete SSE `data:` payloads (without the prefix).
+///
+/// The buffer is raw bytes: a multi-byte UTF-8 character can be split across
+/// TCP chunks, so decoding happens only on complete events after the blank
+/// line boundary is found in byte space.
 pub struct SseParser {
-    buf: String,
+    buf: Vec<u8>,
 }
 
 impl Default for SseParser {
@@ -178,25 +207,26 @@ impl Default for SseParser {
 
 impl SseParser {
     pub fn new() -> Self {
-        Self { buf: String::new() }
+        Self { buf: Vec::new() }
     }
 
     pub fn feed(&mut self, bytes: &[u8]) -> Vec<String> {
-        self.buf.push_str(&String::from_utf8_lossy(bytes));
+        self.buf.extend_from_slice(bytes);
         let mut out = Vec::new();
         // SSE events are separated by a blank line (\n\n or \r\n\r\n).
         loop {
-            let sep = self
-                .buf
-                .find("\n\n")
-                .map(|i| (i, 2))
-                .or_else(|| self.buf.find("\r\n\r\n").map(|i| (i, 4)));
+            let sep = find_blank_line(&self.buf);
             let Some((idx, len)) = sep else { break };
-            let event: String = self.buf[..idx].to_string();
-            self.buf = self.buf[idx + len..].to_string();
+            let event_bytes: Vec<u8> = self.buf[..idx].to_vec();
+            self.buf.drain(..idx + len);
+            let event = String::from_utf8_lossy(&event_bytes).to_string();
             let data: Vec<&str> = event
                 .lines()
-                .map(|l| l.strip_prefix("data:").map(|d| d.strip_prefix(' ').unwrap_or(d)).unwrap_or(""))
+                .map(|l| {
+                    l.strip_prefix("data:")
+                        .map(|d| d.strip_prefix(' ').unwrap_or(d))
+                        .unwrap_or("")
+                })
                 .filter(|l| !l.is_empty())
                 .collect();
             if !data.is_empty() {
@@ -205,6 +235,29 @@ impl SseParser {
         }
         out
     }
+}
+
+/// Find the next SSE event separator (a blank line: `\n\n` or `\r\n\r\n`)
+/// in byte space. A partial separator at the buffer end is not matched —
+/// the next chunk completes it.
+fn find_blank_line(buf: &[u8]) -> Option<(usize, usize)> {
+    if buf.len() < 2 {
+        return None;
+    }
+    for i in 0..buf.len() - 1 {
+        if buf[i] == b'\n' && buf[i + 1] == b'\n' {
+            return Some((i, 2));
+        }
+        if buf[i] == b'\r'
+            && buf[i + 1] == b'\n'
+            && i + 3 < buf.len()
+            && buf[i + 2] == b'\r'
+            && buf[i + 3] == b'\n'
+        {
+            return Some((i, 4));
+        }
+    }
+    None
 }
 
 // ---------------------------------------------------------------------------
@@ -249,29 +302,67 @@ impl OpenAiCompatibleProvider {
         }
     }
 
+    /// Convert internal chat messages to the OpenAI Chat Completions wire
+    /// format. Assistant tool calls must be nested under
+    /// `tool_calls[].function.{name,arguments}` and tool results must ride on
+    /// `role:"tool"` + `tool_call_id` — sending our internal flat `ToolCall`
+    /// shape gets the follow-up request rejected with HTTP 400.
+    fn wire_messages(req: &TurnRequest) -> serde_json::Value {
+        req.messages
+            .iter()
+            .map(|m| match m.role {
+                Role::Assistant if !m.tool_calls.is_empty() => serde_json::json!({
+                    "role": "assistant",
+                    "content": if m.content.is_empty() { serde_json::Value::Null } else { serde_json::json!(m.content) },
+                    "tool_calls": m.tool_calls.iter().map(|tc| serde_json::json!({
+                        "id": tc.id,
+                        "type": "function",
+                        "function": {
+                            "name": tc.name,
+                            "arguments": tc.arguments_json,
+                        }
+                    })).collect::<Vec<_>>(),
+                }),
+                Role::Tool => {
+                    let mut v = serde_json::json!({
+                        "role": "tool",
+                        "content": m.content,
+                    });
+                    if let Some(id) = &m.tool_call_id {
+                        v["tool_call_id"] = serde_json::json!(id);
+                    }
+                    v
+                }
+                Role::System => serde_json::json!({ "role": "system", "content": m.content }),
+                Role::User => serde_json::json!({ "role": "user", "content": m.content }),
+                Role::Assistant => serde_json::json!({ "role": "assistant", "content": m.content }),
+            })
+            .collect::<Vec<_>>()
+            .into()
+    }
+
     fn build_body(&self, req: &TurnRequest) -> serde_json::Value {
         let mut body = serde_json::json!({
             "model": self.model_name,
-            "messages": req.messages,
+            "messages": Self::wire_messages(req),
             "temperature": req.sampling.temperature,
             "top_p": req.sampling.top_p,
             "max_tokens": req.sampling.max_tokens,
             "stream": req.stream,
         });
         if !req.tools.is_empty() {
-            body["tools"] = serde_json::json!(
-                req.tools
-                    .iter()
-                    .map(|t| serde_json::json!({
-                        "type": "function",
-                        "function": {
-                            "name": t.name,
-                            "description": t.description,
-                            "parameters": t.parameters_json,
-                        }
-                    }))
-                    .collect::<Vec<_>>()
-            );
+            body["tools"] = serde_json::json!(req
+                .tools
+                .iter()
+                .map(|t| serde_json::json!({
+                    "type": "function",
+                    "function": {
+                        "name": t.name,
+                        "description": t.description,
+                        "parameters": t.parameters_json,
+                    }
+                }))
+                .collect::<Vec<_>>());
         }
         if req.force_json {
             body["response_format"] = serde_json::json!({ "type": "json_object" });
@@ -295,7 +386,11 @@ impl StoryboardModelProvider for OpenAiCompatibleProvider {
         &self.model_name
     }
     fn capabilities(&self) -> ProviderCapabilities {
-        ProviderCapabilities { tool_calls: true, json_response: true, streaming: true }
+        ProviderCapabilities {
+            tool_calls: true,
+            json_response: true,
+            streaming: true,
+        }
     }
 
     async fn run_turn(
@@ -375,7 +470,11 @@ impl StoryboardModelProvider for OpenAiCompatibleProvider {
                             content,
                             tool_calls: tool_calls
                                 .into_iter()
-                                .map(|a| ToolCall { id: a.id, name: a.name, arguments_json: a.arguments })
+                                .map(|a| ToolCall {
+                                    id: a.id,
+                                    name: a.name,
+                                    arguments_json: a.arguments,
+                                })
                                 .collect(),
                             tool_call_id: None,
                         },
@@ -388,11 +487,17 @@ impl StoryboardModelProvider for OpenAiCompatibleProvider {
                 if let Some(u) = v.get("usage").filter(|u| !u.is_null()) {
                     usage = Some(Usage {
                         prompt_tokens: u.get("prompt_tokens").and_then(|x| x.as_u64()).unwrap_or(0),
-                        completion_tokens: u.get("completion_tokens").and_then(|x| x.as_u64()).unwrap_or(0),
+                        completion_tokens: u
+                            .get("completion_tokens")
+                            .and_then(|x| x.as_u64())
+                            .unwrap_or(0),
                     });
                 }
                 let choice = v.get("choices").and_then(|c| c.get(0));
-                if let Some(fr) = choice.and_then(|c| c.get("finish_reason")).and_then(|f| f.as_str()) {
+                if let Some(fr) = choice
+                    .and_then(|c| c.get("finish_reason"))
+                    .and_then(|f| f.as_str())
+                {
                     finish_reason = fr.to_string();
                 }
                 let Some(delta) = choice.and_then(|c| c.get("delta")) else {
@@ -401,14 +506,20 @@ impl StoryboardModelProvider for OpenAiCompatibleProvider {
                 if let Some(text) = delta.get("content").and_then(|c| c.as_str()) {
                     if !text.is_empty() {
                         content.push_str(text);
-                        let _ = events.send(TurnStreamEvent::Delta { text: text.into() }).await;
+                        let _ = events
+                            .send(TurnStreamEvent::Delta { text: text.into() })
+                            .await;
                     }
                 }
                 if let Some(tcs) = delta.get("tool_calls").and_then(|t| t.as_array()) {
                     for tc in tcs {
                         let index = tc.get("index").and_then(|i| i.as_u64()).unwrap_or(0) as usize;
                         while tool_calls.len() <= index {
-                            tool_calls.push(ToolCallAccum { id: String::new(), name: String::new(), arguments: String::new() });
+                            tool_calls.push(ToolCallAccum {
+                                id: String::new(),
+                                name: String::new(),
+                                arguments: String::new(),
+                            });
                         }
                         let acc = &mut tool_calls[index];
                         if let Some(id) = tc.get("id").and_then(|i| i.as_str()) {
@@ -443,7 +554,11 @@ impl StoryboardModelProvider for OpenAiCompatibleProvider {
                 content,
                 tool_calls: tool_calls
                     .into_iter()
-                    .map(|a| ToolCall { id: a.id, name: a.name, arguments_json: a.arguments })
+                    .map(|a| ToolCall {
+                        id: a.id,
+                        name: a.name,
+                        arguments_json: a.arguments,
+                    })
                     .collect(),
                 tool_call_id: None,
             },
@@ -481,7 +596,10 @@ impl MockProvider {
     }
 
     pub fn hanging() -> Self {
-        Self { hang: true, ..Self::new(Vec::new()) }
+        Self {
+            hang: true,
+            ..Self::new(Vec::new())
+        }
     }
 
     /// Text answer; content is streamed word-by-word (proves delta plumbing).
@@ -502,7 +620,11 @@ impl MockProvider {
             message: ChatMessage {
                 role: Role::Assistant,
                 content: String::new(),
-                tool_calls: vec![ToolCall { id: "call_1".into(), name: name.into(), arguments_json: arguments_json.into() }],
+                tool_calls: vec![ToolCall {
+                    id: "call_1".into(),
+                    name: name.into(),
+                    arguments_json: arguments_json.into(),
+                }],
                 tool_call_id: None,
             },
             finish_reason: "tool_calls".into(),
@@ -516,7 +638,11 @@ impl MockProvider {
                 message: ChatMessage {
                     role: Role::Assistant,
                     content: String::new(),
-                    tool_calls: vec![ToolCall { id: "call_1".into(), name: name.into(), arguments_json: arguments_json.into() }],
+                    tool_calls: vec![ToolCall {
+                        id: "call_1".into(),
+                        name: name.into(),
+                        arguments_json: arguments_json.into(),
+                    }],
                     tool_call_id: None,
                 },
                 finish_reason: "tool_calls".into(),
@@ -540,7 +666,11 @@ impl StoryboardModelProvider for MockProvider {
         &self.model_name
     }
     fn capabilities(&self) -> ProviderCapabilities {
-        ProviderCapabilities { tool_calls: true, json_response: true, streaming: true }
+        ProviderCapabilities {
+            tool_calls: true,
+            json_response: true,
+            streaming: true,
+        }
     }
 
     async fn run_turn(
@@ -569,7 +699,11 @@ impl StoryboardModelProvider for MockProvider {
                 _ = cancel.cancelled() => return Err(ProviderError::Cancelled),
                 _ = tokio::time::sleep(self.chunk_delay) => {}
             }
-            let _ = events.send(TurnStreamEvent::Delta { text: format!("{piece} ") }).await;
+            let _ = events
+                .send(TurnStreamEvent::Delta {
+                    text: format!("{piece} "),
+                })
+                .await;
         }
         Ok(r)
     }
@@ -596,6 +730,82 @@ mod tests {
         // [DONE] surfaces as its own payload
         let out2 = p.feed(b"data: [DONE]\n\n");
         assert_eq!(out2, vec!["[DONE]".to_string()]);
+    }
+
+    /// A multi-byte UTF-8 character split across TCP chunks must survive —
+    /// the old per-chunk `from_utf8_lossy` corrupted it into U+FFFD pairs.
+    #[test]
+    fn sse_parser_survives_utf8_split_across_chunks() {
+        let payload = "data: {\"delta\":{\"content\":\"中野三玖\"}}\n\n";
+        let bytes = payload.as_bytes();
+        // split at every byte position inside the CJK run
+        for split in 12..bytes.len() {
+            let mut p = SseParser::new();
+            let mut out = p.feed(&bytes[..split]);
+            out.extend(p.feed(&bytes[split..]));
+            assert_eq!(out.len(), 1, "split at {split}");
+            assert!(
+                out[0].contains("中野三玖"),
+                "split at {split} corrupted: {}",
+                out[0]
+            );
+        }
+    }
+
+    #[test]
+    fn sse_parser_handles_crlf_separators() {
+        let mut p = SseParser::new();
+        let out = p.feed(b"data: a\r\n\r\ndata: b\r\n\r\n");
+        assert_eq!(out, vec!["a".to_string(), "b".to_string()]);
+    }
+
+    #[test]
+    fn openai_wire_format_nests_tool_calls() {
+        let p = OpenAiCompatibleProvider::new("prov", "https://x.example", "k", "m");
+        let req = TurnRequest {
+            messages: vec![
+                ChatMessage::system("sys"),
+                ChatMessage::user("go"),
+                ChatMessage {
+                    role: Role::Assistant,
+                    content: String::new(),
+                    tool_calls: vec![ToolCall {
+                        id: "call_1".into(),
+                        name: "read_project".into(),
+                        arguments_json: "{\"project_id\":\"p\"}".into(),
+                    }],
+                    tool_call_id: None,
+                },
+                ChatMessage::tool_result("call_1", "{\"ok\":true}"),
+            ],
+            tools: vec![],
+            sampling: SamplingParams::default(),
+            force_json: false,
+            stream: false,
+        };
+        let body = p.build_body(&req);
+        let msgs = body["messages"].as_array().unwrap();
+        assert_eq!(msgs.len(), 4);
+        // assistant tool call: nested function object, flat fields absent
+        let tc = &msgs[2]["tool_calls"][0];
+        assert_eq!(tc["type"], "function");
+        assert_eq!(tc["id"], "call_1");
+        assert_eq!(tc["function"]["name"], "read_project");
+        assert_eq!(tc["function"]["arguments"], "{\"project_id\":\"p\"}");
+        assert!(
+            tc.get("name").is_none(),
+            "flat `name` must not leak to the wire"
+        );
+        assert!(
+            tc.get("arguments_json").is_none(),
+            "flat `arguments_json` must not leak to the wire"
+        );
+        // tool result rides on tool_call_id
+        assert_eq!(msgs[3]["role"], "tool");
+        assert_eq!(msgs[3]["tool_call_id"], "call_1");
+        // plain roles stay simple
+        assert_eq!(msgs[0]["role"], "system");
+        assert_eq!(msgs[1]["role"], "user");
     }
 
     #[test]

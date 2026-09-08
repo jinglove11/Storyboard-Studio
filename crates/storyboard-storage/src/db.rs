@@ -1,15 +1,21 @@
 use rusqlite::Connection;
+use serde::{Deserialize, Serialize};
+use std::path::Path;
+use std::sync::Mutex;
 use storyboard_domain::{
     AuditEvent, ProjectId, ProjectState, ProjectStatus, SceneAliasTable, TemplateMetadata,
     VersionNumber,
 };
-use serde::{Deserialize, Serialize};
-use std::path::Path;
-use std::sync::Mutex;
 
 const MIGRATIONS: &[(&str, &str)] = &[
-    ("0001_init", include_str!("../../../migrations/0001_init.sql")),
-    ("0002_agent_messages", include_str!("../../../migrations/0002_agent_messages.sql")),
+    (
+        "0001_init",
+        include_str!("../../../migrations/0001_init.sql"),
+    ),
+    (
+        "0002_agent_messages",
+        include_str!("../../../migrations/0002_agent_messages.sql"),
+    ),
 ];
 
 #[derive(Debug, thiserror::Error)]
@@ -91,6 +97,17 @@ pub struct PatchRow {
     pub created_at: String,
 }
 
+/// Stored provider row. `config_json` never contains the API key — only
+/// non-secret config plus the keychain account reference.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ProviderRow {
+    pub id: String,
+    pub ptype: String,
+    pub name: String,
+    pub config_json: String,
+    pub created_at: String,
+}
+
 /// Thread-safe SQLite handle. Interior mutability via Mutex; the desktop app
 /// is single-process and low write concurrency.
 pub struct Db {
@@ -102,19 +119,28 @@ impl Db {
         let conn = Connection::open(path)?;
         conn.pragma_update(None, "journal_mode", "WAL")?;
         conn.pragma_update(None, "foreign_keys", "ON")?;
-        let db = Self { conn: Mutex::new(conn) };
+        let db = Self {
+            conn: Mutex::new(conn),
+        };
         db.migrate()?;
         Ok(db)
     }
 
     fn migrate(&self) -> Result<(), DbError> {
-        let conn = self.conn.lock().map_err(|_| DbError::Locked("db mutex poisoned".into()))?;
+        let conn = self
+            .conn
+            .lock()
+            .map_err(|_| DbError::Locked("db mutex poisoned".into()))?;
         conn.execute_batch(
             "CREATE TABLE IF NOT EXISTS schema_migrations (name TEXT PRIMARY KEY, applied_at TEXT NOT NULL);",
         )?;
         for (name, sql) in MIGRATIONS {
             let done: bool = conn
-                .query_row("SELECT 1 FROM schema_migrations WHERE name = ?1", [name], |_| Ok(true))
+                .query_row(
+                    "SELECT 1 FROM schema_migrations WHERE name = ?1",
+                    [name],
+                    |_| Ok(true),
+                )
                 .unwrap_or(false);
             if !done {
                 conn.execute_batch(sql)?;
@@ -127,9 +153,36 @@ impl Db {
         Ok(())
     }
 
-    fn with_conn<T>(&self, f: impl FnOnce(&Connection) -> Result<T, DbError>) -> Result<T, DbError> {
-        let conn = self.conn.lock().map_err(|_| DbError::Locked("db mutex poisoned".into()))?;
+    fn with_conn<T>(
+        &self,
+        f: impl FnOnce(&Connection) -> Result<T, DbError>,
+    ) -> Result<T, DbError> {
+        let conn = self
+            .conn
+            .lock()
+            .map_err(|_| DbError::Locked("db mutex poisoned".into()))?;
         f(&conn)
+    }
+
+    /// Run `f` inside a single SQLite transaction (BEGIN IMMEDIATE — takes
+    /// the write lock up front). Multi-step state changes (commit, rollback)
+    /// must use this so a crash never leaves half-applied metadata.
+    fn with_tx<T>(&self, f: impl FnOnce(&Connection) -> Result<T, DbError>) -> Result<T, DbError> {
+        let conn = self
+            .conn
+            .lock()
+            .map_err(|_| DbError::Locked("db mutex poisoned".into()))?;
+        conn.execute_batch("BEGIN IMMEDIATE")?;
+        match f(&conn) {
+            Ok(v) => {
+                conn.execute_batch("COMMIT")?;
+                Ok(v)
+            }
+            Err(e) => {
+                let _ = conn.execute_batch("ROLLBACK");
+                Err(e)
+            }
+        }
     }
 
     // ---- templates ---------------------------------------------------------
@@ -241,18 +294,21 @@ impl Db {
 
     pub fn get_template_metadata(&self, template_id: &str) -> Result<TemplateMetadata, DbError> {
         self.with_conn(|conn| {
-            let json: String = conn.query_row(
-                "SELECT m.metadata_json FROM template_metadata m
+            let json: String = conn
+                .query_row(
+                    "SELECT m.metadata_json FROM template_metadata m
                  JOIN template_revisions r ON r.id = m.revision_id
                  JOIN templates t ON t.current_revision_id = r.id
                  WHERE t.id = ?1",
-                [template_id],
-                |r| r.get(0),
-            )
-            .map_err(|e| match e {
-                rusqlite::Error::QueryReturnedNoRows => DbError::NotFound(format!("template {template_id}")),
-                other => other.into(),
-            })?;
+                    [template_id],
+                    |r| r.get(0),
+                )
+                .map_err(|e| match e {
+                    rusqlite::Error::QueryReturnedNoRows => {
+                        DbError::NotFound(format!("template {template_id}"))
+                    }
+                    other => other.into(),
+                })?;
             Ok(serde_json::from_str(&json)?)
         })
     }
@@ -266,7 +322,29 @@ impl Db {
                 |r| r.get(0),
             )
             .map_err(|e| match e {
-                rusqlite::Error::QueryReturnedNoRows => DbError::NotFound(format!("template {template_id}")),
+                rusqlite::Error::QueryReturnedNoRows => {
+                    DbError::NotFound(format!("template {template_id}"))
+                }
+                other => other.into(),
+            })
+        })
+    }
+
+    /// sha256 of a SPECIFIC (possibly historical) revision. Project loading
+    /// must resolve its persisted revision id through this — deriving it from
+    /// `templates.current_revision_id` silently rebases old projects onto new
+    /// template revisions.
+    pub fn revision_sha(&self, revision_id: &str) -> Result<String, DbError> {
+        self.with_conn(|conn| {
+            conn.query_row(
+                "SELECT sha256 FROM template_revisions WHERE id = ?1",
+                [revision_id],
+                |r| r.get(0),
+            )
+            .map_err(|e| match e {
+                rusqlite::Error::QueryReturnedNoRows => {
+                    DbError::NotFound(format!("revision {revision_id}"))
+                }
                 other => other.into(),
             })
         })
@@ -291,7 +369,10 @@ impl Db {
                 ],
             )?;
             if n == 0 {
-                return Err(DbError::Conflict(format!("project {} exists", state.project_id)));
+                return Err(DbError::Conflict(format!(
+                    "project {} exists",
+                    state.project_id
+                )));
             }
             Ok(())
         })
@@ -353,7 +434,12 @@ impl Db {
         })
     }
 
-    pub fn update_project_status(&self, pid: &ProjectId, status: ProjectStatus, current_version: VersionNumber) -> Result<(), DbError> {
+    pub fn update_project_status(
+        &self,
+        pid: &ProjectId,
+        status: ProjectStatus,
+        current_version: VersionNumber,
+    ) -> Result<(), DbError> {
         self.with_conn(|conn| {
             conn.execute(
                 "UPDATE projects SET status = ?1, current_version = ?2, updated_at = ?3 WHERE id = ?4",
@@ -429,13 +515,167 @@ impl Db {
         })
     }
 
-    pub fn update_patch(&self, patch_id: i64, status: &str, validation_json: Option<&str>) -> Result<(), DbError> {
+    pub fn update_patch(
+        &self,
+        patch_id: i64,
+        status: &str,
+        validation_json: Option<&str>,
+    ) -> Result<(), DbError> {
         self.with_conn(|conn| {
             conn.execute(
                 "UPDATE patches SET status = ?1, validation_json = COALESCE(?2, validation_json), updated_at = ?3 WHERE id = ?4",
                 rusqlite::params![status, validation_json, now_iso(), patch_id],
             )?;
             Ok(())
+        })
+    }
+
+    /// Fetch a specific patch row by id (approvals must verify ownership,
+    /// not trust caller-supplied project ids).
+    pub fn get_patch(&self, patch_id: i64) -> Result<PatchRow, DbError> {
+        self.with_conn(|conn| {
+            conn.query_row(
+                "SELECT id, project_id, base_version, proposal_json, validation_json, status, run_id, created_at
+                 FROM patches WHERE id = ?1",
+                [patch_id],
+                |r| {
+                    Ok(PatchRow {
+                        id: r.get(0)?,
+                        project_id: r.get(1)?,
+                        base_version: r.get::<_, i64>(2)? as u64,
+                        proposal_json: r.get(3)?,
+                        validation_json: r.get(4)?,
+                        status: r.get(5)?,
+                        run_id: r.get(6)?,
+                        created_at: r.get(7)?,
+                    })
+                },
+            )
+            .map_err(|e| match e {
+                rusqlite::Error::QueryReturnedNoRows => DbError::NotFound(format!("patch {patch_id}")),
+                other => other.into(),
+            })
+        })
+    }
+
+    /// Conditional status transition: only rows matching (id, project_id,
+    /// one of `from`) flip to `to`; exactly one row must be affected.
+    /// This is the approval boundary — an IPC caller cannot approve another
+    /// project's patch, a rejected patch, or an already-committed one.
+    pub fn transition_patch(
+        &self,
+        patch_id: i64,
+        project_id: &str,
+        from: &[&str],
+        to: &str,
+        validation_json: Option<&str>,
+    ) -> Result<(), DbError> {
+        self.with_conn(|conn| {
+            let placeholders = from.iter().map(|_| "?").collect::<Vec<_>>().join(",");
+            let sql = format!(
+                "UPDATE patches SET status = ?1, validation_json = COALESCE(?2, validation_json), updated_at = ?3
+                 WHERE id = ?4 AND project_id = ?5 AND status IN ({placeholders})"
+            );
+            let mut params: Vec<Box<dyn rusqlite::ToSql>> = vec![
+                Box::new(to.to_string()),
+                Box::new(validation_json.map(|s| s.to_string())),
+                Box::new(now_iso()),
+                Box::new(patch_id),
+                Box::new(project_id.to_string()),
+            ];
+            for f in from {
+                params.push(Box::new(f.to_string()));
+            }
+            let refs: Vec<&dyn rusqlite::ToSql> = params.iter().map(|p| p.as_ref()).collect();
+            let n = conn.execute(&sql, rusqlite::params_from_iter(refs))?;
+            if n != 1 {
+                return Err(DbError::Conflict(format!(
+                    "patch {patch_id} not in state {:?} for project {project_id} ({} row(s) matched)",
+                    from, n
+                )));
+            }
+            Ok(())
+        })
+    }
+
+    /// Atomically finalize a commit: version row + project status/version +
+    /// patch state + audit in ONE transaction. Files are already on disk;
+    /// if this tx fails nothing in SQLite moved.
+    #[allow(clippy::too_many_arguments)]
+    pub fn finalize_commit(
+        &self,
+        pid: &str,
+        patch_id: i64,
+        new_version: VersionNumber,
+        parent_version: VersionNumber,
+        snapshot_path: &str,
+        diff_path: Option<&str>,
+        new_title: Option<&str>,
+        audit_json: &str,
+        audit_kind: &str,
+    ) -> Result<(), DbError> {
+        self.with_tx(|conn| {
+            conn.execute(
+                "INSERT INTO project_versions (project_id, version_number, parent_version, snapshot_path, diff_path, created_at)
+                 VALUES (?1,?2,?3,?4,?5,?6)",
+                rusqlite::params![pid, new_version as i64, parent_version as i64, snapshot_path, diff_path, now_iso()],
+            )?;
+            conn.execute(
+                "UPDATE projects SET current_version = ?2, status = 'versioned',
+                        title = COALESCE(?3, title), updated_at = ?4 WHERE id = ?1 AND current_version = ?5",
+                rusqlite::params![pid, new_version as i64, new_title, now_iso(), parent_version as i64],
+            )?;
+            conn.execute(
+                "UPDATE patches SET status = 'committed', updated_at = ?2 WHERE id = ?1 AND status = 'approved'",
+                rusqlite::params![patch_id, now_iso()],
+            )?;
+            conn.execute(
+                "INSERT INTO audit_events (kind, payload_json, created_at) VALUES (?1, ?2, ?3)",
+                rusqlite::params![audit_kind, audit_json, now_iso()],
+            )?;
+            Ok(())
+        })
+    }
+
+    /// Adopt an orphan snapshot found on disk beyond the DB's latest version
+    /// (crash between file write and DB finalize). Roll-forward recovery.
+    pub fn adopt_orphan_version(
+        &self,
+        pid: &str,
+        version: VersionNumber,
+        parent_version: VersionNumber,
+        snapshot_path: &str,
+        diff_path: Option<&str>,
+        audit_json: &str,
+    ) -> Result<(), DbError> {
+        self.with_tx(|conn| {
+            conn.execute(
+                "INSERT OR IGNORE INTO project_versions (project_id, version_number, parent_version, snapshot_path, diff_path, created_at)
+                 VALUES (?1,?2,?3,?4,?5,?6)",
+                rusqlite::params![pid, version as i64, parent_version as i64, snapshot_path, diff_path, now_iso()],
+            )?;
+            conn.execute(
+                "UPDATE projects SET current_version = MAX(current_version, ?2), updated_at = ?3 WHERE id = ?1",
+                rusqlite::params![pid, version as i64, now_iso()],
+            )?;
+            conn.execute(
+                "INSERT INTO audit_events (kind, payload_json, created_at) VALUES ('version.recovered', ?1, ?2)",
+                rusqlite::params![audit_json, now_iso()],
+            )?;
+            Ok(())
+        })
+    }
+
+    /// Highest version recorded in the DB for a project.
+    pub fn max_recorded_version(&self, pid: &str) -> Result<VersionNumber, DbError> {
+        self.with_conn(|conn| {
+            Ok(conn
+                .query_row(
+                    "SELECT COALESCE(MAX(version_number), 0) FROM project_versions WHERE project_id = ?1",
+                    [pid],
+                    |r| r.get::<_, i64>(0),
+                )
+                .unwrap_or(0) as u64)
         })
     }
 
@@ -484,7 +724,34 @@ impl Db {
         })
     }
 
-    pub fn insert_agent_run(&self, m: &storyboard_domain::AgentRunManifest, thread_id: &str) -> Result<(), DbError> {
+    /// Ensure the thread row exists before any event insert (agent_events
+    /// carries a FK to agent_threads). Placeholder provider/model can be
+    /// refined later by `update_agent_thread`.
+    pub fn ensure_agent_thread(&self, id: &str) -> Result<(), DbError> {
+        self.insert_agent_thread(id, None, "unknown", "unknown")
+    }
+
+    pub fn update_agent_thread(
+        &self,
+        id: &str,
+        project_id: Option<&str>,
+        provider_id: &str,
+        model: &str,
+    ) -> Result<(), DbError> {
+        self.with_conn(|conn| {
+            conn.execute(
+                "UPDATE agent_threads SET project_id = COALESCE(?2, project_id), provider_id = ?3, model = ?4 WHERE id = ?1",
+                rusqlite::params![id, project_id, provider_id, model],
+            )?;
+            Ok(())
+        })
+    }
+
+    pub fn insert_agent_run(
+        &self,
+        m: &storyboard_domain::AgentRunManifest,
+        thread_id: &str,
+    ) -> Result<(), DbError> {
         self.with_conn(|conn| {
             conn.execute(
                 "INSERT OR REPLACE INTO agent_runs
@@ -512,7 +779,12 @@ impl Db {
     }
 
     /// Append one agent event; seq is per-thread monotonic. Returns the seq.
-    pub fn insert_agent_event(&self, thread_id: &str, type_name: &str, payload_json: &str) -> Result<u64, DbError> {
+    pub fn insert_agent_event(
+        &self,
+        thread_id: &str,
+        type_name: &str,
+        payload_json: &str,
+    ) -> Result<u64, DbError> {
         self.with_conn(|conn| {
             conn.execute(
                 "INSERT INTO agent_events (thread_id, seq, type, payload_json, created_at)
@@ -525,9 +797,11 @@ impl Db {
 
     pub fn list_agent_events(&self, thread_id: &str) -> Result<Vec<(u64, String)>, DbError> {
         self.with_conn(|conn| {
-            let mut stmt =
-                conn.prepare("SELECT seq, type FROM agent_events WHERE thread_id = ?1 ORDER BY seq")?;
-            let rows = stmt.query_map([thread_id], |r| Ok((r.get::<_, i64>(0)? as u64, r.get::<_, String>(1)?)))?;
+            let mut stmt = conn
+                .prepare("SELECT seq, type FROM agent_events WHERE thread_id = ?1 ORDER BY seq")?;
+            let rows = stmt.query_map([thread_id], |r| {
+                Ok((r.get::<_, i64>(0)? as u64, r.get::<_, String>(1)?))
+            })?;
             let mut out = Vec::new();
             for row in rows {
                 out.push(row?);
@@ -536,22 +810,37 @@ impl Db {
         })
     }
 
-    pub fn insert_agent_message(&self, thread_id: &str, seq: u64, content_json: &str) -> Result<(), DbError> {
+    /// Append one agent message. The seq is DURABLE and monotonic (MAX+1) —
+    /// never caller-supplied: a restarted process replaying from seq 0 would
+    /// otherwise overwrite the previous session's rows while the JSONL
+    /// rollout kept appending, forking the two copies of history.
+    pub fn insert_agent_message(
+        &self,
+        thread_id: &str,
+        content_json: &str,
+    ) -> Result<u64, DbError> {
         self.with_conn(|conn| {
             let role: String = serde_json::from_str::<serde_json::Value>(content_json)
                 .ok()
                 .and_then(|v| v.get("role").and_then(|r| r.as_str()).map(String::from))
                 .unwrap_or_default();
             conn.execute(
-                "INSERT OR REPLACE INTO agent_messages (thread_id, seq, role, content_json, created_at)
-                 VALUES (?1, ?2, ?3, ?4, ?5)",
-                rusqlite::params![thread_id, seq as i64, role, content_json, now_iso()],
+                "INSERT INTO agent_messages (thread_id, seq, role, content_json, created_at)
+                 VALUES (?1, (SELECT COALESCE(MAX(seq), 0) + 1 FROM agent_messages WHERE thread_id = ?1), ?2, ?3, ?4)",
+                rusqlite::params![thread_id, role, content_json, now_iso()],
             )?;
-            Ok(())
+            Ok(conn.query_row(
+                "SELECT MAX(seq) FROM agent_messages WHERE thread_id = ?1",
+                [thread_id],
+                |r| r.get::<_, i64>(0),
+            )? as u64)
         })
     }
 
-    pub fn list_agent_messages(&self, thread_id: &str) -> Result<Vec<model_providers::ChatMessage>, DbError> {
+    pub fn list_agent_messages(
+        &self,
+        thread_id: &str,
+    ) -> Result<Vec<model_providers::ChatMessage>, DbError> {
         self.with_conn(|conn| {
             let mut stmt = conn.prepare(
                 "SELECT content_json FROM agent_messages WHERE thread_id = ?1 ORDER BY seq",
@@ -568,8 +857,80 @@ impl Db {
     pub fn has_agent_run(&self, run_id: &str) -> Result<bool, DbError> {
         self.with_conn(|conn| {
             Ok(conn
-                .query_row("SELECT 1 FROM agent_runs WHERE id = ?1", [run_id], |_| Ok(true))
+                .query_row("SELECT 1 FROM agent_runs WHERE id = ?1", [run_id], |_| {
+                    Ok(true)
+                })
                 .unwrap_or(false))
+        })
+    }
+
+    // ---- providers ----------------------------------------------------------
+
+    pub fn upsert_provider(
+        &self,
+        id: &str,
+        ptype: &str,
+        name: &str,
+        config_json: &str,
+    ) -> Result<(), DbError> {
+        self.with_conn(|conn| {
+            conn.execute(
+                "INSERT INTO providers (id, type, name, config_json, created_at) VALUES (?1,?2,?3,?4,?5)
+                 ON CONFLICT(id) DO UPDATE SET type = excluded.type, name = excluded.name, config_json = excluded.config_json",
+                rusqlite::params![id, ptype, name, config_json, now_iso()],
+            )?;
+            Ok(())
+        })
+    }
+
+    pub fn delete_provider(&self, id: &str) -> Result<(), DbError> {
+        self.with_conn(|conn| {
+            conn.execute("DELETE FROM providers WHERE id = ?1", [id])?;
+            Ok(())
+        })
+    }
+
+    pub fn list_providers(&self) -> Result<Vec<ProviderRow>, DbError> {
+        self.with_conn(|conn| {
+            let mut stmt = conn.prepare(
+                "SELECT id, type, name, config_json, created_at FROM providers ORDER BY id",
+            )?;
+            let rows = stmt.query_map([], |r| {
+                Ok(ProviderRow {
+                    id: r.get(0)?,
+                    ptype: r.get(1)?,
+                    name: r.get(2)?,
+                    config_json: r.get(3)?,
+                    created_at: r.get(4)?,
+                })
+            })?;
+            let mut out = Vec::new();
+            for row in rows {
+                out.push(row?);
+            }
+            Ok(out)
+        })
+    }
+
+    pub fn get_provider(&self, id: &str) -> Result<ProviderRow, DbError> {
+        self.with_conn(|conn| {
+            conn.query_row(
+                "SELECT id, type, name, config_json, created_at FROM providers WHERE id = ?1",
+                [id],
+                |r| {
+                    Ok(ProviderRow {
+                        id: r.get(0)?,
+                        ptype: r.get(1)?,
+                        name: r.get(2)?,
+                        config_json: r.get(3)?,
+                        created_at: r.get(4)?,
+                    })
+                },
+            )
+            .map_err(|e| match e {
+                rusqlite::Error::QueryReturnedNoRows => DbError::NotFound(format!("provider {id}")),
+                other => other.into(),
+            })
         })
     }
 
@@ -619,7 +980,11 @@ impl Db {
     pub fn get_setting(&self, key: &str) -> Result<Option<serde_json::Value>, DbError> {
         self.with_conn(|conn| {
             let res: Option<String> = conn
-                .query_row("SELECT value_json FROM settings WHERE key = ?1", [key], |r| r.get(0))
+                .query_row(
+                    "SELECT value_json FROM settings WHERE key = ?1",
+                    [key],
+                    |r| r.get(0),
+                )
                 .map(Some)
                 .or_else(|e| match e {
                     rusqlite::Error::QueryReturnedNoRows => Ok(None),

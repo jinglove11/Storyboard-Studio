@@ -5,6 +5,7 @@
 //! typed view over the original JSON (`serde_json::Value` with
 //! `preserve_order`), so round-tripping a file never reorders author fields.
 
+pub mod clothing;
 pub mod diff;
 pub mod events;
 pub mod ids;
@@ -25,9 +26,13 @@ pub use patch::{
 };
 pub use project::{ProjectSnapshot, ProjectState, ProjectStatus, StatusTransitionError};
 pub use query::QueryIntent;
-pub use schema::{SchemaFingerprint, SchemaIssue, EXPECTED_CC_KEYS, EXPECTED_GLOBAL_PARAM_KEYS,
-    EXPECTED_PANEL_KEYS, EXPECTED_PARAMS_OVERRIDE_KEYS, EXPECTED_TOP_KEYS};
-pub use template::{LegacyStats, SceneAliasTable, SourceTemplateRef, TemplateMetadata, TemplateSnapshot};
+pub use schema::{
+    SchemaFingerprint, SchemaIssue, EXPECTED_CC_KEYS, EXPECTED_GLOBAL_PARAM_KEYS,
+    EXPECTED_PANEL_KEYS, EXPECTED_PARAMS_OVERRIDE_KEYS, EXPECTED_TOP_KEYS,
+};
+pub use template::{
+    LegacyStats, SceneAliasTable, SourceTemplateRef, TemplateMetadata, TemplateSnapshot,
+};
 
 /// sha256 of the raw bytes, hex encoded (lowercase). Used for template
 /// immutability checks and content-addressed storage.

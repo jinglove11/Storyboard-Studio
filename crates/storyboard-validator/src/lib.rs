@@ -4,7 +4,7 @@
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeSet;
 use storyboard_domain::{
-    schema, OperationKind, PatchIntent, PatchProposal, ProjectSnapshot, TemplateMetadata,
+    clothing, schema, OperationKind, PatchIntent, PatchProposal, ProjectSnapshot, TemplateMetadata,
     TemplateSnapshot,
 };
 
@@ -37,9 +37,25 @@ pub struct GateResult {
     pub warnings: Vec<String>,
 }
 
+impl Default for GateResult {
+    fn default() -> Self {
+        Self {
+            gate: String::new(),
+            passed: true,
+            failures: Vec::new(),
+            warnings: Vec::new(),
+        }
+    }
+}
+
 impl GateResult {
     fn new(gate: &'static str) -> Self {
-        Self { gate: gate.into(), passed: true, failures: Vec::new(), warnings: Vec::new() }
+        Self {
+            gate: gate.into(),
+            passed: true,
+            failures: Vec::new(),
+            warnings: Vec::new(),
+        }
     }
     fn fail(&mut self, msg: String) {
         self.passed = false;
@@ -60,6 +76,11 @@ pub struct ValidationReport {
     pub scene_leak: GateResult,
     pub reference_integrity: GateResult,
     pub json_parse: GateResult,
+    /// Clothing state-chain check (skill §3.4/§7.4): for every mapped
+    /// garment, the draft's worn/torn/removed stages must mirror the
+    /// template's per-panel pattern, negative guards swapped in lockstep.
+    #[serde(default)]
+    pub clothing_chain: GateResult,
     pub preservation_ratio: f32,
 }
 
@@ -73,6 +94,7 @@ impl ValidationReport {
             &self.scene_leak,
             &self.reference_integrity,
             &self.json_parse,
+            &self.clothing_chain,
         ]
     }
 }
@@ -95,16 +117,26 @@ pub struct ValidationContext<'a> {
 }
 
 pub fn validate(ctx: &ValidationContext) -> ValidationReport {
-    let mut schema_gate = gate_schema(ctx);
+    let schema_gate = gate_schema(ctx);
     let scope_gate = gate_scope(ctx);
     let anti_rewrite = gate_anti_rewrite(ctx);
     let identity_leak = gate_identity_leak(ctx);
     let scene_leak = gate_scene_leak(ctx);
     let reference = gate_reference_integrity(ctx);
     let json_parse = gate_json_parse(ctx);
-    let passed = [(&schema_gate), (&scope_gate), (&anti_rewrite), (&identity_leak), (&scene_leak), (&reference), (&json_parse)]
-        .iter()
-        .all(|g| g.passed);
+    let clothing_chain = gate_clothing_chain(ctx);
+    let passed = [
+        (&schema_gate),
+        (&scope_gate),
+        (&anti_rewrite),
+        (&identity_leak),
+        (&scene_leak),
+        (&reference),
+        (&json_parse),
+        (&clothing_chain),
+    ]
+    .iter()
+    .all(|g| g.passed);
     let ratio = anti_rewrite_preservation(ctx);
     ValidationReport {
         passed,
@@ -115,13 +147,14 @@ pub fn validate(ctx: &ValidationContext) -> ValidationReport {
         scene_leak,
         reference_integrity: reference,
         json_parse,
+        clothing_chain,
         preservation_ratio: ratio,
     }
 }
 
 fn gate_schema(ctx: &ValidationContext) -> GateResult {
     let mut g = GateResult::new("schema");
-    let issues = schema::validate_storyboard_json(&ctx.draft);
+    let issues = schema::validate_storyboard_json(ctx.draft);
     if issues.is_empty() {
         return g;
     }
@@ -147,7 +180,10 @@ fn gate_scope(ctx: &ValidationContext) -> GateResult {
                 }
             }
             OperationKind::ReplaceSceneToken { .. } => {
-                if !matches!(p.intent, PatchIntent::SceneAdapt | PatchIntent::CharacterAndScene) {
+                if !matches!(
+                    p.intent,
+                    PatchIntent::SceneAdapt | PatchIntent::CharacterAndScene
+                ) {
                     g.fail(format!(
                         "{}: scene replacement outside a scene-intent patch",
                         op.common.operation_id
@@ -171,7 +207,8 @@ fn gate_scope(ctx: &ValidationContext) -> GateResult {
         if let Some(idx) = op.common.panel_index {
             if matches!(
                 op.kind,
-                OperationKind::PatchPromptBlock { .. } | OperationKind::DeleteConflictingBlock { .. }
+                OperationKind::PatchPromptBlock { .. }
+                    | OperationKind::DeleteConflictingBlock { .. }
             ) && !touched.contains(&idx)
             {
                 g.fail(format!(
@@ -198,21 +235,33 @@ enum Side {
 }
 
 fn replacement_tokens(p: &PatchProposal, side: Side) -> Vec<String> {
+    let pick = |r: &storyboard_domain::TokenReplacement| {
+        let s = match side {
+            Side::Old => r.old_token.as_str(),
+            Side::New => r.new_token.as_str(),
+        };
+        s.to_lowercase()
+    };
     p.operations
         .iter()
         .filter_map(|o| match &o.kind {
-            OperationKind::ReplaceCharacterIdentity { replacements, .. }
-            | OperationKind::ReplaceSceneToken { replacements } => Some(replacements.iter()),
+            OperationKind::ReplaceCharacterIdentity {
+                replacements,
+                appearance_replacements,
+                ..
+            } => Some(
+                replacements
+                    .iter()
+                    .chain(appearance_replacements.iter())
+                    .map(pick)
+                    .collect::<Vec<_>>(),
+            ),
+            OperationKind::ReplaceSceneToken { replacements, .. } => {
+                Some(replacements.iter().map(pick).collect::<Vec<_>>())
+            }
             _ => None,
         })
         .flatten()
-        .map(|r| {
-            let s = match side {
-                Side::Old => r.old_token.as_str(),
-                Side::New => r.new_token.as_str(),
-            };
-            s.to_lowercase()
-        })
         .collect()
 }
 
@@ -220,18 +269,37 @@ fn replacement_tokens(p: &PatchProposal, side: Side) -> Vec<String> {
 /// the mapping old/new sides; everything else must survive.
 fn anti_rewrite_preservation(ctx: &ValidationContext) -> f32 {
     let p = &ctx.proposal;
-    let touched: BTreeSet<u32> = p.effective_touched_panels().union(&ctx.applied_touched_panels).cloned().collect();
+    let touched: BTreeSet<u32> = p
+        .effective_touched_panels()
+        .union(&ctx.applied_touched_panels)
+        .cloned()
+        .collect();
     let target_tokens: BTreeSet<String> = replacement_tokens(p, Side::Old)
         .into_iter()
         .chain(replacement_tokens(p, Side::New))
         .collect();
 
-    let base_panels = ctx.base.raw.get("panels").and_then(|x| x.as_array()).cloned().unwrap_or_default();
-    let new_panels = ctx.draft.get("panels").and_then(|x| x.as_array()).cloned().unwrap_or_default();
+    let base_panels = ctx
+        .base
+        .raw
+        .get("panels")
+        .and_then(|x| x.as_array())
+        .cloned()
+        .unwrap_or_default();
+    let new_panels = ctx
+        .draft
+        .get("panels")
+        .and_then(|x| x.as_array())
+        .cloned()
+        .unwrap_or_default();
 
     let mut kept = 0usize;
     let mut total = 0usize;
-    let is_target = |tok: &str| target_tokens.iter().any(|t| tok.contains(t.as_str()) || t.contains(tok));
+    let is_target = |tok: &str| {
+        target_tokens
+            .iter()
+            .any(|t| tok.contains(t.as_str()) || t.contains(tok))
+    };
     for (i, (b, n)) in base_panels.iter().zip(new_panels.iter()).enumerate() {
         if !touched.contains(&((i + 1) as u32)) {
             continue; // handled by the byte-identity rule in the gate
@@ -243,8 +311,16 @@ fn anti_rewrite_preservation(ctx: &ValidationContext) -> f32 {
         ) {
             texts.push((bp.to_lowercase(), np.to_lowercase()));
         }
-        let bcc = b.get("customCharacters").and_then(|c| c.as_array()).cloned().unwrap_or_default();
-        let ncc = n.get("customCharacters").and_then(|c| c.as_array()).cloned().unwrap_or_default();
+        let bcc = b
+            .get("customCharacters")
+            .and_then(|c| c.as_array())
+            .cloned()
+            .unwrap_or_default();
+        let ncc = n
+            .get("customCharacters")
+            .and_then(|c| c.as_array())
+            .cloned()
+            .unwrap_or_default();
         for (bc, nc) in bcc.iter().zip(ncc.iter()) {
             if let (Some(bp), Some(np)) = (
                 bc.get("prompt").and_then(|v| v.as_str()),
@@ -277,10 +353,25 @@ fn anti_rewrite_preservation(ctx: &ValidationContext) -> f32 {
 fn gate_anti_rewrite(ctx: &ValidationContext) -> GateResult {
     let mut g = GateResult::new("anti_rewrite");
     let p = &ctx.proposal;
-    let touched: BTreeSet<u32> = p.effective_touched_panels().union(&ctx.applied_touched_panels).cloned().collect();
+    let touched: BTreeSet<u32> = p
+        .effective_touched_panels()
+        .union(&ctx.applied_touched_panels)
+        .cloned()
+        .collect();
 
-    let base_panels = ctx.base.raw.get("panels").and_then(|x| x.as_array()).cloned().unwrap_or_default();
-    let new_panels = ctx.draft.get("panels").and_then(|x| x.as_array()).cloned().unwrap_or_default();
+    let base_panels = ctx
+        .base
+        .raw
+        .get("panels")
+        .and_then(|x| x.as_array())
+        .cloned()
+        .unwrap_or_default();
+    let new_panels = ctx
+        .draft
+        .get("panels")
+        .and_then(|x| x.as_array())
+        .cloned()
+        .unwrap_or_default();
 
     // 1. untouched panels must be byte-stable (prompt + CC prompts + camera)
     for (i, (b, n)) in base_panels.iter().zip(new_panels.iter()).enumerate() {
@@ -289,10 +380,14 @@ fn gate_anti_rewrite(ctx: &ValidationContext) -> GateResult {
             continue;
         }
         if b.get("prompt") != n.get("prompt") {
-            g.fail(format!("panel {idx} is not a declared target but its prompt changed"));
+            g.fail(format!(
+                "panel {idx} is not a declared target but its prompt changed"
+            ));
         }
         if b.get("customCharacters") != n.get("customCharacters") {
-            g.fail(format!("panel {idx} is not a declared target but its customCharacters changed"));
+            g.fail(format!(
+                "panel {idx} is not a declared target but its customCharacters changed"
+            ));
         }
     }
 
@@ -321,16 +416,27 @@ fn gate_anti_rewrite(ctx: &ValidationContext) -> GateResult {
     }
 
     // 4. panel count stability unless a resize op is in scope
-    let has_resize = p.operations.iter().any(|o| matches!(o.kind, OperationKind::ResizeStoryboard { .. }));
+    let has_resize = p
+        .operations
+        .iter()
+        .any(|o| matches!(o.kind, OperationKind::ResizeStoryboard { .. }));
     if !has_resize && base_panels.len() != new_panels.len() {
-        g.fail(format!("panel count changed without a resize operation ({} -> {})", base_panels.len(), new_panels.len()));
+        g.fail(format!(
+            "panel count changed without a resize operation ({} -> {})",
+            base_panels.len(),
+            new_panels.len()
+        ));
     }
 
     // 5. preservation ratio on touched panels
     let ratio = anti_rewrite_preservation(ctx);
     let min = match p.intent {
-        PatchIntent::CharacterReplace | PatchIntent::UserDelta => ctx.config.identity_preservation_min,
-        PatchIntent::SceneAdapt | PatchIntent::CharacterAndScene => ctx.config.scene_preservation_min,
+        PatchIntent::CharacterReplace | PatchIntent::UserDelta => {
+            ctx.config.identity_preservation_min
+        }
+        PatchIntent::SceneAdapt | PatchIntent::CharacterAndScene => {
+            ctx.config.scene_preservation_min
+        }
         PatchIntent::Resize => ctx.config.scene_preservation_min,
     };
     if ratio < min {
@@ -339,7 +445,10 @@ fn gate_anti_rewrite(ctx: &ValidationContext) -> GateResult {
             ratio, min
         ));
     } else if ratio < min + 0.03 {
-        g.warn(format!("preservation {:.3} close to threshold {:.2}", ratio, min));
+        g.warn(format!(
+            "preservation {:.3} close to threshold {:.2}",
+            ratio, min
+        ));
     }
     g
 }
@@ -347,7 +456,11 @@ fn gate_anti_rewrite(ctx: &ValidationContext) -> GateResult {
 fn count_tokens_in_panels(panels: &[serde_json::Value], tokens: &[String]) -> usize {
     let mut count = 0;
     for p in panels {
-        let hay = p.get("prompt").and_then(|v| v.as_str()).unwrap_or("").to_lowercase();
+        let hay = p
+            .get("prompt")
+            .and_then(|v| v.as_str())
+            .unwrap_or("")
+            .to_lowercase();
         for t in tokens {
             count += hay.matches(t.as_str()).count();
         }
@@ -358,21 +471,28 @@ fn count_tokens_in_panels(panels: &[serde_json::Value], tokens: &[String]) -> us
 fn gate_identity_leak(ctx: &ValidationContext) -> GateResult {
     let mut g = GateResult::new("identity_leak");
     let p = &ctx.proposal;
-    let draft_text = project_text(&ctx.draft);
+    let draft_text = project_text(ctx.draft);
 
-    // Old tokens that were explicitly replaced must not remain.
+    // Old tokens that were explicitly replaced must not remain — this now
+    // includes the CharacterReplacementPlan's appearance mappings (hair,
+    // eyes, signature outfit/props), not just the name anchors.
     let old_tokens = replacement_tokens(p, Side::Old);
     for t in &old_tokens {
         let hits = whole_token_hits(&draft_text, t);
         if hits > 0 {
-            g.fail(format!("replaced identity token `{t}` still present ({hits} hit(s))"));
+            g.fail(format!(
+                "replaced identity token `{t}` still present ({hits} hit(s))"
+            ));
         }
     }
     let new_tokens: BTreeSet<String> = replacement_tokens(p, Side::New).into_iter().collect();
 
     // When identity is being replaced, template anchors must be gone — unless
     // they live on inside a new anchor (kept character variant).
-    let identity_intent = matches!(p.intent, PatchIntent::CharacterReplace | PatchIntent::CharacterAndScene);
+    let identity_intent = matches!(
+        p.intent,
+        PatchIntent::CharacterReplace | PatchIntent::CharacterAndScene
+    );
     if identity_intent {
         for anchor in ctx
             .template_metadata
@@ -386,8 +506,21 @@ fn gate_identity_leak(ctx: &ValidationContext) -> GateResult {
                 continue;
             }
             if whole_token_hits(&draft_text, &a) > 0 {
-                g.fail(format!("template identity anchor `{anchor}` leaked after replacement"));
+                g.fail(format!(
+                    "template identity anchor `{anchor}` leaked after replacement"
+                ));
             }
+        }
+        // A name-only swap leaves the old character's inherent traits — warn
+        // unless the proposal carries appearance mappings or explicitly
+        // keeps them (kept traits become the new character's traits).
+        let has_appearance_plan = p.operations.iter().any(|o| {
+            matches!(&o.kind, OperationKind::ReplaceCharacterIdentity { appearance_replacements, .. } if !appearance_replacements.is_empty())
+        });
+        if !has_appearance_plan {
+            g.warn(
+                "identity swap has no appearance_replacements — old hair/eyes/outfit traits are inherited by the new character (declare mappings to swap them)".into(),
+            );
         }
     }
     g
@@ -396,14 +529,19 @@ fn gate_identity_leak(ctx: &ValidationContext) -> GateResult {
 fn gate_scene_leak(ctx: &ValidationContext) -> GateResult {
     let mut g = GateResult::new("scene_leak");
     let p = &ctx.proposal;
-    let draft_text = project_text(&ctx.draft);
+    let draft_text = project_text(ctx.draft);
+
+    let has_scene_op = p
+        .operations
+        .iter()
+        .any(|o| matches!(&o.kind, OperationKind::ReplaceSceneToken { .. }));
 
     // explicitly replaced scene tokens must be gone
     let scene_replaced: Vec<String> = p
         .operations
         .iter()
         .filter_map(|o| match &o.kind {
-            OperationKind::ReplaceSceneToken { replacements } => {
+            OperationKind::ReplaceSceneToken { replacements, .. } => {
                 Some(replacements.iter().map(|r| r.old_token.to_lowercase()))
             }
             _ => None,
@@ -413,36 +551,132 @@ fn gate_scene_leak(ctx: &ValidationContext) -> GateResult {
     for t in &scene_replaced {
         let hits = whole_token_hits(&draft_text, t);
         if hits > 0 {
-            g.fail(format!("replaced scene token `{t}` still present ({hits} hit(s))"));
+            g.fail(format!(
+                "replaced scene token `{t}` still present ({hits} hit(s))"
+            ));
         }
     }
 
-    // metadata scene scan: warnings (v1) — generic words would over-block
-    let scene_intent = matches!(p.intent, PatchIntent::SceneAdapt | PatchIntent::CharacterAndScene);
-    if scene_intent {
+    // Metadata scene scan. STRICT whenever a scene mapping is in flight: the
+    // skill requires every old scene token to be either mapped or explicitly
+    // kept (SceneMappingPlan) — an unmapped leftover is a leak, not a
+    // warning. The old `strict_metadata_leak_scan=false` default let scene
+    // adaptation commit with park/office residue.
+    //
+    // Domain split: `important_props` from the legacy index mixes scene props
+    // with CHARACTER signature items (headphone, pantyhose…). Those belong to
+    // the identity/appearance plan (and the clothing-chain gate), so they
+    // warn instead of failing the scene gate.
+    let scene_intent = matches!(
+        p.intent,
+        PatchIntent::SceneAdapt | PatchIntent::CharacterAndScene
+    );
+    if scene_intent || has_scene_op {
+        let kept: BTreeSet<String> = p
+            .operations
+            .iter()
+            .filter_map(|o| match &o.kind {
+                OperationKind::ReplaceSceneToken { kept_tokens, .. } => Some(
+                    kept_tokens
+                        .iter()
+                        .map(|t| t.to_lowercase())
+                        .collect::<Vec<_>>(),
+                ),
+                _ => None,
+            })
+            .flatten()
+            .collect();
+        let new_tokens = replacement_tokens(p, Side::New);
         for tok in ctx
             .template_metadata
             .location_tags
             .iter()
+            .chain(ctx.template_metadata.environment_tags.iter())
             .chain(ctx.template_metadata.important_props.iter())
         {
             let t = tok.to_lowercase();
             if t.len() < 4 {
                 continue;
             }
-            let survived_as_new = replacement_tokens(p, Side::New).iter().any(|n| n.contains(&t));
-            if survived_as_new {
+            let survived_as_new = new_tokens.iter().any(|n| n.contains(&t));
+            if survived_as_new || kept.contains(&t) {
                 continue;
             }
             if whole_token_hits(&draft_text, &t) > 0 {
-                let msg = format!("old scene token `{tok}` still present in draft");
-                if ctx.config.strict_metadata_leak_scan {
+                let character_scoped = clothing::is_clothing_token(&t)
+                    || [
+                        "headphone",
+                        "hair ornament",
+                        "ribbon",
+                        "scrunchie",
+                        "glasses",
+                        "choker",
+                        "necklace",
+                        "earrings",
+                        "halo",
+                        "horn",
+                        "tail",
+                        "wings",
+                    ]
+                    .iter()
+                    .any(|s| t.contains(s));
+                let msg = if character_scoped {
+                    format!(
+                        "character signature item `{tok}` survived the scene swap — it belongs to the identity/appearance plan, not the scene mapping"
+                    )
+                } else {
+                    format!(
+                        "old scene token `{tok}` still present in draft (map it or declare it in kept_tokens)"
+                    )
+                };
+                let strict =
+                    (ctx.config.strict_metadata_leak_scan || has_scene_op) && !character_scoped;
+                if strict {
                     g.fail(msg);
                 } else {
                     g.warn(msg);
                 }
             }
         }
+    }
+    g
+}
+
+/// Clothing state-chain gate (skill §3.4.4): for every mapped garment the
+/// draft's per-panel worn/torn/removed pattern must mirror the template's,
+/// with negative no-re-wear guards swapped in lockstep. Non-clothing
+/// mappings are ignored.
+fn gate_clothing_chain(ctx: &ValidationContext) -> GateResult {
+    let mut g = GateResult::new("clothing_chain");
+    let mappings: Vec<(String, String)> = ctx
+        .proposal
+        .operations
+        .iter()
+        .filter_map(|o| match &o.kind {
+            OperationKind::ReplaceCharacterIdentity {
+                replacements,
+                appearance_replacements,
+                ..
+            } => Some(replacements.iter().chain(appearance_replacements.iter())),
+            _ => None,
+        })
+        .flatten()
+        .filter(|r| clothing::is_clothing_token(&r.old_token))
+        .map(|r| (r.old_token.clone(), r.new_token.clone()))
+        .collect();
+    if mappings.is_empty() {
+        return g;
+    }
+    for (old, new) in &mappings {
+        for v in clothing::compare_clothing_chain(&ctx.template.raw, ctx.draft, old, new) {
+            g.fail(v);
+        }
+    }
+    if g.passed && !mappings.is_empty() {
+        g.warnings.push(format!(
+            "clothing chain verified for {} garment mapping(s): stages + negative guards intact",
+            mappings.len()
+        ));
     }
     g
 }
@@ -513,7 +747,11 @@ fn whole_token_hits(text: &str, token: &str) -> usize {
     while i + tb.len() <= bytes.len() {
         if &text.as_bytes()[i..i + tb.len()] == tb {
             let before_ok = i == 0 || !text[..i].chars().next_back().map(is_word).unwrap_or(false);
-            let after_ok = text[i + tb.len()..].chars().next().map(|c| !is_word(c)).unwrap_or(true);
+            let after_ok = text[i + tb.len()..]
+                .chars()
+                .next()
+                .map(|c| !is_word(c))
+                .unwrap_or(true);
             if before_ok && after_ok {
                 count += 1;
             }

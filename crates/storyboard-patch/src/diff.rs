@@ -10,18 +10,35 @@ pub fn diff_projects(
     before: &serde_json::Value,
     after: &serde_json::Value,
 ) -> ProjectDiff {
-
     let mut global = Vec::new();
-    for key in ["title", "globalNegativePrompt", "sizeMode", "globalStylePrompt"] {
+    for key in [
+        "title",
+        "globalNegativePrompt",
+        "sizeMode",
+        "globalStylePrompt",
+    ] {
         let b = before.get(key).cloned().unwrap_or(serde_json::Value::Null);
         let a = after.get(key).cloned().unwrap_or(serde_json::Value::Null);
         if a != b {
-            global.push(FieldChange { path: format!("$.{key}"), category: ChangeCategory::Meta, before: b, after: a });
+            global.push(FieldChange {
+                path: format!("$.{key}"),
+                category: ChangeCategory::Meta,
+                before: b,
+                after: a,
+            });
         }
     }
 
-    let b_panels = before.get("panels").and_then(|p| p.as_array()).cloned().unwrap_or_default();
-    let a_panels = after.get("panels").and_then(|p| p.as_array()).cloned().unwrap_or_default();
+    let b_panels = before
+        .get("panels")
+        .and_then(|p| p.as_array())
+        .cloned()
+        .unwrap_or_default();
+    let a_panels = after
+        .get("panels")
+        .and_then(|p| p.as_array())
+        .cloned()
+        .unwrap_or_default();
 
     // match panels by position for v1 (resize renumbers, order preserved)
     let mut panels = Vec::new();
@@ -51,14 +68,34 @@ pub fn diff_projects(
                     let td = TokenDiff::compute(b_prompt, a_prompt);
                     chars_added += td.added() as u64;
                     chars_removed += td.removed() as u64;
-                    changes.push(PanelChange::Prompt { before: b_prompt.into(), after: a_prompt.into(), tokens: td });
+                    changes.push(PanelChange::Prompt {
+                        before: b_prompt.into(),
+                        after: a_prompt.into(),
+                        tokens: td,
+                    });
                 }
                 total_chars += b_prompt.chars().count() as u64;
-                let b_ccs = bp.get("customCharacters").and_then(|c| c.as_array()).cloned().unwrap_or_default();
-                let a_ccs = ap.get("customCharacters").and_then(|c| c.as_array()).cloned().unwrap_or_default();
+                let b_ccs = bp
+                    .get("customCharacters")
+                    .and_then(|c| c.as_array())
+                    .cloned()
+                    .unwrap_or_default();
+                let a_ccs = ap
+                    .get("customCharacters")
+                    .and_then(|c| c.as_array())
+                    .cloned()
+                    .unwrap_or_default();
                 for slot in 0..b_ccs.len().max(a_ccs.len()) {
-                    let bcc = b_ccs.get(slot).and_then(|c| c.get("prompt")).and_then(|p| p.as_str()).unwrap_or("");
-                    let acc = a_ccs.get(slot).and_then(|c| c.get("prompt")).and_then(|p| p.as_str()).unwrap_or("");
+                    let bcc = b_ccs
+                        .get(slot)
+                        .and_then(|c| c.get("prompt"))
+                        .and_then(|p| p.as_str())
+                        .unwrap_or("");
+                    let acc = a_ccs
+                        .get(slot)
+                        .and_then(|c| c.get("prompt"))
+                        .and_then(|p| p.as_str())
+                        .unwrap_or("");
                     if bcc != acc {
                         modified += 1;
                         let td = TokenDiff::compute(bcc, acc);
@@ -76,7 +113,11 @@ pub fn diff_projects(
                     let b = bp.get(field).cloned().unwrap_or(serde_json::Value::Null);
                     let a = ap.get(field).cloned().unwrap_or(serde_json::Value::Null);
                     if a != b {
-                        changes.push(PanelChange::Field { field: field.into(), before: b, after: a });
+                        changes.push(PanelChange::Field {
+                            field: field.into(),
+                            before: b,
+                            after: a,
+                        });
                     }
                 }
             }

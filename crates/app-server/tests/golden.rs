@@ -1,10 +1,10 @@
 //! Golden Cases A–H (plan Table 19) against the real 30-template fixture.
 
+use agent_runtime::{ApprovalMode, ApprovalPolicy, RuntimeConfig};
 use app_server::AppServer;
 use model_providers::{MockProvider, TurnResponse};
 use serde_json::json;
 use std::sync::Arc;
-use agent_runtime::{ApprovalMode, ApprovalPolicy, RuntimeConfig};
 use storyboard_domain::{
     diff, OperationKind, PatchIntent, PatchOperation, PatchOperationCommon, PatchProposal,
     ProjectId, TemplateId, TextTarget, TokenReplacement,
@@ -23,7 +23,11 @@ fn server(tag: &str) -> AppServer {
     AppServer::init(&dir, &fixture_skill()).expect("init workspace")
 }
 
-fn identity_patch(base_version: u64, template_id: &str, mappings: Vec<(String, String)>) -> PatchProposal {
+fn identity_patch(
+    base_version: u64,
+    template_id: &str,
+    mappings: Vec<(String, String)>,
+) -> PatchProposal {
     PatchProposal {
         base_project_version: base_version,
         primary_template_id: TemplateId::new(template_id),
@@ -46,9 +50,13 @@ fn identity_patch(base_version: u64, template_id: &str, mappings: Vec<(String, S
             kind: OperationKind::ReplaceCharacterIdentity {
                 replacements: mappings
                     .into_iter()
-                    .map(|(old_token, new_token)| TokenReplacement { old_token, new_token })
+                    .map(|(old_token, new_token)| TokenReplacement {
+                        old_token,
+                        new_token,
+                    })
                     .collect(),
                 slots: None,
+                appearance_replacements: Vec::new(),
             },
         }],
     }
@@ -61,15 +69,23 @@ fn case_a_exact_clone() {
     let server = server("a");
     let intent = server.parse_intent("夜间公园里 1女 被匿名男强暴");
     assert_eq!(intent.scene_family.as_deref(), Some("park"));
-    let sel = server.match_templates(&intent, Some(7)).unwrap().expect("selection");
+    let sel = server
+        .match_templates(&intent, Some(7))
+        .unwrap()
+        .expect("selection");
     assert_eq!(sel.primary.scene_family, "park");
     assert!(!sel.needs_scene_adaptation);
 
-    let state = server.clone_project(sel.primary.template_id.as_str(), Some("A".into()), 1).unwrap();
+    let state = server
+        .clone_project(sel.primary.template_id.as_str(), Some("A".into()), 1)
+        .unwrap();
     let pid = state.project_id;
     let base = server.load_project_snapshot(&pid).unwrap();
 
-    let meta = server.db.get_template_metadata(sel.primary.template_id.as_str()).unwrap();
+    let meta = server
+        .db
+        .get_template_metadata(sel.primary.template_id.as_str())
+        .unwrap();
     let mappings = meta
         .character_anchor_variants
         .iter()
@@ -82,14 +98,24 @@ fn case_a_exact_clone() {
     assert!(report.preservation_ratio >= 0.95);
 
     // only identity text changed: prompts differ only in mapped tokens
-    for (b, n) in base.panels().iter().zip(app.draft.get("panels").unwrap().as_array().unwrap()) {
+    for (b, n) in base
+        .panels()
+        .iter()
+        .zip(app.draft.get("panels").unwrap().as_array().unwrap())
+    {
         let bp = b["prompt"].as_str().unwrap().replace("nakano miku", "X");
         let np = n["prompt"].as_str().unwrap().replace("hoshino ai", "X");
         assert_eq!(bp, np, "non-identity prompt text must be identical");
     }
     // global negative untouched, panel count inherited
-    assert_eq!(app.draft["globalNegativePrompt"], base.raw["globalNegativePrompt"]);
-    assert_eq!(app.draft["panels"].as_array().unwrap().len(), base.panels().len());
+    assert_eq!(
+        app.draft["globalNegativePrompt"],
+        base.raw["globalNegativePrompt"]
+    );
+    assert_eq!(
+        app.draft["panels"].as_array().unwrap().len(),
+        base.panels().len()
+    );
 }
 
 /// Case B — Scene Clone: structure kept, location swapped. Scene blocks
@@ -133,12 +159,27 @@ fn case_b_scene_clone() {
                 expected_old_hash: None,
                 expected_project_version: 1,
             },
-            kind: OperationKind::ReplaceSceneToken { replacements: mappings.into_iter().map(|(o, n)| TokenReplacement { old_token: o, new_token: n }).collect() },
+            kind: OperationKind::ReplaceSceneToken {
+                replacements: mappings
+                    .into_iter()
+                    .map(|(o, n)| TokenReplacement {
+                        old_token: o,
+                        new_token: n,
+                    })
+                    .collect(),
+                // SceneMappingPlan: `floor` is scene-generic (survives the
+                // park → office move); the strict leak gate requires every
+                // unmapped old token to be an EXPLICIT keep, not a silent one.
+                kept_tokens: vec!["floor".into()],
+            },
         }],
     };
     let (report, app) = server.validate_patch(&pid, &proposal).unwrap();
     assert!(report.passed, "gates: {report:#?}");
-    assert_eq!(app.draft["panels"].as_array().unwrap().len(), base.panels().len());
+    assert_eq!(
+        app.draft["panels"].as_array().unwrap().len(),
+        base.panels().len()
+    );
     // camera schedule inherited
     let text = serde_json::to_string(&app.draft).unwrap().to_lowercase();
     assert!(text.contains("pov"));
@@ -159,7 +200,10 @@ fn case_b_scene_clone() {
 fn case_c_no_exact_match() {
     let server = server("c");
     let intent = server.parse_intent("火山口里 1女 被匿名男强暴");
-    let sel = server.match_templates(&intent, Some(3)).unwrap().expect("selection");
+    let sel = server
+        .match_templates(&intent, Some(3))
+        .unwrap()
+        .expect("selection");
     assert!(sel.needs_scene_adaptation);
     assert!(sel.primary.score < 0.55);
 }
@@ -182,15 +226,27 @@ fn case_d_importer_fixes_wrong_index() {
                 let male = m.male_lead_count.unwrap_or(0);
                 assert_eq!(m.total_role_count, female + male, "{}", m.template_id);
                 // and must match a fresh (or text-verified) scan of the anchors
-                assert_eq!(m.character_anchors.len() as u32, female, "{}", m.template_id);
+                assert_eq!(
+                    m.character_anchors.len() as u32,
+                    female,
+                    "{}",
+                    m.template_id
+                );
                 // every multi-role template documents its roles somehow
-                assert!(female > 0 || m.male_lead_count.unwrap_or(0) > 0, "{}", m.template_id);
+                assert!(
+                    female > 0 || m.male_lead_count.unwrap_or(0) > 0,
+                    "{}",
+                    m.template_id
+                );
             }
         }
     }
     // after text-verified anchor merging most legacy inconsistencies resolve;
     // the remainder are genuine data problems that MUST be recorded.
-    assert!(mismatch_fixed >= 1, "expected genuine legacy inconsistencies to be recorded, got {mismatch_fixed}");
+    assert!(
+        mismatch_fixed >= 1,
+        "expected genuine legacy inconsistencies to be recorded, got {mismatch_fixed}"
+    );
 
     // max_simultaneous_slots computed from real panels, not index text
     let t010 = all.iter().find(|m| m.template_id == "T010").unwrap();
@@ -209,7 +265,10 @@ fn case_e_agent_overreach_blocked() {
     // rewrite 30 panels wholesale with "nicer" prompts
     let mut ops = Vec::new();
     for i in 1..=30u32 {
-        let old = base.panels()[(i - 1) as usize]["prompt"].as_str().unwrap().to_string();
+        let old = base.panels()[(i - 1) as usize]["prompt"]
+            .as_str()
+            .unwrap()
+            .to_string();
         ops.push(PatchOperation {
             common: PatchOperationCommon {
                 operation_id: format!("op-rewrite-{i}"),
@@ -222,7 +281,8 @@ fn case_e_agent_overreach_blocked() {
             },
             kind: OperationKind::PatchPromptBlock {
                 target: TextTarget::PanelPrompt,
-                new_text: "masterpiece, best quality, beautiful cinematic scene, dramatic lighting".into(),
+                new_text: "masterpiece, best quality, beautiful cinematic scene, dramatic lighting"
+                    .into(),
             },
         });
     }
@@ -239,7 +299,10 @@ fn case_e_agent_overreach_blocked() {
     };
     let (patch_id, report) = server.propose_patch(&pid, &proposal, None).unwrap();
     assert!(!report.passed);
-    assert!(!report.anti_rewrite.passed, "anti-rewrite must catch wholesale rewrite");
+    assert!(
+        !report.anti_rewrite.passed,
+        "anti-rewrite must catch wholesale rewrite"
+    );
     // project state must land in PatchRejected
     let row = server.db.get_project(&pid).unwrap();
     assert_eq!(row.status, storyboard_domain::ProjectStatus::PatchRejected);
@@ -299,7 +362,10 @@ fn case_f_stale_patch_rejected() {
                 expected_old_hash: None,
                 expected_project_version: 2,
             },
-            kind: OperationKind::PatchPromptBlock { target: TextTarget::PanelPrompt, new_text: "x".into() },
+            kind: OperationKind::PatchPromptBlock {
+                target: TextTarget::PanelPrompt,
+                new_text: "x".into(),
+            },
         }],
     };
     let err = match server.validate_patch(&pid, &p3) {
@@ -338,7 +404,10 @@ fn case_g_rollback() {
     let v3 = server.rollback(&pid, 1).unwrap();
     assert_eq!(v3, 3);
     let v3_bytes = server.workspace.read_project_version(&pid, 3).unwrap();
-    assert_eq!(v1_bytes, v3_bytes, "rollback must restore the parent snapshot byte-for-byte");
+    assert_eq!(
+        v1_bytes, v3_bytes,
+        "rollback must restore the parent snapshot byte-for-byte"
+    );
 }
 
 /// Case H — Commit boundary: the production agent has no commit tool; only
@@ -350,7 +419,14 @@ fn case_h_commit_boundary() {
     // (1) commit_storyboard_patch is not registered on the production profile
     let reg = storyboard_tools::ToolRegistry::for_profile(AgentProfile::StoryboardProduction);
     assert!(!reg.tool_names().contains(&"commit_storyboard_patch"));
-    let err = reg.dispatch("commit_storyboard_patch", &json!({}), None, &server as &dyn ToolBackend).unwrap_err();
+    let err = reg
+        .dispatch(
+            "commit_storyboard_patch",
+            &json!({}),
+            None,
+            &server as &dyn ToolBackend,
+        )
+        .unwrap_err();
     assert!(matches!(err, storyboard_tools::ToolError::UnknownTool(_)));
 
     // (2) commit requires an approved patch — the controller guards it
@@ -374,7 +450,9 @@ fn case_h_commit_boundary() {
 fn agent_e2e_mock_provider_full_loop() {
     let server = server("agent");
     let arc_server = std::sync::Arc::new(server);
-    let state = arc_server.clone_project("T010", Some("Agent".into()), 7).unwrap();
+    let state = arc_server
+        .clone_project("T010", Some("Agent".into()), 7)
+        .unwrap();
     let pid = state.project_id;
 
     let proposal = identity_patch(1, "T010", vec![("nakano miku".into(), "hoshino ai".into())]);
@@ -384,7 +462,11 @@ fn agent_e2e_mock_provider_full_loop() {
         message: model_providers::ChatMessage {
             role: model_providers::Role::Assistant,
             content: String::new(),
-            tool_calls: vec![model_providers::ToolCall { id: format!("c-{name}"), name: name.into(), arguments_json: args }],
+            tool_calls: vec![model_providers::ToolCall {
+                id: format!("c-{name}"),
+                name: name.into(),
+                arguments_json: args,
+            }],
             tool_call_id: None,
         },
         finish_reason: "tool_calls".into(),
@@ -401,7 +483,9 @@ fn agent_e2e_mock_provider_full_loop() {
     let manager = agent_runtime::ThreadManager::new(
         RuntimeConfig {
             profile: AgentProfile::StoryboardProduction,
-            approval: ApprovalPolicy { mode: ApprovalMode::AlwaysPrompt },
+            approval: ApprovalPolicy {
+                mode: ApprovalMode::AlwaysPrompt,
+            },
             ..Default::default()
         },
         std::sync::Arc::new(provider),
@@ -413,18 +497,33 @@ fn agent_e2e_mock_provider_full_loop() {
     // lifecycle 2.0: submit through the Op queue (async thread task)
     let handle = manager.spawn_thread("thread-1");
     let outcome = manager.run_turn_blocking("thread-1", Some(&pid.to_string()), "把角色换成星野爱");
-    assert!(matches!(outcome, agent_runtime::TurnStatus::NeedsApproval { .. }), "got {outcome:?}");
-    assert!(matches!(handle.lifecycle(), agent_runtime::ThreadLifecycle::Idle));
+    assert!(
+        matches!(outcome, agent_runtime::TurnStatus::NeedsApproval { .. }),
+        "got {outcome:?}"
+    );
+    assert!(matches!(
+        handle.lifecycle(),
+        agent_runtime::ThreadLifecycle::Idle
+    ));
 
     // manifest persisted automatically at turn start (not post-hoc)
     let events = arc_server.db.list_agent_events("thread-1").unwrap();
-    assert!(events.iter().any(|(_, t)| t == "agent.run.manifest.created"));
+    assert!(events
+        .iter()
+        .any(|(_, t)| t == "agent.run.manifest.created"));
     let runs = arc_server.db.list_agent_events("thread-1").unwrap();
     let _ = runs;
     // rollout: conversation messages persisted (system/user/assistant/tool)
     let history = arc_server.agent_thread_history("thread-1");
-    assert!(history.len() >= 4, "rollout must record the conversation, got {}", history.len());
-    assert!(matches!(history.first().map(|m| &m.role), Some(model_providers::Role::System)));
+    assert!(
+        history.len() >= 4,
+        "rollout must record the conversation, got {}",
+        history.len()
+    );
+    assert!(matches!(
+        history.first().map(|m| &m.role),
+        Some(model_providers::Role::System)
+    ));
 
     // events were emitted through the shared bus
     let mut kinds = Vec::new();
@@ -438,7 +537,11 @@ fn agent_e2e_mock_provider_full_loop() {
     let persisted = arc_server.db.list_agent_events("thread-1").unwrap();
     assert!(persisted.len() >= 3);
     for (i, (seq, _)) in persisted.iter().enumerate() {
-        assert_eq!(*seq, (i + 1) as u64, "per-thread seq must be 1..=n contiguous");
+        assert_eq!(
+            *seq,
+            (i + 1) as u64,
+            "per-thread seq must be 1..=n contiguous"
+        );
     }
 
     // commit via controller after (mock) user approval
@@ -473,4 +576,180 @@ fn status_machine_commit_chain() {
     // illegal jumps are rejected
     assert!(S::AwaitingApproval.transition(S::Versioned).is_err());
     assert!(S::Cloned.transition(S::Committed).is_err());
+}
+
+/// Approval boundary: the conditional update refuses (a) approving another
+/// project's patch, (b) approving a rejected patch, (c) approving twice into
+/// a different state, and resolve of an unknown patch errors.
+#[test]
+fn approval_is_project_and_state_bound() {
+    let server = server("approval-boundary");
+    let a = server.clone_project("T010", Some("A".into()), 1).unwrap();
+    let b = server.clone_project("T003", Some("B".into()), 2).unwrap();
+    let pa = a.project_id;
+    let pb = b.project_id;
+
+    let (patch_a, _) = server
+        .validate_identity_swap(&pa, "hoshino ai")
+        .expect("propose on A");
+    // cross-project approval must fail
+    let err = server.resolve_approval(&pb, patch_a, true).unwrap_err();
+    assert!(
+        err.to_string().contains("not in state") || err.to_string().contains("belongs"),
+        "cross-project approval must be rejected: {err}"
+    );
+    // the patch is untouched
+    assert_eq!(server.db.get_patch(patch_a).unwrap().status, "validated");
+    // reject, then try to approve the rejected patch
+    server.resolve_approval(&pa, patch_a, false).unwrap();
+    assert_eq!(server.db.get_patch(patch_a).unwrap().status, "rejected");
+    assert!(server.resolve_approval(&pa, patch_a, true).is_err());
+    assert_eq!(server.db.get_patch(patch_a).unwrap().status, "rejected");
+    // commit of a rejected patch is refused
+    assert!(server.commit_patch(&pa, patch_a).is_err());
+    // unknown patch id
+    assert!(server.resolve_approval(&pa, 99999, true).is_err());
+}
+
+/// Turn-scoped patch state + by-id validation: a validate round AFTER the
+/// propose round must validate the stored patch (round-crossing state), and
+/// NeedsApproval must carry the real patch_id.
+#[test]
+fn validate_by_id_across_rounds() {
+    let server = server("validate-by-id");
+    let arc = Arc::new(server);
+    let state = arc.clone_project("T010", Some("ById".into()), 3).unwrap();
+    let pid = state.project_id;
+
+    let proposal = identity_patch(1, "T010", vec![("nakano miku".into(), "hoshino ai".into())]);
+    let (patch_id, _) = arc.propose_patch(&pid, &proposal, None).unwrap();
+
+    // by-id validation through the ToolBackend path (what the runtime calls)
+    let out = storyboard_tools::ToolBackend::validate_patch_by_id(
+        arc.as_ref(),
+        &pid.to_string(),
+        patch_id,
+    )
+    .unwrap();
+    assert_eq!(out["patch_id"], patch_id);
+    assert_eq!(out["report"]["passed"], true);
+
+    // wrong project → ownership error
+    let other = arc.clone_project("T003", Some("Other".into()), 4).unwrap();
+    assert!(storyboard_tools::ToolBackend::validate_patch_by_id(
+        arc.as_ref(),
+        &other.project_id.to_string(),
+        patch_id
+    )
+    .is_err());
+}
+
+/// AutoLowRisk approval must LAND IN THE DB via the observer hook (the old
+/// code only emitted an "approved" event while the row stayed `validated`).
+#[test]
+fn auto_low_risk_approval_lands_in_db() {
+    let server = server("auto-approval");
+    let state = server
+        .clone_project("T010", Some("Auto".into()), 5)
+        .unwrap();
+    let pid = state.project_id;
+    let (patch_id, _) = server.validate_identity_swap(&pid, "hoshino ai").unwrap();
+    assert_eq!(server.db.get_patch(patch_id).unwrap().status, "validated");
+
+    let ok = agent_runtime::RunObserver::resolve_auto_approval(
+        &server,
+        "thread-auto",
+        &pid.to_string(),
+        patch_id,
+    );
+    assert!(ok, "auto approval must report success");
+    assert_eq!(server.db.get_patch(patch_id).unwrap().status, "approved");
+    // and now the controller can commit it
+    let out = server.commit_patch(&pid, patch_id).unwrap();
+    assert_eq!(out.new_version, 2);
+}
+
+/// Crash recovery: a snapshot written but never finalized in SQLite (crash
+/// between the file write and the DB tx) is adopted at `AppServer::open`,
+/// and the project advances to the recovered version instead of getting
+/// permanently stuck on VersionConflict.
+#[test]
+fn orphan_snapshot_is_adopted_on_open() {
+    let dir = std::env::temp_dir().join(format!("sbx-golden-recovery-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&dir);
+    let root = dir.clone();
+    {
+        let server = AppServer::init(&root, &fixture_skill()).unwrap();
+        let state = server
+            .clone_project("T010", Some("Recover".into()), 6)
+            .unwrap();
+        let pid = state.project_id;
+        // user-approved patch ready to commit
+        let (patch_id, _) = server.validate_identity_swap(&pid, "hoshino ai").unwrap();
+        server.resolve_approval(&pid, patch_id, true).unwrap();
+        // simulate the crash: write v2 directly, never run the DB finalize
+        let base = server.load_project_snapshot(&pid).unwrap();
+        let mut draft = base.raw.clone();
+        draft["title"] = json!("Recover — crash-survivor");
+        let bytes = serde_json::to_vec_pretty(&draft).unwrap();
+        server
+            .workspace
+            .write_project_version(&pid, 2, &bytes)
+            .unwrap();
+        // process dies here — no version row, current_version still 1
+    }
+    // reopen: startup reconciliation adopts the orphan
+    let server = AppServer::open(&root).unwrap();
+    let projects = server.db.list_projects().unwrap();
+    let row = projects
+        .iter()
+        .find(|p| p.title == "Recover — crash-survivor" || p.title.starts_with("Recover"))
+        .unwrap();
+    let pid: ProjectId = row.id.parse().unwrap();
+    assert!(
+        row.current_version >= 2,
+        "current_version must recover to >= 2, got {}",
+        row.current_version
+    );
+    let versions = server.db.list_versions(&pid).unwrap();
+    assert!(
+        versions.iter().any(|v| v.version_number == 2),
+        "v2 row must exist after adoption"
+    );
+    // the snapshot is readable through the normal path
+    let snap = server.load_project_snapshot(&pid).unwrap();
+    assert_eq!(snap.version, 2);
+}
+
+/// Persistence failures are surfaced, not silently swallowed.
+#[test]
+fn message_seq_is_monotonic_across_restarts() {
+    let dir = std::env::temp_dir().join(format!("sbx-golden-seq-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&dir);
+    let root = dir.clone();
+    {
+        let server = AppServer::init(&root, &fixture_skill()).unwrap();
+        agent_runtime::RunObserver::on_message(
+            &server,
+            "t-seq",
+            &model_providers::ChatMessage::system("first session"),
+        );
+        agent_runtime::RunObserver::on_message(
+            &server,
+            "t-seq",
+            &model_providers::ChatMessage::user("hello"),
+        );
+    }
+    // "restart": a fresh AppServer over the same workspace keeps appending
+    // instead of overwriting seq 0/1
+    let server = AppServer::open(&root).unwrap();
+    agent_runtime::RunObserver::on_message(
+        &server,
+        "t-seq",
+        &model_providers::ChatMessage::assistant("second session"),
+    );
+    let history = server.agent_thread_history("t-seq");
+    assert_eq!(history.len(), 3, "no row may be overwritten: {history:?}");
+    assert!(matches!(history[0].role, model_providers::Role::System));
+    assert_eq!(history[2].content, "second session");
 }

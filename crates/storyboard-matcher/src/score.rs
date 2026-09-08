@@ -15,7 +15,14 @@ pub struct ScoreWeights {
 
 impl Default for ScoreWeights {
     fn default() -> Self {
-        Self { scene: 35.0, structure: 20.0, characters: 15.0, time: 10.0, pace: 10.0, camera_props: 10.0 }
+        Self {
+            scene: 35.0,
+            structure: 20.0,
+            characters: 15.0,
+            time: 10.0,
+            pace: 10.0,
+            camera_props: 10.0,
+        }
     }
 }
 
@@ -32,7 +39,12 @@ pub struct MatcherConfig {
 
 impl Default for MatcherConfig {
     fn default() -> Self {
-        Self { weights: ScoreWeights::default(), top_k: 3, dominance_threshold: 0.15, min_score: 0.55 }
+        Self {
+            weights: ScoreWeights::default(),
+            top_k: 3,
+            dominance_threshold: 0.15,
+            min_score: 0.55,
+        }
     }
 }
 
@@ -86,8 +98,16 @@ pub struct Matcher {
 }
 
 impl Matcher {
-    pub fn new(config: MatcherConfig, aliases: SceneAliasTable, templates: Vec<TemplateMetadata>) -> Self {
-        Self { config, aliases, templates }
+    pub fn new(
+        config: MatcherConfig,
+        aliases: SceneAliasTable,
+        templates: Vec<TemplateMetadata>,
+    ) -> Self {
+        Self {
+            config,
+            aliases,
+            templates,
+        }
     }
 
     pub fn config(&self) -> &MatcherConfig {
@@ -123,7 +143,12 @@ impl Matcher {
                     .collect();
             }
         }
-        cands.sort_by(|a, b| b.score.partial_cmp(&a.score).unwrap().then(a.template_id.cmp(&b.template_id)));
+        cands.sort_by(|a, b| {
+            b.score
+                .partial_cmp(&a.score)
+                .unwrap()
+                .then(a.template_id.cmp(&b.template_id))
+        });
         cands.truncate(self.config.top_k.max(1));
         cands
     }
@@ -137,24 +162,25 @@ impl Matcher {
         }
         let top1 = candidates[0].score;
         let top2 = candidates.get(1).map(|c| c.score).unwrap_or(0.0);
-        let (mode, chosen_idx) = if top1 - top2 >= self.config.dominance_threshold || candidates.len() == 1 {
-            (MatchMode::Deterministic, 0)
-        } else {
-            let mut rng = SplitMix64::new(seed.unwrap_or(0x5EED_0000_0000_0001));
-            let weights: Vec<f32> = candidates.iter().map(|c| c.score.max(1e-6)).collect();
-            let total: f32 = weights.iter().sum();
-            let pick = rng.next_f64() as f32 * total;
-            let mut acc = 0.0f32;
-            let mut idx = weights.len() - 1;
-            for (i, w) in weights.iter().enumerate() {
-                acc += w;
-                if pick <= acc {
-                    idx = i;
-                    break;
+        let (mode, chosen_idx) =
+            if top1 - top2 >= self.config.dominance_threshold || candidates.len() == 1 {
+                (MatchMode::Deterministic, 0)
+            } else {
+                let mut rng = SplitMix64::new(seed.unwrap_or(0x5EED_0000_0000_0001));
+                let weights: Vec<f32> = candidates.iter().map(|c| c.score.max(1e-6)).collect();
+                let total: f32 = weights.iter().sum();
+                let pick = rng.next_f64() as f32 * total;
+                let mut acc = 0.0f32;
+                let mut idx = weights.len() - 1;
+                for (i, w) in weights.iter().enumerate() {
+                    acc += w;
+                    if pick <= acc {
+                        idx = i;
+                        break;
+                    }
                 }
-            }
-            (MatchMode::WeightedRandom, idx)
-        };
+                (MatchMode::WeightedRandom, idx)
+            };
         let primary = candidates.remove(chosen_idx);
         Some(Selection {
             needs_scene_adaptation: primary.score < self.config.min_score,
@@ -162,12 +188,6 @@ impl Matcher {
             candidates,
             mode,
         })
-    }
-
-    fn total(&self, b: &ScoreBreakdown) -> f32 {
-        let w = &self.config.weights;
-        let sum = b.scene.max(0.0) + b.structure + b.characters + b.time + b.pace + b.camera_props;
-        (sum / 100.0).clamp(0.0, 1.0)
     }
 
     /// Normalized score: earned points / points possible given the dimensions
@@ -198,7 +218,8 @@ impl Matcher {
         if possible <= 0.0 {
             return 0.0;
         }
-        let earned = b.scene.max(0.0) + b.structure + b.characters + b.time + b.pace + b.camera_props;
+        let earned =
+            b.scene.max(0.0) + b.structure + b.characters + b.time + b.pace + b.camera_props;
         (earned / possible).clamp(0.0, 1.0)
     }
 
@@ -238,10 +259,23 @@ impl Matcher {
             0.0
         } else if let Some(exact) = &q.exact_scene {
             let e = exact.to_lowercase();
-            let hit = m.exact_scene.as_deref().map(|s| s.to_lowercase().contains(&e)).unwrap_or(false)
-                || m.location_tags.iter().any(|t| t.to_lowercase().contains(&e));
-            if hit { w.scene } else { w.scene * 25.0 / 35.0 }
-        } else if m.scene_family.eq_ignore_ascii_case(q.scene_family.as_deref().unwrap_or("")) {
+            let hit = m
+                .exact_scene
+                .as_deref()
+                .map(|s| s.to_lowercase().contains(&e))
+                .unwrap_or(false)
+                || m.location_tags
+                    .iter()
+                    .any(|t| t.to_lowercase().contains(&e));
+            if hit {
+                w.scene
+            } else {
+                w.scene * 25.0 / 35.0
+            }
+        } else if m
+            .scene_family
+            .eq_ignore_ascii_case(q.scene_family.as_deref().unwrap_or(""))
+        {
             w.scene * 25.0 / 35.0
         } else {
             0.0
@@ -261,7 +295,11 @@ impl Matcher {
                 m.keywords.join(" ")
             )
             .to_lowercase();
-            let hits = q.narrative_tags.iter().filter(|t| hay.contains(&t.to_lowercase())).count();
+            let hits = q
+                .narrative_tags
+                .iter()
+                .filter(|t| hay.contains(&t.to_lowercase()))
+                .count();
             let ratio = hits as f32 / q.narrative_tags.len() as f32;
             w.structure * ratio
         };
@@ -290,7 +328,9 @@ impl Matcher {
                         let r = r.to_lowercase();
                         let base = r.split('_').next().unwrap_or(&r).to_string();
                         male_hay.contains(&base)
-                            || m.character_anchors.iter().any(|a| a.to_lowercase().contains(&base))
+                            || m.character_anchors
+                                .iter()
+                                .any(|a| a.to_lowercase().contains(&base))
                     })
                     .count();
                 5.0 * (hits as f32 / q.character_roles.len() as f32)
@@ -301,10 +341,16 @@ impl Matcher {
         };
 
         // --- time ---
-        let time = match (&q.time, m.time_tags.iter().any(|t| {
-            let t = t.to_lowercase();
-            q.time.as_deref().map(|qt| t.contains(&qt.to_lowercase()) || qt.to_lowercase().contains(&t)).unwrap_or(false)
-        })) {
+        let time = match (
+            &q.time,
+            m.time_tags.iter().any(|t| {
+                let t = t.to_lowercase();
+                q.time
+                    .as_deref()
+                    .map(|qt| t.contains(&qt.to_lowercase()) || qt.to_lowercase().contains(&t))
+                    .unwrap_or(false)
+            }),
+        ) {
             (Some(_), true) => w.time,
             _ => 0.0,
         };
@@ -330,7 +376,11 @@ impl Matcher {
             let mut s = 0.0f32;
             if !q.camera_hints.is_empty() {
                 let hay = m.camera_profile.join(" ").to_lowercase();
-                let hits = q.camera_hints.iter().filter(|c| hay.contains(&c.to_lowercase())).count();
+                let hits = q
+                    .camera_hints
+                    .iter()
+                    .filter(|c| hay.contains(&c.to_lowercase()))
+                    .count();
                 s += 5.0 * (hits as f32 / q.camera_hints.len() as f32);
             }
             if !q.props.is_empty() {
@@ -341,13 +391,25 @@ impl Matcher {
                     m.keywords.join(" ")
                 )
                 .to_lowercase();
-                let hits = q.props.iter().filter(|p| hay.contains(&p.to_lowercase())).count();
+                let hits = q
+                    .props
+                    .iter()
+                    .filter(|p| hay.contains(&p.to_lowercase()))
+                    .count();
                 s += 5.0 * (hits as f32 / q.props.len() as f32);
             }
             s.min(w.camera_props)
         };
 
-        let breakdown = ScoreBreakdown { scene, structure, characters, time, pace, camera_props, reasons };
+        let breakdown = ScoreBreakdown {
+            scene,
+            structure,
+            characters,
+            time,
+            pace,
+            camera_props,
+            reasons,
+        };
         let score = self.normalized(&breakdown, q);
         Candidate {
             template_id: m.template_id.clone(),
@@ -401,7 +463,11 @@ mod tests {
             aliases(),
             vec![meta("T010", "park", 83, 2), meta("T007", "office", 80, 2)],
         );
-        let q = QueryIntent { scene_family: Some("park".into()), narrative_tags: vec!["rape".into()], ..Default::default() };
+        let q = QueryIntent {
+            scene_family: Some("park".into()),
+            narrative_tags: vec!["rape".into()],
+            ..Default::default()
+        };
         let top = m.top_k(&q);
         assert_eq!(top.len(), 1);
         assert_eq!(top[0].template_id, "T010");
@@ -410,16 +476,12 @@ mod tests {
 
     #[test]
     fn dominance_picks_top1_deterministically() {
-        let mut t010 = meta("T010", "park", 83, 2);
+        let t010 = meta("T010", "park", 83, 2);
         let mut t025 = meta("T025", "park", 90, 2);
         t025.narrative_type = Some("sleep touching".into());
         t025.interaction_profile = vec!["sleep".into()];
         t025.keywords = vec!["sleep".into()];
-        let m = Matcher::new(
-            MatcherConfig::default(),
-            aliases(),
-            vec![t010, t025],
-        );
+        let m = Matcher::new(MatcherConfig::default(), aliases(), vec![t010, t025]);
         // narrative narrows to T010 → dominance gap >= 0.15
         let q = QueryIntent {
             scene_family: Some("park".into()),
@@ -436,10 +498,17 @@ mod tests {
         let m = Matcher::new(
             MatcherConfig::default(),
             aliases(),
-            vec![meta("T010", "park", 83, 2), meta("T025", "park", 90, 2), meta("T005", "park", 85, 2)],
+            vec![
+                meta("T010", "park", 83, 2),
+                meta("T025", "park", 90, 2),
+                meta("T005", "park", 85, 2),
+            ],
         );
         // same-family candidates with no other query info → equal scores → random path
-        let q = QueryIntent { scene_family: Some("park".into()), ..Default::default() };
+        let q = QueryIntent {
+            scene_family: Some("park".into()),
+            ..Default::default()
+        };
         let a = m.select(&q, Some(7)).unwrap();
         let b = m.select(&q, Some(7)).unwrap();
         assert_eq!(a.primary.template_id, b.primary.template_id);
@@ -455,7 +524,10 @@ mod tests {
             aliases(),
             vec![meta("T010", "park", 83, 2)],
         );
-        let q = QueryIntent { scene_family: Some("volcano".into()), ..Default::default() };
+        let q = QueryIntent {
+            scene_family: Some("volcano".into()),
+            ..Default::default()
+        };
         let sel = m.select(&q, None).unwrap();
         assert!(sel.needs_scene_adaptation);
     }

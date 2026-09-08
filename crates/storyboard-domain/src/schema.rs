@@ -112,14 +112,37 @@ fn content_layout_hash() -> String {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "kind", rename_all = "snake_case")]
 pub enum SchemaIssue {
-    NotAnObject { path: String },
-    MissingKey { path: String, key: String },
-    UnexpectedKey { path: String, key: String },
-    WrongType { path: String, expected: String },
-    BadSchemaVersion { found: serde_json::Value },
-    BadIndexSequence { panel: u32, expected: u32 },
-    InconsistentPanelTitle { panel: u32, project_title: String, panel_title: String },
-    BadStatus { panel: u32, found: String },
+    NotAnObject {
+        path: String,
+    },
+    MissingKey {
+        path: String,
+        key: String,
+    },
+    UnexpectedKey {
+        path: String,
+        key: String,
+    },
+    WrongType {
+        path: String,
+        expected: String,
+    },
+    BadSchemaVersion {
+        found: serde_json::Value,
+    },
+    BadIndexSequence {
+        panel: u32,
+        expected: u32,
+    },
+    InconsistentPanelTitle {
+        panel: u32,
+        project_title: String,
+        panel_title: String,
+    },
+    BadStatus {
+        panel: u32,
+        found: String,
+    },
 }
 
 impl std::fmt::Display for SchemaIssue {
@@ -128,14 +151,23 @@ impl std::fmt::Display for SchemaIssue {
             SchemaIssue::NotAnObject { path } => write!(f, "{path}: expected JSON object"),
             SchemaIssue::MissingKey { path, key } => write!(f, "{path}: missing key `{key}`"),
             SchemaIssue::UnexpectedKey { path, key } => {
-                write!(f, "{path}: unexpected key `{key}` (schema forbids new fields)")
+                write!(
+                    f,
+                    "{path}: unexpected key `{key}` (schema forbids new fields)"
+                )
             }
             SchemaIssue::WrongType { path, expected } => write!(f, "{path}: expected {expected}"),
-            SchemaIssue::BadSchemaVersion { found } => write!(f, "schemaVersion must be 2, found {found}"),
+            SchemaIssue::BadSchemaVersion { found } => {
+                write!(f, "schemaVersion must be 2, found {found}")
+            }
             SchemaIssue::BadIndexSequence { panel, expected } => {
                 write!(f, "panel index {panel} out of order (expected {expected})")
             }
-            SchemaIssue::InconsistentPanelTitle { panel, project_title, panel_title } => write!(
+            SchemaIssue::InconsistentPanelTitle {
+                panel,
+                project_title,
+                panel_title,
+            } => write!(
                 f,
                 "panel {panel} title `{panel_title}` differs from project title `{project_title}`"
             ),
@@ -154,12 +186,18 @@ fn check_keys(
 ) {
     for k in expected {
         if !obj.contains_key(*k) {
-            issues.push(SchemaIssue::MissingKey { path: path.into(), key: (*k).into() });
+            issues.push(SchemaIssue::MissingKey {
+                path: path.into(),
+                key: (*k).into(),
+            });
         }
     }
     for k in obj.keys() {
         if !expected.contains(&k.as_str()) {
-            issues.push(SchemaIssue::UnexpectedKey { path: path.into(), key: k.clone() });
+            issues.push(SchemaIssue::UnexpectedKey {
+                path: path.into(),
+                key: k.clone(),
+            });
         }
     }
 }
@@ -174,13 +212,109 @@ pub fn validate_storyboard_json(v: &serde_json::Value) -> Vec<SchemaIssue> {
     check_keys(top, EXPECTED_TOP_KEYS, "$", &mut issues);
     match top.get("schemaVersion") {
         Some(serde_json::Value::Number(n)) if n.as_i64() == Some(2) => {}
-        Some(other) => issues.push(SchemaIssue::BadSchemaVersion { found: other.clone() }),
+        Some(other) => issues.push(SchemaIssue::BadSchemaVersion {
+            found: other.clone(),
+        }),
         None => {}
     }
-    if let Some(gp) = top.get("globalParams").and_then(|g| g.as_object()) {
-        check_keys(gp, EXPECTED_GLOBAL_PARAM_KEYS, "$.globalParams", &mut issues);
+    // required string fields at the top level
+    for k in ["id", "title", "globalStylePrompt", "globalNegativePrompt"] {
+        if let Some(val) = top.get(k) {
+            if !val.is_string() {
+                issues.push(SchemaIssue::WrongType {
+                    path: format!("$.{k}"),
+                    expected: "string".into(),
+                });
+            }
+        }
     }
-    let project_title = top.get("title").and_then(|t| t.as_str()).unwrap_or("").to_string();
+    // globalParams must be an object with typed members
+    match top.get("globalParams") {
+        Some(serde_json::Value::Object(gp)) => {
+            check_keys(
+                gp,
+                EXPECTED_GLOBAL_PARAM_KEYS,
+                "$.globalParams",
+                &mut issues,
+            );
+            for k in [
+                "model",
+                "stylePrompt",
+                "positivePrompt",
+                "negativePrompt",
+                "sampler",
+                "noiseSchedule",
+                "seedMode",
+                "qualityPreset",
+                "fileNamePrefix",
+            ] {
+                if let Some(val) = gp.get(k) {
+                    if !val.is_string() {
+                        issues.push(SchemaIssue::WrongType {
+                            path: format!("$.globalParams.{k}"),
+                            expected: "string".into(),
+                        });
+                    }
+                }
+            }
+            for k in ["width", "height", "steps", "seed", "ucPreset"] {
+                if let Some(val) = gp.get(k) {
+                    if !val.is_number() {
+                        issues.push(SchemaIssue::WrongType {
+                            path: format!("$.globalParams.{k}"),
+                            expected: "number".into(),
+                        });
+                    }
+                }
+            }
+            for k in ["cfgScale", "cfgRescale"] {
+                if let Some(val) = gp.get(k) {
+                    if !val.is_number() {
+                        issues.push(SchemaIssue::WrongType {
+                            path: format!("$.globalParams.{k}"),
+                            expected: "float".into(),
+                        });
+                    }
+                }
+            }
+            for k in [
+                "qualityToggle",
+                "transparentBackground",
+                "smea",
+                "smeaDyn",
+                "variety",
+            ] {
+                if let Some(val) = gp.get(k) {
+                    if !val.is_boolean() {
+                        issues.push(SchemaIssue::WrongType {
+                            path: format!("$.globalParams.{k}"),
+                            expected: "bool".into(),
+                        });
+                    }
+                }
+            }
+        }
+        Some(_) => issues.push(SchemaIssue::WrongType {
+            path: "$.globalParams".into(),
+            expected: "object".into(),
+        }),
+        None => {}
+    }
+    for k in ["preciseReferences", "characters"] {
+        if let Some(val) = top.get(k) {
+            if !val.is_array() {
+                issues.push(SchemaIssue::WrongType {
+                    path: format!("$.{k}"),
+                    expected: "array".into(),
+                });
+            }
+        }
+    }
+    let project_title = top
+        .get("title")
+        .and_then(|t| t.as_str())
+        .unwrap_or("")
+        .to_string();
     let Some(panels) = top.get("panels").and_then(|p| p.as_array()) else {
         if !issues.is_empty() || top.get("panels").is_some() {
             issues.push(SchemaIssue::WrongType {
@@ -198,10 +332,36 @@ pub fn validate_storyboard_json(v: &serde_json::Value) -> Vec<SchemaIssue> {
             continue;
         };
         check_keys(po, EXPECTED_PANEL_KEYS, &path, &mut issues);
+        for k in ["id", "title", "prompt"] {
+            if let Some(val) = po.get(k) {
+                if !val.is_string() {
+                    issues.push(SchemaIssue::WrongType {
+                        path: format!("{path}.{k}"),
+                        expected: "string".into(),
+                    });
+                }
+            }
+        }
+        for k in ["preciseReferences", "characterRefs", "candidates"] {
+            if let Some(val) = po.get(k) {
+                if !val.is_array() {
+                    issues.push(SchemaIssue::WrongType {
+                        path: format!("{path}.{k}"),
+                        expected: "array".into(),
+                    });
+                }
+            }
+        }
         match po.get("index").and_then(|x| x.as_u64()) {
             Some(n) if n as u32 == idx => {}
-            Some(n) => issues.push(SchemaIssue::BadIndexSequence { panel: n as u32, expected: idx }),
-            None => issues.push(SchemaIssue::WrongType { path: format!("{path}.index"), expected: "u32".into() }),
+            Some(n) => issues.push(SchemaIssue::BadIndexSequence {
+                panel: n as u32,
+                expected: idx,
+            }),
+            None => issues.push(SchemaIssue::WrongType {
+                path: format!("{path}.index"),
+                expected: "u32".into(),
+            }),
         }
         if let Some(t) = po.get("title").and_then(|t| t.as_str()) {
             if !project_title.is_empty() && t != project_title {
@@ -214,27 +374,155 @@ pub fn validate_storyboard_json(v: &serde_json::Value) -> Vec<SchemaIssue> {
         }
         if let Some(s) = po.get("status").and_then(|s| s.as_str()) {
             if s != "ready" {
-                issues.push(SchemaIssue::BadStatus { panel: idx, found: s.into() });
+                issues.push(SchemaIssue::BadStatus {
+                    panel: idx,
+                    found: s.into(),
+                });
             }
         }
-        if let Some(ccs) = po.get("customCharacters").and_then(|c| c.as_array()) {
-            for (j, cc) in ccs.iter().enumerate() {
-                let cc_path = format!("{path}.customCharacters[{j}]");
-                if let Some(cco) = cc.as_object() {
-                    check_keys(cco, EXPECTED_CC_KEYS, &cc_path, &mut issues);
-                } else {
-                    issues.push(SchemaIssue::NotAnObject { path: cc_path });
+        // customCharacters: array of 5-key objects with typed members
+        match po.get("customCharacters") {
+            Some(serde_json::Value::Array(ccs)) => {
+                for (j, cc) in ccs.iter().enumerate() {
+                    let cc_path = format!("{path}.customCharacters[{j}]");
+                    if let Some(cco) = cc.as_object() {
+                        check_keys(cco, EXPECTED_CC_KEYS, &cc_path, &mut issues);
+                        for k in ["prompt", "negativePrompt"] {
+                            if let Some(val) = cco.get(k) {
+                                if !val.is_string() {
+                                    issues.push(SchemaIssue::WrongType {
+                                        path: format!("{cc_path}.{k}"),
+                                        expected: "string".into(),
+                                    });
+                                }
+                            }
+                        }
+                        if let Some(val) = cco.get("useCoords") {
+                            if !val.is_boolean() {
+                                issues.push(SchemaIssue::WrongType {
+                                    path: format!("{cc_path}.useCoords"),
+                                    expected: "bool".into(),
+                                });
+                            }
+                        }
+                        for k in ["x", "y"] {
+                            if let Some(val) = cco.get(k) {
+                                if !val.is_number() {
+                                    issues.push(SchemaIssue::WrongType {
+                                        path: format!("{cc_path}.{k}"),
+                                        expected: "number".into(),
+                                    });
+                                }
+                            }
+                        }
+                    } else {
+                        issues.push(SchemaIssue::NotAnObject { path: cc_path });
+                    }
                 }
             }
+            Some(_) => issues.push(SchemaIssue::WrongType {
+                path: format!("{path}.customCharacters"),
+                expected: "array".into(),
+            }),
+            None => {}
         }
-        if let Some(po_override) = po.get("paramsOverride") {
-            let po_path = format!("{path}.paramsOverride");
-            if let Some(poo) = po_override.as_object() {
+        // paramsOverride: object with enabled=true and a typed params object
+        match po.get("paramsOverride") {
+            Some(serde_json::Value::Object(poo)) => {
+                let po_path = format!("{path}.paramsOverride");
                 check_keys(poo, EXPECTED_PARAMS_OVERRIDE_KEYS, &po_path, &mut issues);
-                if let Some(params) = poo.get("params").and_then(|p| p.as_object()) {
-                    check_keys(params, EXPECTED_OVERRIDE_PARAM_KEYS, &format!("{po_path}.params"), &mut issues);
+                match poo.get("enabled") {
+                    Some(serde_json::Value::Bool(true)) => {}
+                    Some(_) => issues.push(SchemaIssue::WrongType {
+                        path: format!("{po_path}.enabled"),
+                        expected: "true".into(),
+                    }),
+                    None => {}
+                }
+                match poo.get("params") {
+                    Some(serde_json::Value::Object(params)) => {
+                        let p_path = format!("{po_path}.params");
+                        check_keys(params, EXPECTED_OVERRIDE_PARAM_KEYS, &p_path, &mut issues);
+                        for k in [
+                            "stylePrompt",
+                            "sampler",
+                            "noiseSchedule",
+                            "model",
+                            "qualityPreset",
+                            "seedMode",
+                        ] {
+                            if let Some(val) = params.get(k) {
+                                if !val.is_string() {
+                                    issues.push(SchemaIssue::WrongType {
+                                        path: format!("{p_path}.{k}"),
+                                        expected: "string".into(),
+                                    });
+                                }
+                            }
+                        }
+                        for k in ["steps", "seed", "ucPreset"] {
+                            if let Some(val) = params.get(k) {
+                                if !val.is_number() {
+                                    issues.push(SchemaIssue::WrongType {
+                                        path: format!("{p_path}.{k}"),
+                                        expected: "number".into(),
+                                    });
+                                }
+                            }
+                        }
+                        for k in ["cfgScale", "cfgRescale"] {
+                            if let Some(val) = params.get(k) {
+                                if !val.is_number() {
+                                    issues.push(SchemaIssue::WrongType {
+                                        path: format!("{p_path}.{k}"),
+                                        expected: "float".into(),
+                                    });
+                                }
+                            }
+                        }
+                        for k in ["smea", "smeaDyn", "variety"] {
+                            if let Some(val) = params.get(k) {
+                                if !val.is_boolean() {
+                                    issues.push(SchemaIssue::WrongType {
+                                        path: format!("{p_path}.{k}"),
+                                        expected: "bool".into(),
+                                    });
+                                }
+                            }
+                        }
+                    }
+                    Some(_) => issues.push(SchemaIssue::WrongType {
+                        path: format!("{po_path}.params"),
+                        expected: "object".into(),
+                    }),
+                    None => {}
                 }
             }
+            Some(_) => issues.push(SchemaIssue::WrongType {
+                path: format!("{path}.paramsOverride"),
+                expected: "object".into(),
+            }),
+            None => {}
+        }
+        // imageSize: object with numeric width/height
+        match po.get("imageSize") {
+            Some(serde_json::Value::Object(is)) => {
+                for k in ["width", "height"] {
+                    if let Some(val) = is.get(k) {
+                        if !val.is_number() {
+                            issues.push(SchemaIssue::WrongType {
+                                path: format!("{path}.imageSize.{k}"),
+                                expected: "number".into(),
+                            });
+                        }
+                    }
+                }
+            }
+            Some(_) => issues.push(SchemaIssue::WrongType {
+                path: format!("{path}.imageSize"),
+                expected: "object".into(),
+            }),
+            None => {}
         }
     }
     issues
@@ -282,7 +570,48 @@ mod tests {
         v["panels"][0]["prompt_extra"] = serde_json::json!("illegal");
         v["panels"][0]["index"] = serde_json::json!(7);
         let issues = validate_storyboard_json(&v);
-        assert!(issues.iter().any(|i| matches!(i, SchemaIssue::UnexpectedKey { key, .. } if key == "prompt_extra")));
-        assert!(issues.iter().any(|i| matches!(i, SchemaIssue::BadIndexSequence { .. })));
+        assert!(issues
+            .iter()
+            .any(|i| matches!(i, SchemaIssue::UnexpectedKey { key, .. } if key == "prompt_extra")));
+        assert!(issues
+            .iter()
+            .any(|i| matches!(i, SchemaIssue::BadIndexSequence { .. })));
+    }
+
+    /// Nested structural type violations the old (keys-only) check let pass.
+    #[test]
+    fn detects_nested_type_violations() {
+        // globalParams not an object
+        let mut v = sample();
+        v["globalParams"] = serde_json::json!("oops");
+        assert!(validate_storyboard_json(&v)
+            .iter()
+            .any(|i| matches!(i, SchemaIssue::WrongType { path, .. } if path == "$.globalParams")));
+        // customCharacters not an array
+        let mut v = sample();
+        v["panels"][0]["customCharacters"] = serde_json::json!({});
+        assert!(validate_storyboard_json(&v).iter().any(|i| matches!(i, SchemaIssue::WrongType { path, .. } if path == "$.panels[0].customCharacters")));
+        // paramsOverride not an object
+        let mut v = sample();
+        v["panels"][0]["paramsOverride"] = serde_json::json!(null);
+        assert!(validate_storyboard_json(&v).iter().any(|i| matches!(i, SchemaIssue::WrongType { path, .. } if path == "$.panels[0].paramsOverride")));
+        // paramsOverride.enabled must be literally true
+        let mut v = sample();
+        v["panels"][0]["paramsOverride"]["enabled"] = serde_json::json!(false);
+        assert!(validate_storyboard_json(&v).iter().any(|i| matches!(i, SchemaIssue::WrongType { path, .. } if path == "$.panels[0].paramsOverride.enabled")));
+        // prompt must be a string
+        let mut v = sample();
+        v["panels"][0]["prompt"] = serde_json::json!(42);
+        assert!(validate_storyboard_json(&v).iter().any(
+            |i| matches!(i, SchemaIssue::WrongType { path, .. } if path == "$.panels[0].prompt")
+        ));
+        // seed must be numeric
+        let mut v = sample();
+        v["panels"][0]["paramsOverride"]["params"]["seed"] = serde_json::json!("abc");
+        assert!(validate_storyboard_json(&v).iter().any(|i| matches!(i, SchemaIssue::WrongType { path, .. } if path == "$.panels[0].paramsOverride.params.seed")));
+        // imageSize numeric
+        let mut v = sample();
+        v["panels"][0]["imageSize"]["width"] = serde_json::json!("wide");
+        assert!(validate_storyboard_json(&v).iter().any(|i| matches!(i, SchemaIssue::WrongType { path, .. } if path == "$.panels[0].imageSize.width")));
     }
 }

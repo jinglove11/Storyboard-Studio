@@ -1,0 +1,17 @@
+{
+  "label": "rustfmt",
+  "cwd": "/home/five/Desktop/Storyboard-Studio",
+  "argv": [
+    "cargo",
+    "fmt",
+    "--all",
+    "--",
+    "--check"
+  ],
+  "command": "cargo fmt --all -- --check",
+  "input": "current checkout; no stdin",
+  "started_at": "2026-09-08T05:25:23.421459+00:00",
+  "elapsed_seconds": 0.545,
+  "exit_status": 1,
+  "log": "evidence/rustfmt.log"
+}

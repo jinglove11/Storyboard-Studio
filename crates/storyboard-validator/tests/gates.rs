@@ -12,7 +12,7 @@ fn template_snapshot() -> TemplateSnapshot {
     for i in 1..=4 {
         panels.push(json!({
             "id": format!("tp-{i}"), "index": i, "title": "テンプレ",
-            "prompt": format!("2.6:: masterpiece ::, park, night, pov, nakano miku, {i}"),
+            "prompt": format!("2.6:: masterpiece ::, park, bush, night, pov, nakano miku, {i}"),
             "preciseReferences": [], "charactersMode": "custom", "characterRefs": [],
             "customCharacters": [
                 {"prompt": ", official style, nakano miku (school uniform), pink hair",
@@ -83,11 +83,32 @@ fn cloned_project(t: &TemplateSnapshot) -> ProjectSnapshot {
     }
 }
 
+fn op_common() -> PatchOperationCommon {
+    PatchOperationCommon {
+        operation_id: "op-test".into(),
+        panel_index: None,
+        panel_id: None,
+        anchor: None,
+        expected_old: None,
+        expected_old_hash: None,
+        expected_project_version: 1,
+    }
+}
+
 fn identity_replacements() -> Vec<TokenReplacement> {
     vec![
-        TokenReplacement { old_token: "nakano miku (school uniform)".into(), new_token: "hoshino ai (idol)".into() },
-        TokenReplacement { old_token: "nakano miku".into(), new_token: "hoshino ai".into() },
-        TokenReplacement { old_token: "pink hair".into(), new_token: "purple hair".into() },
+        TokenReplacement {
+            old_token: "nakano miku (school uniform)".into(),
+            new_token: "hoshino ai (idol)".into(),
+        },
+        TokenReplacement {
+            old_token: "nakano miku".into(),
+            new_token: "hoshino ai".into(),
+        },
+        TokenReplacement {
+            old_token: "pink hair".into(),
+            new_token: "purple hair".into(),
+        },
     ]
 }
 
@@ -116,7 +137,11 @@ fn identity_op() -> PatchOperation {
             expected_old_hash: None,
             expected_project_version: 1,
         },
-        kind: OperationKind::ReplaceCharacterIdentity { replacements: identity_replacements(), slots: None },
+        kind: OperationKind::ReplaceCharacterIdentity {
+            replacements: identity_replacements(),
+            slots: None,
+            appearance_replacements: Vec::new(),
+        },
     }
 }
 
@@ -160,7 +185,9 @@ fn agent_overreach_fails_anti_rewrite() {
                 panel_index: Some(i),
                 panel_id: Some(format!("tp-{i}")),
                 anchor: None,
-                expected_old: Some(format!("2.6:: masterpiece ::, park, night, pov, nakano miku, {i}")),
+                expected_old: Some(format!(
+                    "2.6:: masterpiece ::, park, bush, night, pov, nakano miku, {i}"
+                )),
                 expected_old_hash: None,
                 expected_project_version: 1,
             },
@@ -173,8 +200,15 @@ fn agent_overreach_fails_anti_rewrite() {
     ops.push(identity_op());
     let p = proposal(PatchIntent::CharacterReplace, ops, vec![1, 2, 3, 4]);
     let report = run(&p, &base);
-    assert!(!report.anti_rewrite.passed, "anti-rewrite must fail on wholesale rewrite");
-    assert!(report.anti_rewrite.failures.iter().any(|f| f.contains("preservation")));
+    assert!(
+        !report.anti_rewrite.passed,
+        "anti-rewrite must fail on wholesale rewrite"
+    );
+    assert!(report
+        .anti_rewrite
+        .failures
+        .iter()
+        .any(|f| f.contains("preservation")));
 }
 
 #[test]
@@ -192,13 +226,21 @@ fn scene_token_replacement_outside_scene_intent_fails_scope() {
             expected_project_version: 1,
         },
         kind: OperationKind::ReplaceSceneToken {
-            replacements: vec![TokenReplacement { old_token: "park".into(), new_token: "office".into() }],
+            replacements: vec![TokenReplacement {
+                old_token: "park".into(),
+                new_token: "office".into(),
+            }],
+            kept_tokens: Vec::new(),
         },
     }];
     let p = proposal(PatchIntent::CharacterReplace, ops, vec![]);
     let report = run(&p, &base);
     assert!(!report.scope.passed);
-    assert!(report.scope.failures.iter().any(|f| f.contains("scene replacement outside")));
+    assert!(report
+        .scope
+        .failures
+        .iter()
+        .any(|f| f.contains("scene replacement outside")));
 }
 
 #[test]
@@ -222,12 +264,17 @@ fn identity_leak_detected_when_old_token_remains() {
                 new_token: "hoshino ai (idol)".into(),
             }],
             slots: Some(vec![0]),
+            appearance_replacements: Vec::new(),
         },
     }];
     let p = proposal(PatchIntent::CharacterReplace, ops, vec![]);
     let report = run(&p, &base);
     assert!(!report.identity_leak.passed);
-    assert!(report.identity_leak.failures.iter().any(|f| f.contains("nakano miku")));
+    assert!(report
+        .identity_leak
+        .failures
+        .iter()
+        .any(|f| f.contains("nakano miku")));
 }
 
 #[test]
@@ -244,7 +291,9 @@ fn resize_without_user_request_fails_scope() {
             expected_old_hash: None,
             expected_project_version: 1,
         },
-        kind: OperationKind::ResizeStoryboard { target_panel_count: 2 },
+        kind: OperationKind::ResizeStoryboard {
+            target_panel_count: 2,
+        },
     }];
     let p = proposal(PatchIntent::Resize, ops, vec![]);
     let report = run(&p, &base);
@@ -270,4 +319,176 @@ fn stale_template_revision_fails_reference_integrity() {
     };
     let report = validate(&ctx);
     assert!(!report.reference_integrity.passed);
+}
+
+#[test]
+fn appearance_replacement_swaps_inherent_traits() {
+    let t = template_snapshot();
+    let base = cloned_project(&t);
+    // old hair colour stays -> identity leak FAIL
+    let ops = vec![PatchOperation {
+        common: op_common(),
+        kind: OperationKind::ReplaceCharacterIdentity {
+            replacements: identity_replacements(),
+            slots: None,
+            appearance_replacements: vec![],
+        },
+    }];
+    let p = proposal(PatchIntent::CharacterReplace, ops, vec![]);
+    let report = run(&p, &base);
+    assert!(
+        report.identity_leak.passed,
+        "name swap alone passes (traits inherited, warned)"
+    );
+    assert!(
+        report
+            .identity_leak
+            .warnings
+            .iter()
+            .any(|w| w.contains("appearance_replacements")),
+        "name-only swap must warn about inherited traits"
+    );
+
+    // declared appearance mapping removes the old trait AND its leak
+    let ops = vec![PatchOperation {
+        common: op_common(),
+        kind: OperationKind::ReplaceCharacterIdentity {
+            replacements: identity_replacements(),
+            slots: None,
+            appearance_replacements: vec![TokenReplacement {
+                old_token: "pink hair".into(),
+                new_token: "blue hair".into(),
+            }],
+        },
+    }];
+    let p = proposal(PatchIntent::CharacterReplace, ops, vec![]);
+    let report = run(&p, &base);
+    assert!(report.identity_leak.passed);
+    assert!(!report
+        .identity_leak
+        .warnings
+        .iter()
+        .any(|w| w.contains("appearance_replacements")));
+}
+
+#[test]
+fn scene_op_present_makes_metadata_leak_strict() {
+    let t = template_snapshot();
+    let base = cloned_project(&t);
+    // map only `park`; `bush` (environment tag) is left unmapped -> FAIL
+    let ops = vec![PatchOperation {
+        common: op_common(),
+        kind: OperationKind::ReplaceSceneToken {
+            replacements: vec![TokenReplacement {
+                old_token: "park".into(),
+                new_token: "office".into(),
+            }],
+            kept_tokens: vec![],
+        },
+    }];
+    let p = proposal(PatchIntent::SceneAdapt, ops, vec![]);
+    let report = run(&p, &base);
+    assert!(
+        !report.scene_leak.passed,
+        "unmapped old environment token must FAIL while a scene op is in flight: {:?}",
+        report.scene_leak.failures
+    );
+
+    // declaring the survivor in kept_tokens keeps it legitimately
+    let ops = vec![PatchOperation {
+        common: op_common(),
+        kind: OperationKind::ReplaceSceneToken {
+            replacements: vec![TokenReplacement {
+                old_token: "park".into(),
+                new_token: "office".into(),
+            }],
+            kept_tokens: vec!["bush".into()],
+        },
+    }];
+    let p = proposal(PatchIntent::SceneAdapt, ops, vec![]);
+    let report = run(&p, &base);
+    assert!(
+        report.scene_leak.passed,
+        "declared keeps are legal: {:?}",
+        report.scene_leak.failures
+    );
+}
+
+#[test]
+fn clothing_chain_gate_blocks_guard_block_left_behind() {
+    let mut t = template_snapshot();
+    // build a real clothing arc into the template panels
+    if let Some(panels) = t.raw["panels"].as_array_mut() {
+        panels[0]["customCharacters"][0]["prompt"] =
+            json!(", official style, nakano miku, 1.3::pantyhose::");
+        panels[1]["customCharacters"][0]["prompt"] =
+            json!(", official style, nakano miku, 0.3::torn pantyhose::");
+        panels[2]["customCharacters"][0]["prompt"] =
+            json!(", official style, nakano miku, bare legs, -2::pantyhose::");
+        panels[3]["customCharacters"][0]["prompt"] =
+            json!(", official style, nakano miku, bare legs, -4::pantyhose::");
+    }
+    let base = cloned_project(&t);
+
+    // consistent swap: full chain mirrored -> gate passes
+    let mut good = base.raw.clone();
+    if let Some(panels) = good["panels"].as_array_mut() {
+        panels[0]["customCharacters"][0]["prompt"] =
+            json!(", official style, nakano miku, 1.3::black pantyhose::");
+        panels[1]["customCharacters"][0]["prompt"] =
+            json!(", official style, nakano miku, 0.3::torn black pantyhose::");
+        panels[2]["customCharacters"][0]["prompt"] =
+            json!(", official style, nakano miku, bare legs, -2::black pantyhose::");
+        panels[3]["customCharacters"][0]["prompt"] =
+            json!(", official style, nakano miku, bare legs, -4::black pantyhose::");
+    }
+    let ops = vec![PatchOperation {
+        common: op_common(),
+        kind: OperationKind::ReplaceCharacterIdentity {
+            replacements: vec![TokenReplacement {
+                old_token: "pantyhose".into(),
+                new_token: "black pantyhose".into(),
+            }],
+            slots: None,
+            appearance_replacements: vec![],
+        },
+    }];
+    let p = proposal(PatchIntent::CharacterReplace, ops, vec![]);
+    let ctx = ValidationContext {
+        template: &t,
+        template_metadata: &metadata(),
+        base: &base,
+        proposal: &p,
+        draft: &good,
+        applied_touched_panels: [1u32, 2, 3, 4].into_iter().collect(),
+        current_template_sha: "t010sha",
+        config: ValidatorConfig::default(),
+    };
+    let report = validate(&ctx);
+    assert!(
+        report.clothing_chain.passed,
+        "mirrored chain must pass: {:?}",
+        report.clothing_chain.failures
+    );
+
+    // partial swap: one guard block still says the old word -> gate fails
+    let mut partial = good.clone();
+    partial["panels"][2]["customCharacters"][0]["prompt"] =
+        json!(", official style, nakano miku, bare legs, -2::pantyhose::");
+    let ctx = ValidationContext {
+        template: &t,
+        template_metadata: &metadata(),
+        base: &base,
+        proposal: &p,
+        draft: &partial,
+        applied_touched_panels: [1u32, 2, 3, 4].into_iter().collect(),
+        current_template_sha: "t010sha",
+        config: ValidatorConfig::default(),
+    };
+    let report = validate(&ctx);
+    assert!(
+        !report.clothing_chain.passed,
+        "un-swapped negative guard must fail the chain gate: {:?}",
+        report.clothing_chain.failures
+    );
 }

@@ -13,6 +13,7 @@ pub fn new_run_id() -> String {
     agent_protocol::new_id("run")
 }
 
+#[allow(clippy::too_many_arguments)]
 pub fn build_manifest(
     run_id: &str,
     provider_id: &str,

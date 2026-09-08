@@ -55,9 +55,22 @@ pub struct PanelDiff {
 pub enum PanelChange {
     Added,
     Removed,
-    Prompt { before: String, after: String, tokens: TokenDiff },
-    CharacterSlot { slot: u32, before: String, after: String, tokens: TokenDiff },
-    Field { field: String, before: serde_json::Value, after: serde_json::Value },
+    Prompt {
+        before: String,
+        after: String,
+        tokens: TokenDiff,
+    },
+    CharacterSlot {
+        slot: u32,
+        before: String,
+        after: String,
+        tokens: TokenDiff,
+    },
+    Field {
+        field: String,
+        before: serde_json::Value,
+        after: serde_json::Value,
+    },
 }
 
 /// Comma-token level diff computed with LCS. Deterministic.
@@ -102,35 +115,54 @@ impl TokenDiff {
         let (mut i, mut j) = (0usize, 0usize);
         while i < n && j < m {
             if a[i] == b[j] {
-                changes.push(TokenChange::Kept { token: a[i].clone() });
+                changes.push(TokenChange::Kept {
+                    token: a[i].clone(),
+                });
                 i += 1;
                 j += 1;
             } else if dp[i + 1][j] >= dp[i][j + 1] {
-                changes.push(TokenChange::Removed { token: a[i].clone() });
+                changes.push(TokenChange::Removed {
+                    token: a[i].clone(),
+                });
                 i += 1;
             } else {
-                changes.push(TokenChange::Added { token: b[j].clone() });
+                changes.push(TokenChange::Added {
+                    token: b[j].clone(),
+                });
                 j += 1;
             }
         }
         while i < n {
-            changes.push(TokenChange::Removed { token: a[i].clone() });
+            changes.push(TokenChange::Removed {
+                token: a[i].clone(),
+            });
             i += 1;
         }
         while j < m {
-            changes.push(TokenChange::Added { token: b[j].clone() });
+            changes.push(TokenChange::Added {
+                token: b[j].clone(),
+            });
             j += 1;
         }
         TokenDiff { changes }
     }
 
     pub fn kept(&self) -> usize {
-        self.changes.iter().filter(|c| matches!(c, TokenChange::Kept { .. })).count()
+        self.changes
+            .iter()
+            .filter(|c| matches!(c, TokenChange::Kept { .. }))
+            .count()
     }
     pub fn removed(&self) -> usize {
-        self.changes.iter().filter(|c| matches!(c, TokenChange::Removed { .. })).count()
+        self.changes
+            .iter()
+            .filter(|c| matches!(c, TokenChange::Removed { .. }))
+            .count()
     }
     pub fn added(&self) -> usize {
-        self.changes.iter().filter(|c| matches!(c, TokenChange::Added { .. })).count()
+        self.changes
+            .iter()
+            .filter(|c| matches!(c, TokenChange::Added { .. }))
+            .count()
     }
 }

@@ -4,7 +4,6 @@
 /// characters (word-boundary style), so `miku` does not match inside
 /// `mikuchan`. Everything else — weights, punctuation, spacing around the
 /// token — is preserved byte-for-byte.
-
 fn is_word(c: char) -> bool {
     c.is_alphanumeric()
 }
@@ -74,7 +73,11 @@ mod tests {
     #[test]
     fn multiword_token_with_parens_matches() {
         let text = ", official style, azki (4th costume) (hololive),, 4::completely nude::";
-        let (out, n) = replace_all(text, "azki (4th costume) (hololive)", "elaina (majo no tabitabi)");
+        let (out, n) = replace_all(
+            text,
+            "azki (4th costume) (hololive)",
+            "elaina (majo no tabitabi)",
+        );
         assert_eq!(n, 1);
         assert!(out.contains("official style, elaina (majo no tabitabi),,"));
     }
@@ -84,6 +87,9 @@ mod tests {
         let text = "3::pantyhose, green skirt::  -2::pantyhose, green skirt::";
         let (out, n) = replace_all(text, "pantyhose", "black pantyhose");
         assert_eq!(n, 2);
-        assert_eq!(out, "3::black pantyhose, green skirt::  -2::black pantyhose, green skirt::");
+        assert_eq!(
+            out,
+            "3::black pantyhose, green skirt::  -2::black pantyhose, green skirt::"
+        );
     }
 }

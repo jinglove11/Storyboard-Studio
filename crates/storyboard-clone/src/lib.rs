@@ -7,8 +7,8 @@
 //! - template file untouched (engine only reads the snapshot)
 //! - v1 persisted atomically by the storage layer, never by the agent
 
-use storyboard_domain::{ProjectId, SeedStrategy, TemplateSnapshot};
 use storyboard_domain::template::SourceTemplateRef;
+use storyboard_domain::{ProjectId, SeedStrategy, TemplateSnapshot};
 use uuid::Uuid;
 
 /// Deterministic v4-format UUID derived from a seeded RNG so clones are
@@ -104,7 +104,10 @@ impl CloneEngine {
         // fresh project id + title
         let project_uuid = uuid_from_rng(&mut rng);
         raw["id"] = serde_json::Value::String(project_uuid.to_string());
-        let title = opts.title.clone().unwrap_or_else(|| snapshot.title().to_string());
+        let title = opts
+            .title
+            .clone()
+            .unwrap_or_else(|| snapshot.title().to_string());
         raw["title"] = serde_json::Value::String(title.clone());
 
         // seeds
@@ -132,7 +135,7 @@ impl CloneEngine {
                     }
                 };
                 if let Some(gp) = raw.get_mut("globalParams") {
-                    gp["seed"] = serde_json::Value::Number((next_seed(&mut rng) as u64).into());
+                    gp["seed"] = serde_json::Value::Number(next_seed(&mut rng).into());
                     seeds_regenerated += 1;
                 }
                 if let Some(panels) = raw.get_mut("panels").and_then(|p| p.as_array_mut()) {
@@ -162,7 +165,11 @@ impl CloneEngine {
                 new_panel_ids,
                 seeds_regenerated,
                 title,
-                panel_count: raw.get("panels").and_then(|p| p.as_array()).map(|a| a.len() as u32).unwrap_or(0),
+                panel_count: raw
+                    .get("panels")
+                    .and_then(|p| p.as_array())
+                    .map(|a| a.len() as u32)
+                    .unwrap_or(0),
             },
             project_id,
             raw,
@@ -185,12 +192,27 @@ fn set_panel_seed(panel: &mut serde_json::Value, seed: u64) {
 
 /// Verify the clone guarantees (plan §11 + Golden Case A). Returns every
 /// violation found; empty = all guarantees hold.
-pub fn verify_clone_guarantees(template: &serde_json::Value, cloned: &serde_json::Value) -> Vec<String> {
+pub fn verify_clone_guarantees(
+    template: &serde_json::Value,
+    cloned: &serde_json::Value,
+) -> Vec<String> {
     let mut issues = Vec::new();
-    let t_panels = template.get("panels").and_then(|p| p.as_array()).cloned().unwrap_or_default();
-    let c_panels = cloned.get("panels").and_then(|p| p.as_array()).cloned().unwrap_or_default();
+    let t_panels = template
+        .get("panels")
+        .and_then(|p| p.as_array())
+        .cloned()
+        .unwrap_or_default();
+    let c_panels = cloned
+        .get("panels")
+        .and_then(|p| p.as_array())
+        .cloned()
+        .unwrap_or_default();
     if t_panels.len() != c_panels.len() {
-        issues.push(format!("panel count {} != {}", t_panels.len(), c_panels.len()));
+        issues.push(format!(
+            "panel count {} != {}",
+            t_panels.len(),
+            c_panels.len()
+        ));
     }
     for (i, (t, c)) in t_panels.iter().zip(c_panels.iter()).enumerate() {
         if t.get("prompt") != c.get("prompt") {
@@ -203,7 +225,10 @@ pub fn verify_clone_guarantees(template: &serde_json::Value, cloned: &serde_json
             issues.push(format!("panel {} imageSize changed", i + 1));
         }
         if t.get("customCharacters") != c.get("customCharacters") {
-            issues.push(format!("panel {} customCharacters altered (coords/structure must inherit)", i + 1));
+            issues.push(format!(
+                "panel {} customCharacters altered (coords/structure must inherit)",
+                i + 1
+            ));
         }
         if t.get("id") == c.get("id") {
             issues.push(format!("panel {} id not regenerated", i + 1));
@@ -283,15 +308,23 @@ mod tests {
         assert_eq!(c.raw["title"], "template title");
         assert_ne!(c.raw["panels"][0]["id"], t.raw["panels"][0]["id"]);
         // seeds actually re-rolled and unique
-        let s1 = c.raw["panels"][0]["paramsOverride"]["params"]["seed"].as_u64().unwrap();
-        let s2 = c.raw["panels"][1]["paramsOverride"]["params"]["seed"].as_u64().unwrap();
+        let s1 = c.raw["panels"][0]["paramsOverride"]["params"]["seed"]
+            .as_u64()
+            .unwrap();
+        let s2 = c.raw["panels"][1]["paramsOverride"]["params"]["seed"]
+            .as_u64()
+            .unwrap();
         assert_ne!(s1, s2);
     }
 
     #[test]
     fn clone_is_deterministic_given_seed() {
         let t = sample_template();
-        let opts = CloneOptions { title: Some("新套名".into()), rng_seed: 99, ..Default::default() };
+        let opts = CloneOptions {
+            title: Some("新套名".into()),
+            rng_seed: 99,
+            ..Default::default()
+        };
         let a = CloneEngine::clone_template(&t, &opts).unwrap();
         let b = CloneEngine::clone_template(&t, &opts).unwrap();
         assert_eq!(a.raw, b.raw);

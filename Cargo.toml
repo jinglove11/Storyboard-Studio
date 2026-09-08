@@ -15,6 +15,9 @@ members = [
     "crates/app-server",
     "apps/desktop/src-tauri",
 ]
+# codex-spike is a local research harness with its own workspace and absolute
+# /tmp/codex path dependencies — it must never be part of the product build.
+exclude = ["crates/codex-spike"]
 
 [workspace.package]
 version = "0.1.0"
@@ -39,6 +42,7 @@ futures-util = "0.3"
 async-trait = "0.1"
 reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls", "stream"] }
 tempfile = "3"
+keyring = { version = "3", features = ["sync-secret-service", "windows-native", "apple-native"] }
 
 storyboard-domain = { path = "crates/storyboard-domain" }
 storyboard-importer = { path = "crates/storyboard-importer" }

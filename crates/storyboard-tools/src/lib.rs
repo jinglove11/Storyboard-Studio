@@ -37,9 +37,18 @@ pub trait ToolBackend: Send + Sync {
     fn read_template_panels(&self, template_id: &str, from: u32, to: u32) -> Result<Value, String>;
     fn read_project(&self, project_id: &str) -> Result<Value, String>;
     fn read_diff_context(&self, project_id: &str) -> Result<Value, String>;
-    fn propose_patch(&self, project_id: &str, proposal: &Value, run_id: Option<&str>) -> Result<Value, String>;
+    fn propose_patch(
+        &self,
+        project_id: &str,
+        proposal: &Value,
+        run_id: Option<&str>,
+    ) -> Result<Value, String>;
     fn preview_patch(&self, project_id: &str, proposal: &Value) -> Result<Value, String>;
     fn validate_patch(&self, project_id: &str, proposal: &Value) -> Result<Value, String>;
+    /// Validate the STORED patch row (by id) — the authoritative path. The
+    /// re-submitted-proposal form above is only a fallback for unstored
+    /// previews; approval always refers to the stored row.
+    fn validate_patch_by_id(&self, project_id: &str, patch_id: i64) -> Result<Value, String>;
 }
 
 #[derive(Debug, thiserror::Error)]
@@ -75,7 +84,10 @@ fn str_field(args: &Value, key: &str) -> Result<String, ToolError> {
 }
 
 fn backend_err(tool: &'static str, message: String) -> ToolError {
-    ToolError::Execution { tool: tool.into(), message }
+    ToolError::Execution {
+        tool: tool.into(),
+        message,
+    }
 }
 
 macro_rules! tool {
@@ -209,18 +221,22 @@ impl ToolRegistry {
             ),
             tool!(
                 "validate_storyboard_patch",
-                "Run all deterministic gates on a PatchProposal. Returns the full ValidationReport.",
+                "Run all deterministic gates. Preferred input: {project_id, patch_id} — validates the STORED patch (propose first). Fallback: {project_id, proposal} for unstored previews.",
                 Permission::ReadOnly,
                 serde_json::json!({
                     "type": "object",
                     "properties": {
                         "project_id": {"type": "string"},
+                        "patch_id": {"type": "integer"},
                         "proposal": {"type": "object"}
                     },
-                    "required": ["project_id", "proposal"]
+                    "required": ["project_id"]
                 }),
                 |b, args, _run_id| {
                     let id = str_field(args, "project_id")?;
+                    if let Some(pid) = args.get("patch_id").and_then(|v| v.as_i64()) {
+                        return b.validate_patch_by_id(&id, pid).map_err(|m| backend_err("validate_storyboard_patch", m));
+                    }
                     let p = args.get("proposal").cloned().unwrap_or(Value::Null);
                     b.validate_patch(&id, &p).map_err(|m| backend_err("validate_storyboard_patch", m))
                 }
@@ -242,7 +258,10 @@ impl ToolRegistry {
     }
 
     pub fn permission_of(&self, name: &str) -> Option<Permission> {
-        self.entries.iter().find(|t| t.name == name).map(|t| t.permission)
+        self.entries
+            .iter()
+            .find(|t| t.name == name)
+            .map(|t| t.permission)
     }
 
     pub fn schemas_for_provider(&self) -> Vec<ToolSchema> {
@@ -303,6 +322,28 @@ mod tests {
         fn validate_patch(&self, _id: &str, _p: &Value) -> Result<Value, String> {
             Ok(json!({"passed": true}))
         }
+        fn validate_patch_by_id(&self, id: &str, patch_id: i64) -> Result<Value, String> {
+            Ok(json!({"project": id, "patch_id": patch_id, "report": {"passed": true}}))
+        }
+    }
+
+    #[test]
+    fn validate_by_patch_id_prefers_stored_row() {
+        let reg = ToolRegistry::for_profile(AgentProfile::StoryboardProduction);
+        let out = reg
+            .dispatch(
+                "validate_storyboard_patch",
+                &json!({"project_id": "p", "patch_id": 7, "proposal": {"fake": true}}),
+                None,
+                &FakeBackend,
+            )
+            .unwrap();
+        assert_eq!(out["patch_id"], 7);
+        assert_eq!(out["report"]["passed"], true);
+        assert!(
+            out.get("proposal").is_none(),
+            "stored-row path must not echo the proposal"
+        );
     }
 
     #[test]
@@ -329,7 +370,12 @@ mod tests {
     fn dispatch_search_templates() {
         let reg = ToolRegistry::for_profile(AgentProfile::StoryboardProduction);
         let out = reg
-            .dispatch("search_templates", &json!({"query": {"scene_family": "park"}}), None, &FakeBackend)
+            .dispatch(
+                "search_templates",
+                &json!({"query": {"scene_family": "park"}}),
+                None,
+                &FakeBackend,
+            )
             .unwrap();
         assert_eq!(out["echo"]["scene_family"], "park");
     }

@@ -1,7 +1,7 @@
-use storyboard_domain::SceneAliasTable;
 use std::collections::BTreeMap;
 use std::io::Read;
 use std::path::{Path, PathBuf};
+use storyboard_domain::SceneAliasTable;
 
 #[derive(Debug, thiserror::Error)]
 pub enum SkillBundleError {
@@ -12,7 +12,10 @@ pub enum SkillBundleError {
     #[error("missing entry: {0}")]
     MissingEntry(String),
     #[error("bad json in {path}: {source}")]
-    BadJson { path: String, source: serde_json::Error },
+    BadJson {
+        path: String,
+        source: serde_json::Error,
+    },
 }
 
 /// Access to the frozen `.skill` migration fixture (plan §30). The bundle is
@@ -24,7 +27,10 @@ pub struct SkillBundle {
 
 enum BundleInner {
     Directory(PathBuf),
-    Zip { path: PathBuf, cache: std::sync::Mutex<BTreeMap<String, Vec<u8>>> },
+    Zip {
+        path: PathBuf,
+        cache: std::sync::Mutex<BTreeMap<String, Vec<u8>>>,
+    },
 }
 
 impl SkillBundle {
@@ -37,7 +43,9 @@ impl SkillBundle {
                 p.display()
             )));
         }
-        Ok(Self { inner: BundleInner::Directory(p.to_path_buf()) })
+        Ok(Self {
+            inner: BundleInner::Directory(p.to_path_buf()),
+        })
     }
 
     /// Open a packed `.skill` file (zip archive).
@@ -82,10 +90,9 @@ impl SkillBundle {
     }
 
     pub fn read_template(&self, template_id: &str) -> Result<Vec<u8>, SkillBundleError> {
-        let n: u32 = template_id
-            .trim_start_matches('T')
-            .parse()
-            .map_err(|_| SkillBundleError::MissingEntry(format!("bad template id {template_id}")))?;
+        let n: u32 = template_id.trim_start_matches('T').parse().map_err(|_| {
+            SkillBundleError::MissingEntry(format!("bad template id {template_id}"))
+        })?;
         let rel = format!("references/template-library/template_{n:03}.json");
         self.read_entry(&rel)
     }
@@ -108,10 +115,12 @@ impl SkillBundle {
             .unwrap_or_default();
         let mut out = Vec::with_capacity(entries.len());
         for e in entries {
-            out.push(serde_json::from_value(e).map_err(|source| SkillBundleError::BadJson {
-                path: "template-index.json[templates]".into(),
-                source,
-            })?);
+            out.push(
+                serde_json::from_value(e).map_err(|source| SkillBundleError::BadJson {
+                    path: "template-index.json[templates]".into(),
+                    source,
+                })?,
+            );
         }
         Ok(out)
     }
@@ -126,7 +135,9 @@ impl SkillBundle {
                 let list = aliases
                     .as_array()
                     .map(|a| {
-                        a.iter().filter_map(|x| x.as_str().map(String::from)).collect()
+                        a.iter()
+                            .filter_map(|x| x.as_str().map(String::from))
+                            .collect()
                     })
                     .unwrap_or_default();
                 pairs.insert(family.clone(), list);

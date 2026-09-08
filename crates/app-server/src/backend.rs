@@ -9,7 +9,9 @@ use storyboard_tools::ToolBackend;
 impl ToolBackend for AppServer {
     fn search_templates(&self, query: &Value) -> Result<Value, String> {
         // accept either a QueryIntent object or {"text": "..."} free-form input
-        let intent: storyboard_domain::QueryIntent = if let Some(text) = query.get("text").and_then(|t| t.as_str()) {
+        let intent: storyboard_domain::QueryIntent = if let Some(text) =
+            query.get("text").and_then(|t| t.as_str())
+        {
             self.parse_intent(text)
         } else {
             serde_json::from_value(query.clone()).map_err(|e| format!("bad QueryIntent: {e}"))?
@@ -27,12 +29,17 @@ impl ToolBackend for AppServer {
     }
 
     fn read_template_summary(&self, template_id: &str) -> Result<Value, String> {
-        let m = self.db.get_template_metadata(template_id).map_err(|e| e.to_string())?;
+        let m = self
+            .db
+            .get_template_metadata(template_id)
+            .map_err(|e| e.to_string())?;
         serde_json::to_value(m).map_err(|e| e.to_string())
     }
 
     fn read_template_panels(&self, template_id: &str, from: u32, to: u32) -> Result<Value, String> {
-        let snap = self.load_template_snapshot(template_id).map_err(|e| e.to_string())?;
+        let snap = self
+            .load_template_snapshot(template_id)
+            .map_err(|e| e.to_string())?;
         let panels = snap.panels();
         let from0 = (from.saturating_sub(1) as usize).min(panels.len());
         let to0 = (to as usize).min(panels.len());
@@ -43,7 +50,9 @@ impl ToolBackend for AppServer {
     }
 
     fn read_project(&self, project_id: &str) -> Result<Value, String> {
-        let pid: ProjectId = project_id.parse().map_err(|_| "bad project id".to_string())?;
+        let pid: ProjectId = project_id
+            .parse()
+            .map_err(|_| "bad project id".to_string())?;
         let row = self.db.get_project(&pid).map_err(|e| e.to_string())?;
         Ok(json!({
             "project_id": row.id,
@@ -56,7 +65,9 @@ impl ToolBackend for AppServer {
     }
 
     fn read_diff_context(&self, project_id: &str) -> Result<Value, String> {
-        let pid: ProjectId = project_id.parse().map_err(|_| "bad project id".to_string())?;
+        let pid: ProjectId = project_id
+            .parse()
+            .map_err(|_| "bad project id".to_string())?;
         let versions = self.db.list_versions(&pid).map_err(|e| e.to_string())?;
         let latest = versions.last().ok_or("project has no versions")?;
         match &latest.diff_path {
@@ -69,27 +80,51 @@ impl ToolBackend for AppServer {
         }
     }
 
-    fn propose_patch(&self, project_id: &str, proposal: &Value, run_id: Option<&str>) -> Result<Value, String> {
-        let pid: ProjectId = project_id.parse().map_err(|_| "bad project id".to_string())?;
-        let p: PatchProposal =
-            serde_json::from_value(proposal.clone()).map_err(|e| format!("bad PatchProposal: {e}"))?;
-        let (patch_id, report) = self.propose_patch(&pid, &p, run_id).map_err(|e| e.to_string())?;
+    fn propose_patch(
+        &self,
+        project_id: &str,
+        proposal: &Value,
+        run_id: Option<&str>,
+    ) -> Result<Value, String> {
+        let pid: ProjectId = project_id
+            .parse()
+            .map_err(|_| "bad project id".to_string())?;
+        let p: PatchProposal = serde_json::from_value(proposal.clone())
+            .map_err(|e| format!("bad PatchProposal: {e}"))?;
+        let (patch_id, report) = self
+            .propose_patch(&pid, &p, run_id)
+            .map_err(|e| e.to_string())?;
         Ok(json!({ "patch_id": patch_id, "report": report, "run_id": run_id }))
     }
 
     fn preview_patch(&self, project_id: &str, proposal: &Value) -> Result<Value, String> {
-        let pid: ProjectId = project_id.parse().map_err(|_| "bad project id".to_string())?;
-        let p: PatchProposal =
-            serde_json::from_value(proposal.clone()).map_err(|e| format!("bad PatchProposal: {e}"))?;
+        let pid: ProjectId = project_id
+            .parse()
+            .map_err(|_| "bad project id".to_string())?;
+        let p: PatchProposal = serde_json::from_value(proposal.clone())
+            .map_err(|e| format!("bad PatchProposal: {e}"))?;
         let (_, app) = self.validate_patch(&pid, &p).map_err(|e| e.to_string())?;
         serde_json::to_value(app.diff).map_err(|e| e.to_string())
     }
 
     fn validate_patch(&self, project_id: &str, proposal: &Value) -> Result<Value, String> {
-        let pid: ProjectId = project_id.parse().map_err(|_| "bad project id".to_string())?;
-        let p: PatchProposal =
-            serde_json::from_value(proposal.clone()).map_err(|e| format!("bad PatchProposal: {e}"))?;
+        let pid: ProjectId = project_id
+            .parse()
+            .map_err(|_| "bad project id".to_string())?;
+        let p: PatchProposal = serde_json::from_value(proposal.clone())
+            .map_err(|e| format!("bad PatchProposal: {e}"))?;
         let (report, _) = self.validate_patch(&pid, &p).map_err(|e| e.to_string())?;
         serde_json::to_value(json!({ "report": report })).map_err(|e| e.to_string())
+    }
+
+    fn validate_patch_by_id(&self, project_id: &str, patch_id: i64) -> Result<Value, String> {
+        let pid: ProjectId = project_id
+            .parse()
+            .map_err(|_| "bad project id".to_string())?;
+        let report = self
+            .validate_patch_by_id(&pid, patch_id)
+            .map_err(|e| e.to_string())?;
+        serde_json::to_value(json!({ "patch_id": patch_id, "report": report }))
+            .map_err(|e| e.to_string())
     }
 }

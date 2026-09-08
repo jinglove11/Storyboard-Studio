@@ -47,22 +47,31 @@ pub fn build_metadata(scanned: &ScannedTemplate, legacy: Option<&IndexEntry>) ->
     // Legacy anchor names are HINTS: accept one only when the actual template
     // text contains it (verified against the original JSON). Pure scans that
     // find nothing (authors not using `official style`) get low confidence.
-    let template_text = serde_json::to_string(&snapshot.raw).unwrap_or_default().to_lowercase();
+    let template_text = serde_json::to_string(&snapshot.raw)
+        .unwrap_or_default()
+        .to_lowercase();
     let mut female_anchors = cs.female_anchors.clone();
     let mut anchor_variants = cs.anchor_variants.clone();
     if let Some(e) = legacy {
         for a in &e.female_anchors {
             let a_l = a.to_lowercase();
             if template_text.contains(&a_l)
-                && !female_anchors.iter().any(|x| x.to_lowercase().contains(&a_l))
+                && !female_anchors
+                    .iter()
+                    .any(|x| x.to_lowercase().contains(&a_l))
             {
                 female_anchors.push(a.clone());
-                if !anchor_variants.iter().any(|x| x.to_lowercase().contains(&a_l)) {
+                if !anchor_variants
+                    .iter()
+                    .any(|x| x.to_lowercase().contains(&a_l))
+                {
                     anchor_variants.push(a.clone());
                 }
                 warnings.push(ImportWarning {
                     code: "ANCHOR_FROM_LEGACY_VERIFIED".into(),
-                    message: format!("anchor `{a}` recovered from legacy index after text verification"),
+                    message: format!(
+                        "anchor `{a}` recovered from legacy index after text verification"
+                    ),
                 });
             }
         }
@@ -105,23 +114,32 @@ pub fn build_metadata(scanned: &ScannedTemplate, legacy: Option<&IndexEntry>) ->
                 "legacy character_count={legacy_cc} != female({}) + male({}) = {legacy_sum}",
                 e.female_character_count, e.male_character_count
             );
-            warnings.push(ImportWarning { code: "LEGACY_COUNT_MISMATCH".into(), message: msg.clone() });
+            warnings.push(ImportWarning {
+                code: "LEGACY_COUNT_MISMATCH".into(),
+                message: msg.clone(),
+            });
             mismatches.push(msg);
         }
         if legacy_cc != verified_total {
             let msg = format!(
                 "legacy character_count={legacy_cc} != rescanned total_role_count={verified_total}"
             );
-            warnings.push(ImportWarning { code: "ROLE_COUNT_MISMATCH".into(), message: msg.clone() });
+            warnings.push(ImportWarning {
+                code: "ROLE_COUNT_MISMATCH".into(),
+                message: msg.clone(),
+            });
             mismatches.push(msg);
         }
-        let scanned_female: Vec<String> =
-            female_anchors.iter().map(|a| a.to_lowercase()).collect();
+        let scanned_female: Vec<String> = female_anchors.iter().map(|a| a.to_lowercase()).collect();
         let legacy_female: Vec<String> =
             e.female_anchors.iter().map(|a| a.to_lowercase()).collect();
         if scanned_female != legacy_female {
-            let msg = format!("female anchors legacy={legacy_female:?} rescanned={scanned_female:?}");
-            warnings.push(ImportWarning { code: "ANCHORS_MISMATCH".into(), message: msg.clone() });
+            let msg =
+                format!("female anchors legacy={legacy_female:?} rescanned={scanned_female:?}");
+            warnings.push(ImportWarning {
+                code: "ANCHORS_MISMATCH".into(),
+                message: msg.clone(),
+            });
             mismatches.push(msg);
         }
         if e.panel_count != snapshot.panel_count() {
@@ -130,7 +148,10 @@ pub fn build_metadata(scanned: &ScannedTemplate, legacy: Option<&IndexEntry>) ->
                 e.panel_count,
                 snapshot.panel_count()
             );
-            warnings.push(ImportWarning { code: "PANEL_COUNT_MISMATCH".into(), message: msg });
+            warnings.push(ImportWarning {
+                code: "PANEL_COUNT_MISMATCH".into(),
+                message: msg,
+            });
         }
         legacy_stats = Some(LegacyStats {
             character_count: e.character_count,
@@ -156,7 +177,10 @@ pub fn build_metadata(scanned: &ScannedTemplate, legacy: Option<&IndexEntry>) ->
     if cs.unclassified_slot_panels > 0 {
         warnings.push(ImportWarning {
             code: "UNCLASSIFIED_SLOTS".into(),
-            message: format!("{} panel(s) contain slots neither female-anchored nor male-marked", cs.unclassified_slot_panels),
+            message: format!(
+                "{} panel(s) contain slots neither female-anchored nor male-marked",
+                cs.unclassified_slot_panels
+            ),
         });
     }
 
@@ -211,7 +235,10 @@ pub fn build_metadata(scanned: &ScannedTemplate, legacy: Option<&IndexEntry>) ->
         keywords,
         aspect_ratio_profile: aspect_profile,
         metadata_confidence: confidence,
-        warnings: warnings.iter().map(|w| format!("{}: {}", w.code, w.message)).collect(),
+        warnings: warnings
+            .iter()
+            .map(|w| format!("{}: {}", w.code, w.message))
+            .collect(),
         reviewed_at: None,
         legacy: legacy_stats,
     }
@@ -280,8 +307,17 @@ mod tests {
         let meta = build_metadata(&scanned, Some(&legacy));
         assert_eq!(meta.total_role_count, 2);
         assert_eq!(meta.character_anchors, vec!["azki"]);
-        assert_eq!(meta.character_anchor_variants, vec!["azki (4th costume) (hololive)"]);
-        assert!(meta.legacy.as_ref().unwrap().mismatches.iter().any(|m| m.contains("rescanned")));
+        assert_eq!(
+            meta.character_anchor_variants,
+            vec!["azki (4th costume) (hololive)"]
+        );
+        assert!(meta
+            .legacy
+            .as_ref()
+            .unwrap()
+            .mismatches
+            .iter()
+            .any(|m| m.contains("rescanned")));
         assert!(meta.metadata_confidence < 1.0);
         // audit hash recorded
         assert_eq!(meta.sha256, content_hash(&bytes));

@@ -23,6 +23,9 @@ thiserror.workspace = true
 uuid.workspace = true
 chrono.workspace = true
 clap.workspace = true
+keyring.workspace = true
+tokio.workspace = true
+tokio-util.workspace = true
 
 [[bin]]
 name = "sbx"

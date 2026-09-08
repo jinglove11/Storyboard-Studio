@@ -10,7 +10,10 @@ pub enum WorkspaceError {
     #[error("original {0} already exists with different content — originals are immutable")]
     OriginalConflict(String),
     #[error("version v{version} of project {project} already exists — versions are immutable")]
-    VersionConflict { project: String, version: VersionNumber },
+    VersionConflict {
+        project: String,
+        version: VersionNumber,
+    },
     #[error("not found: {0}")]
     NotFound(String),
     #[error("corrupt original {0}: sha256 mismatch")]
@@ -116,11 +119,15 @@ impl Workspace {
     }
 
     pub fn version_path(&self, pid: &ProjectId, version: VersionNumber) -> PathBuf {
-        self.project_dir(pid).join(format!("versions/v{version:04}")).join("project.json")
+        self.project_dir(pid)
+            .join(format!("versions/v{version:04}"))
+            .join("project.json")
     }
 
     pub fn diff_path(&self, pid: &ProjectId, from: VersionNumber, to: VersionNumber) -> PathBuf {
-        self.project_dir(pid).join("diffs").join(format!("v{from:04}-v{to:04}.json"))
+        self.project_dir(pid)
+            .join("diffs")
+            .join(format!("v{from:04}-v{to:04}.json"))
     }
 
     pub fn exports_dir(&self, pid: &ProjectId) -> PathBuf {
@@ -158,6 +165,25 @@ impl Workspace {
         Ok(fs::read(&path)?)
     }
 
+    /// Versions physically present on disk for a project (reconciliation:
+    /// a crash between the snapshot write and the DB finalize leaves an
+    /// orphan the startup scan must adopt).
+    pub fn list_disk_versions(&self, pid: &ProjectId) -> Vec<VersionNumber> {
+        let versions_dir = self.project_dir(pid).join("versions");
+        let mut out = Vec::new();
+        if let Ok(entries) = fs::read_dir(&versions_dir) {
+            for e in entries.flatten() {
+                let name = e.file_name();
+                let name = name.to_string_lossy();
+                if let Some(n) = name.strip_prefix('v').and_then(|n| n.parse::<u32>().ok()) {
+                    out.push(n as VersionNumber);
+                }
+            }
+        }
+        out.sort_unstable();
+        out
+    }
+
     pub fn write_diff(
         &self,
         pid: &ProjectId,
@@ -191,15 +217,25 @@ impl Workspace {
         let dir = self.root.join("threads").join(thread_id);
         fs::create_dir_all(&dir)?;
         let path = dir.join("rollout.jsonl");
-        let mut f = fs::OpenOptions::new().create(true).append(true).open(&path)?;
+        let mut f = fs::OpenOptions::new()
+            .create(true)
+            .append(true)
+            .open(&path)?;
         f.write_all(line.as_bytes())?;
         f.write_all(b"\n")?;
         Ok(path)
     }
 
-    pub fn read_rollout(&self, thread_id: &str) -> Result<Vec<std::io::Result<String>>, WorkspaceError> {
+    pub fn read_rollout(
+        &self,
+        thread_id: &str,
+    ) -> Result<Vec<std::io::Result<String>>, WorkspaceError> {
         use std::io::BufRead;
-        let path = self.root.join("threads").join(thread_id).join("rollout.jsonl");
+        let path = self
+            .root
+            .join("threads")
+            .join(thread_id)
+            .join("rollout.jsonl");
         if !path.exists() {
             return Ok(Vec::new());
         }
@@ -208,7 +244,8 @@ impl Workspace {
     }
 }
 
-/// Atomic write: temp file in the same directory, flush, rename (plan §22:
+/// Atomic write: temp file in the same directory, flush, rename, then fsync
+/// the parent directory so the rename itself survives power loss (plan §22:
 /// 所有 Commit 原子化).
 pub(crate) fn atomic_write(path: &Path, bytes: &[u8]) -> Result<PathBuf, WorkspaceError> {
     if let Some(dir) = path.parent() {
@@ -221,5 +258,10 @@ pub(crate) fn atomic_write(path: &Path, bytes: &[u8]) -> Result<PathBuf, Workspa
         f.sync_all()?;
     }
     fs::rename(&tmp, path)?;
+    if let Some(dir) = path.parent() {
+        if let Ok(d) = fs::File::open(dir) {
+            let _ = d.sync_all();
+        }
+    }
     Ok(path.to_path_buf())
 }

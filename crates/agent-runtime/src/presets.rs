@@ -44,11 +44,7 @@ impl PromptPresets {
     pub fn system_prompt(&self, task: &str) -> String {
         format!(
             "{}\n\n{}\n\n{}\n\n{}\n\n---\nTASK: {}",
-            self.core_contract,
-            self.intent_parser,
-            self.template_match,
-            self.patch_generator,
-            task
+            self.core_contract, self.intent_parser, self.template_match, self.patch_generator, task
         )
     }
 }
